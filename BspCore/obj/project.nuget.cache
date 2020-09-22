@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "12q1LTgYSaEznU3X4NEVQppDKVVCBz5CrGqPZIHh3dUk48hLSuu6dyMPcDV83rGe8SQNuVO522o8bXJBn+oP1g==",
+  "success": true,
+  "projectFilePath": "E:\\FWI-ML\\BspCore\\BspCore.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\m.mursel\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
