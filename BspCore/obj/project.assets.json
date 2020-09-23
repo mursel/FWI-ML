@@ -185,11 +185,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\FWI-ML\\BspCore\\BspCore.csproj",
+      "projectUniqueName": "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj",
       "projectName": "BspCore",
-      "projectPath": "E:\\FWI-ML\\BspCore\\BspCore.csproj",
+      "projectPath": "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj",
       "packagesPath": "C:\\Users\\m.mursel\\.nuget\\packages\\",
-      "outputPath": "E:\\FWI-ML\\BspCore\\obj\\",
+      "outputPath": "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
