@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BspCore
 {
-    public interface ICsvLoader : IFileLoader<DataModel>
+    public interface IDataLoader : IFileLoader<T>
     {
         Task<IEnumerable<T>> GetAllAsync();
         

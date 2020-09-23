@@ -1,17 +1,19 @@
+using System;
+
 namespace BspCore
 {
     public class DataModel
     {
-        float Temperature { get; set; }
-        float WindSpeed { get; set; }
-        float RelativeHumidity { get; set; }
-        float Precipitation { get; set; }
-        float FFMC { get; set; }
-        float DMC { get; set; }
-        float DC { get; set; }
-        float ISI { get; set; }
-        float BUI { get; set; }
-        float FWI { get; set; }
+        public float Temperature { get; set; }
+        public float WindSpeed { get; set; }
+        public float RelativeHumidity { get; set; }
+        public float Precipitation { get; set; }
+        public float FFMC { get; set; }
+        public float DMC { get; set; }
+        public float DC { get; set; }
+        public float ISI { get; set; }
+        public float BUI { get; set; }
+        public float FWI { get; set; }
 
         public override string ToString()
         {

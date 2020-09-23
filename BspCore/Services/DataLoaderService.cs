@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using BspCore;
 
 namespace BspCore
 {
-    public class CsvLoaderService : ICsvLoader
+    public class DataLoaderService : IDataLoader
     {
         private StreamReader streamReader;
         public int Load(string _fileName) {
@@ -37,12 +38,24 @@ namespace BspCore
                 if(streamReader == null)    return new List<DataModel>();
 
                 string line = string.Empty;
+                
+                // RelVlaznost;TempZraka;Padavine24;BrzinaVjetraKMh
 
                 while ((line= await streamReader.ReadLineAsync())!=null)
                 {
-                    DataModel dataModel = new DataModel() {
-                        
-                    };
+                    string[] fields = line.Split(';');
+
+                    float RelVlaznost = float.Parse(fields[0]); //, System.Globalization.NumberStyles.Float);
+                    float TempZraka = float.Parse(fields[1]);
+                    float Padavine24 = float.Parse(fields[2]);
+                    float BrzinaVjetraKMh = float.Parse(fields[3]);
+
+                    
+
+                    // DataModel dataModel = new DataModel() {
+                    //     Temperature = fields[0];
+
+                    // }
                 }
             }
             catch (System.Exception ex)
