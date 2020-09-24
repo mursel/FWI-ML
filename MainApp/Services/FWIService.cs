@@ -24,9 +24,9 @@ namespace MainApp
 
         public void FFMCcalc(float T, float H, float W, float Ro, float Fo, ref float ffmc) {
             float Mo,Rf,Ed,Ew,M,Kl,Kw,Mr,Ko,Kd;
-                Mo = 147.2f*(101.0f-Fo)/(59.5f+Fo); /*Eq. 1 in */
-                if(Ro > 0.5f) { /*van Wagner and Pickett (1985)*/
-                Rf = Ro - 0.5f; /*Eq.2*/
+                Mo = 147.2f*(101.0f-Fo)/(59.5f+Fo); /* Eq. 1 in */
+                if(Ro > 0.5f) { /* van Wagner and Pickett (1985) */
+                Rf = Ro - 0.5f; /* Eq.2 */
                 if(Mo <= 150f)
                 Mr = Mo + (float)(42.5*Rf*(Math.Exp(-100.0/(251-Mo)))*(1-Math.Exp(-6.93/Rf))); /*Eq. 3a*/
                 else

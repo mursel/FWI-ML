@@ -11,12 +11,10 @@ namespace MainApp.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private readonly IDataLoader dateLoader = null;
-        private readonly ICFWIService cFWIService = null;
-        public MainViewModel(IDataLoader _dataLoader, ICFWIService _cFWIService)
-        {
-            this.dateLoader = _dataLoader;
-            this.cFWIService = _cFWIService;
-        }
+        
+        public MainViewModel(IDataLoader _dataLoader) => this.dateLoader = _dataLoader;
+
+
 
 
     }

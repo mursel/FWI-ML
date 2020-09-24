@@ -9,15 +9,29 @@ namespace MainApp
     public class DataLoaderService : IDataLoader
     {
         private StreamReader streamReader;
+
+        #region Properties
+
+        public int NumberOfRecords { get; set; }
+        public int CurrentPosition { get; set; }
+
+        #endregion
+
         public int Load(string _fileName) {
             try
             {
                 streamReader = File.OpenText(_fileName); //new StreamReader(_fileName);    
+
             }
             catch (System.Exception ex)
             {
                 return ex.HResult;
-            }            
+            }   
+            finally
+            {
+                NumberOfRecords = Task.Run(() => File.ReadAllLinesAsync(_fileName)).Result.Length;
+                CurrentPosition = 0;
+            }
             return 1;
         }
         public int Close() {
@@ -61,7 +75,11 @@ namespace MainApp
                     float ffmc = 85f, dmc = 6f, dc = 15f, isi = 0.0f, bui = 0.0f, fwi = 0.0f;
 
                     fWIService.FFMCcalc(TempZraka, RelVlaznost, BrzinaVjetraKMh, Padavine24, ffmc, ref ffmc);
-                    //fWIService.DMCcalc(TempZraka, RelVlaznost, Padavine24,)   // fale dani i mjeseci. Dodati u dataset
+                    fWIService.DMCcalc(TempZraka, RelVlaznost, Padavine24, dmc, 9, ref dmc);   // fale dani i mjeseci. Dodati u dataset
+                    fWIService.DCcalc(TempZraka, Padavine24, dc, 9, ref dc);
+                    fWIService.ISIcalc(ffmc, BrzinaVjetraKMh, ref isi);
+                    fWIService.BUIcalc(dmc, dc, ref bui);
+                    fWIService.FWIcalc(isi, bui, ref fwi);
 
                     DataModel dataModel = new DataModel()
                     {
@@ -69,10 +87,16 @@ namespace MainApp
                         Temperature = TempZraka,
                         Precipitation = Padavine24,
                         WindSpeed = BrzinaVjetraKMh,
-                        FFMC = 
-                    }
-                    
-                    
+                        FFMC = ffmc,
+                        DMC = dmc,
+                        DC = dc,
+                        ISI = isi,
+                        BUI = bui,
+                        FWI = fwi
+                    };
+
+                    data.Add(dataModel);
+                    CurrentPosition++;
                 }
             }
             catch (System.Exception ex)
