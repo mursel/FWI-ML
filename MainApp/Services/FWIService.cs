@@ -15,6 +15,7 @@
     Direct conversion to C# created by Mursel Musabasic, Gorazde, September 2020.
 */
 
+using MainApp.Service.Interfaces;
 using System;
 
 namespace MainApp

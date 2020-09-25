@@ -1,5 +1,12 @@
-﻿using System;
+﻿using MainApp.Service.Interfaces;
+using MainApp.Services;
+using MainApp.ViewModels;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,6 +29,8 @@ namespace MainApp
     /// </summary>
     sealed partial class App : Application
     {
+        private IHost host;
+        public static IServiceProvider serviceProvider { get; private set; }
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -30,6 +39,17 @@ namespace MainApp
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            AppDomain.CurrentDomain.FirstChanceException += (sender, args) =>
+            {
+                Debug.WriteLine(args.Exception.Message);
+            };
+        }
+
+        private void ConfigureServices(IConfiguration configuration, IServiceCollection services)
+        {
+            services.AddScoped<IDataLoader, DataLoaderService>();
+            services.AddSingleton<MainViewModel>();
         }
 
         /// <summary>
@@ -39,6 +59,14 @@ namespace MainApp
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            host = new HostBuilder()    // za UWP aplikacije se mora incijalizirati koristeci new HostBuilder()
+            .ConfigureServices((context, services) =>
+            {
+                ConfigureServices(context.Configuration, services);
+            }).Build();
+
+            serviceProvider = host.Services;
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,

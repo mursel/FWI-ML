@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using BspCore;
+using MainApp.Service.Interfaces;
 
-namespace MainApp
+namespace MainApp.Services
 {
     public class DataLoaderService : IDataLoader
     {

@@ -1,5 +1,5 @@
 using System;
-namespace MainApp
+namespace MainApp.Service.Interfaces
 {
     public interface ICFWIService
     {

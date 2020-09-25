@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MainApp
+namespace MainApp.Service.Interfaces
 {
     public interface IDataLoader : IFileLoader<DataModel>
     {
