@@ -1,9 +1,9 @@
+using BspCore;
+using MainApp.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using BspCore;
-using MainApp.Service.Interfaces;
 
 namespace MainApp.Services
 {
@@ -18,7 +18,8 @@ namespace MainApp.Services
 
         #endregion
 
-        public int Load(string _fileName) {
+        public int Load(string _fileName)
+        {
             try
             {
                 streamReader = File.OpenText(_fileName); //new StreamReader(_fileName);    
@@ -27,7 +28,7 @@ namespace MainApp.Services
             catch (System.Exception ex)
             {
                 return ex.HResult;
-            }   
+            }
             finally
             {
                 NumberOfRecords = Task.Run(() => File.ReadAllLinesAsync(_fileName)).Result.Length;
@@ -35,10 +36,11 @@ namespace MainApp.Services
             }
             return 1;
         }
-        public int Close() {
+        public int Close()
+        {
             try
             {
-                streamReader.Close();                
+                streamReader.Close();
             }
             catch (System.Exception ex)
             {
@@ -46,7 +48,8 @@ namespace MainApp.Services
             }
             return 1;
         }
-        public IEnumerable<DataModel> GetAll() {
+        public IEnumerable<DataModel> GetAll()
+        {
             throw new NotImplementedException();
         }
 
@@ -100,7 +103,9 @@ namespace MainApp.Services
                     CurrentPosition++;
                 }
             }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
             catch (System.Exception ex)
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
                 return new List<DataModel>();
             }

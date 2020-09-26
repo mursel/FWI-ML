@@ -1,1 +1,1 @@
-C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\MainApp.csproj;x86
+C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\MainApp.csproj;x86

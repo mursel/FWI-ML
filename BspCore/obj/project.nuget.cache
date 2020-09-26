@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "wIh0/iHPx5jKx0QGIy5x1jA+CwOVChVR+6mYjSKHNN5dUEcYjQ/n6rtAtrIOljQ7/XLxko0kbtGF/UsNZJd4rg==",
+  "dgSpecHash": "Bp+ngpz04JHFl6TZoxfxMBFgKE9yJNuRIw+yZtK/kXuawxoCzSWHPVi2jO3exwwcFZ6KZm/E5l4V/AGJ26FSIw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj",
+  "projectFilePath": "C:\\Users\\murse\\Source\\Repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\m.mursel\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\murse\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
   ],
   "logs": []

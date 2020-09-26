@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace MainApp.Service.Interfaces
 {
@@ -10,6 +8,6 @@ namespace MainApp.Service.Interfaces
         int Save();
         int Close();
         IEnumerable<T> GetAll();
-        
+
     }
 }

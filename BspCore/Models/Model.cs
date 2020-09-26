@@ -1,5 +1,3 @@
-using System;
-
 namespace BspCore
 {
     public class DataModel
