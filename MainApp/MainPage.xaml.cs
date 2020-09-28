@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using MainApp.ViewModels;
+using Windows.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -9,9 +10,12 @@ namespace MainApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public MainViewModel ViewModel { get; set; }
+
         public MainPage()
         {
             this.InitializeComponent();
+            this.ViewModel = ViewModelLocator.MainViewModel;
         }
     }
 }

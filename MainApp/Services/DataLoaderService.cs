@@ -2,6 +2,7 @@ using BspCore;
 using MainApp.Service.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -23,7 +24,6 @@ namespace MainApp.Services
             try
             {
                 streamReader = File.OpenText(_fileName); //new StreamReader(_fileName);    
-
             }
             catch (System.Exception ex)
             {
@@ -71,10 +71,13 @@ namespace MainApp.Services
                 {
                     string[] fields = line.Split(';');
 
-                    float RelVlaznost = float.Parse(fields[0]); //, System.Globalization.NumberStyles.Float);
-                    float TempZraka = float.Parse(fields[1]);
-                    float Padavine24 = float.Parse(fields[2]);
-                    float BrzinaVjetraKMh = float.Parse(fields[3]);
+                    CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+                    cultureInfo.NumberFormat.NumberDecimalSeparator = ",";
+
+                    float RelVlaznost = float.Parse(fields[0], cultureInfo); //, System.Globalization.NumberStyles.Float);
+                    float TempZraka = float.Parse(fields[1], cultureInfo);
+                    float Padavine24 = float.Parse(fields[2], cultureInfo);
+                    float BrzinaVjetraKMh = float.Parse(fields[3], cultureInfo);
 
                     float ffmc = 85f, dmc = 6f, dc = 15f, isi = 0.0f, bui = 0.0f, fwi = 0.0f;
 
