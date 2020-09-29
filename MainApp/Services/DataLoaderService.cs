@@ -4,12 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MainApp.Services
 {
     public class DataLoaderService : IDataLoader
     {
+        private FileStream fileStream;
         private StreamReader streamReader;
 
         #region Properties
@@ -23,7 +25,8 @@ namespace MainApp.Services
         {
             try
             {
-                streamReader = File.OpenText(_fileName); //new StreamReader(_fileName);    
+                fileStream = new FileStream(_fileName, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.Asynchronous | FileOptions.SequentialScan);
+                streamReader = new StreamReader(fileStream);
             }
             catch (System.Exception ex)
             {
@@ -41,6 +44,7 @@ namespace MainApp.Services
             try
             {
                 streamReader.Close();
+                fileStream.Close();
             }
             catch (System.Exception ex)
             {
@@ -56,18 +60,18 @@ namespace MainApp.Services
         public async Task<List<DataModel>> GetAllAsync()
         {
             List<DataModel> data = new List<DataModel>();
-
             try
             {
+                // just checking
                 if (streamReader == null) return new List<DataModel>();
-
-                string line = string.Empty;
-
+                
                 // RelVlaznost;TempZraka;Padavine24;BrzinaVjetraKMh
 
                 FWIService fWIService = new FWIService();
 
-                while ((line = await streamReader.ReadLineAsync()) != null)
+                string line = await streamReader.ReadLineAsync();
+
+                while (line != null)
                 {
                     string[] fields = line.Split(';');
 
@@ -104,14 +108,17 @@ namespace MainApp.Services
 
                     data.Add(dataModel);
                     CurrentPosition++;
+
+                    // get next one
+                    line = await streamReader.ReadLineAsync();
                 }
             }
-#pragma warning disable CS0168 // The variable 'ex' is declared but never used
-            catch (System.Exception ex)
-#pragma warning restore CS0168 // The variable 'ex' is declared but never used
+            catch (System.Exception)
             {
                 return new List<DataModel>();
             }
+
+            //streamReader.Close();
 
             return data;
         }

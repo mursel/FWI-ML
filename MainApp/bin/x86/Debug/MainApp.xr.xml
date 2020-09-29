@@ -45,7 +45,6 @@
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="AlternatingRowBackground" />
       <RootProperty Name="AlternatingRowForeground" />
-      <RootProperty Name="IsReadOnly" />
       <RootProperty Name="SelectionMode" />
       <RootProperty Name="SelectedItem" />
       <RootProperty Name="ItemsSource" />

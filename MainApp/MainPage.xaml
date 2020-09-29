@@ -10,20 +10,20 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <RelativePanel Margin="12">
-        <TextBlock x:Name="ListaPlanovaTitle" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" Text="Fire prediction using logistic regression" Margin="0,20" />
-        <CommandBar x:Name="planoviCommandBar" OverflowButtonVisibility="Collapsed" IsOpen="False" DefaultLabelPosition="Right" RelativePanel.Below="ListaPlanovaTitle">
+        <TextBlock x:Name="LogRegTitle" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" Text="Fire prediction using logistic regression" Margin="0,20" />
+        <CommandBar x:Name="mainCmdBar" OverflowButtonVisibility="Collapsed" IsOpen="False" DefaultLabelPosition="Right" RelativePanel.Below="LogRegTitle">
             <AppBarButton Icon="Upload" Label="Učitaj podatke" Command="{x:Bind ViewModel.LoadDataSet}" />
             <AppBarSeparator />
             <AppBarButton Icon="Calculator" Label="Izračunaj" Command="{x:Bind ViewModel.Izracunaj}" />
             <!--<AppBarButton Icon="Delete" Label="Ukloni" Command="{x:Bind ViewModel.Ukloni}" CommandParameter="{Binding ElementName=planoviDataGrid, Path=SelectedItem}" />-->
         </CommandBar>
-        <controls:DataGrid x:Name="dataList" RelativePanel.Below="planoviCommandBar"
+        <controls:DataGrid x:Name="dataListGrid" RelativePanel.Below="mainCmdBar"
                            AutoGenerateColumns="False" Height="400" Margin="0 10 0 0"
                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                            AlternatingRowBackground="Transparent" AlternatingRowForeground="Black"
-                           IsReadOnly="True" SelectionMode="Extended"
+                           SelectionMode="Extended"
                            SelectedItem="{x:Bind ViewModel.SelectedDataModelRow, Mode=TwoWay}"
-                           ItemsSource="{x:Bind ViewModel.Data}">
+                           ItemsSource="{x:Bind ViewModel.ModelData}">
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn
                     Header="Temperature"

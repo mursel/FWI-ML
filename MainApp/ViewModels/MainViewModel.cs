@@ -1,28 +1,34 @@
 ﻿using BspCore;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Threading;
 using MainApp.Service.Interfaces;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace MainApp.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private readonly IDataLoader dataLoader = null;
+        private readonly IDataLoader dataLoader;
 
-        public MainViewModel(IDataLoader _dataLoader) => this.dataLoader = _dataLoader;
+        public MainViewModel(IDataLoader _dataLoader) => this.dataLoader = _dataLoader; 
 
 
         #region Properties
 
         private ObservableCollection<DataModel> _dataList = new ObservableCollection<DataModel>();
 
-        public ObservableCollection<DataModel> Data
+        public ObservableCollection<DataModel> ModelData
         {
-            get { return _dataList; }
-            set { Set(ref _dataList, value); }
+            get => _dataList;
+            set {
+                Set(ref _dataList, value);
+            }
         }
 
         private DataModel _selectedDataModelRow;    
@@ -30,7 +36,7 @@ namespace MainApp.ViewModels
         public DataModel SelectedDataModelRow
         {
             get { return _selectedDataModelRow; }
-            set { _selectedDataModelRow = value; }
+            set { Set(ref _selectedDataModelRow, value); }
         }
 
         private float _temp;
@@ -76,6 +82,7 @@ namespace MainApp.ViewModels
                 {
                     rcLoad = new RelayCommand(() =>
                     {
+                        //Task.Run(() => LoadData());
                         LoadData();
                     });
                 }
@@ -105,9 +112,29 @@ namespace MainApp.ViewModels
         #region methods
         public async void LoadData()
         {
-            dataLoader.Load("dataset_final.csv");
-            var dataList = await dataLoader.GetAllAsync();
-            _dataList = new ObservableCollection<DataModel>(dataList);
+            int result = dataLoader.Load("dataset_final.csv");
+            //var dataList = new List<DataModel>()
+            //{
+            //    new DataModel() { BUI = 1.3f, DC = 3, DMC = 5.5f, FFMC = 46.5f, FWI = 0.003f, ISI = 3.3f, Precipitation = 13, RelativeHumidity=45, Temperature = 13.4, WindSpeed = 5 }
+            //};
+
+            var dataLista = await dataLoader.GetAllAsync();
+
+            result = dataLoader.Close();
+
+            _dataList = new ObservableCollection<DataModel>(dataLista);
+
+            RaisePropertyChanged(nameof(ModelData));
+            //Task.WhenAll(dataList)
+            //dataList.ContinueWith(a =>
+            //{
+            //    result = dataLoader.Close();
+            //}, TaskContinuationOptions.OnlyOnRanToCompletion);
+
+            //_dataList = new ObservableCollection<DataModel>(dataList);
+            //return dataList;
+            //return Task.FromResult(dataList);
+            
         }
         #endregion
 

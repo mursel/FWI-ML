@@ -10,22 +10,22 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>e6e99667-b3bd-4180-b849-6bae50781a79</PackageIdentityName>
     <PackageIdentityPublisher>CN=m.mursel</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType></RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\AppX</LayoutDir>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\MainApp.exe">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\MainApp.exe">
       <PackagePath>entrypoint\MainApp.exe</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\m.mursel\.nuget\packages\commonservicelocator\2.0.2\lib\netstandard2.0\CommonServiceLocator.dll">
@@ -142,7 +142,7 @@
     <AppxPackagedFile Include="C:\Users\m.mursel\.nuget\packages\winrtxamltoolkit.controls.datavisualization\2.3.0\lib\uap10.0\WinRTXamlToolkit.Controls.DataVisualization.dll">
       <PackagePath>WinRTXamlToolkit.Controls.DataVisualization.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\BspCore\bin\Debug\netstandard2.0\BspCore.dll">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\BspCore\bin\Debug\netstandard2.0\BspCore.dll">
       <PackagePath>BspCore.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.18362.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
@@ -163,55 +163,55 @@
     <AppxPackagedFile Include="C:\Users\m.mursel\.nuget\packages\winrtxamltoolkit.controls.datavisualization\2.3.0\lib\uap10.0\WinRTXamlToolkit.Controls.DataVisualization\Properties\WinRTXamlToolkit.Controls.DataVisualization.rd.xml">
       <PackagePath>WinRTXamlToolkit.Controls.DataVisualization\Properties\WinRTXamlToolkit.Controls.DataVisualization.rd.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\dataset_final.csv">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\dataset_final.csv">
       <PackagePath>dataset_final.csv</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\MainApp.xr.xml">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\MainApp.xr.xml">
       <PackagePath>MainApp.xr.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\MainPage.xbf">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\Core\MainApp.exe">
+    <AppxPackagedFile Include="C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\Core\MainApp.exe">
       <PackagePath>MainApp.exe</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>
