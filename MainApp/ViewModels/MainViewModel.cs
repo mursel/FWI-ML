@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Threading;
 using MainApp.Service.Interfaces;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace MainApp.ViewModels
     {
         private readonly IDataLoader dataLoader;
 
-        public MainViewModel(IDataLoader _dataLoader) => this.dataLoader = _dataLoader; 
+        public MainViewModel(IDataLoader _dataLoader) => this.dataLoader = _dataLoader;
 
 
         #region Properties
@@ -25,7 +26,7 @@ namespace MainApp.ViewModels
 
         public ObservableCollection<DataModel> ModelData
         {
-            get => _dataList;
+            get { return _dataList; }
             set {
                 Set(ref _dataList, value);
             }
@@ -39,35 +40,35 @@ namespace MainApp.ViewModels
             set { Set(ref _selectedDataModelRow, value); }
         }
 
-        private float _temp;
-        public float Temperature { get => _temp; set { Set(ref _temp, value); } }
+        //private float _temp;
+        //public float Temperature { get => _temp; set { Set(ref _temp, value); } }
 
-        private float _windSpeed;
-        public float WindSpeed { get => _windSpeed; set { Set(ref _windSpeed, value); } }
+        //private float _windSpeed;
+        //public float WindSpeed { get => _windSpeed; set { Set(ref _windSpeed, value); } }
 
-        private float _relHum;
-        public float RelativeHumidity { get => _relHum; set { Set(ref _relHum, value); } }
+        //private float _relHum;
+        //public float RelativeHumidity { get => _relHum; set { Set(ref _relHum, value); } }
 
-        private float _precip;
-        public float Precipitation { get => _precip; set { Set(ref _precip, value); } }
+        //private float _precip;
+        //public float Precipitation { get => _precip; set { Set(ref _precip, value); } }
 
-        private float _ffmc;
-        public float FFMC { get => _ffmc; set { Set(ref _ffmc, value); } }
+        //private float _ffmc;
+        //public float FFMC { get => _ffmc; set { Set(ref _ffmc, value); } }
 
-        private float _dmc;
-        public float DMC { get => _dmc; set { Set(ref _dmc, value); } }
+        //private float _dmc;
+        //public float DMC { get => _dmc; set { Set(ref _dmc, value); } }
 
-        private float _dc;
-        public float DC { get => _dc; set { Set(ref _dc, value); } }
+        //private float _dc;
+        //public float DC { get => _dc; set { Set(ref _dc, value); } }
 
-        private float _isi;
-        public float ISI { get => _isi; set { Set(ref _isi, value); } }
+        //private float _isi;
+        //public float ISI { get => _isi; set { Set(ref _isi, value); } }
 
-        private float _bui;
-        public float BUI { get => _bui; set { Set(ref _bui, value); } }
+        //private float _bui;
+        //public float BUI { get => _bui; set { Set(ref _bui, value); } }
 
-        private float _fwi;
-        public float FWI { get => _fwi; set { Set(ref _fwi, value); } }
+        //private float _fwi;
+        //public float FWI { get => _fwi; set { Set(ref _fwi, value); } }
 
         #endregion
 
@@ -80,10 +81,16 @@ namespace MainApp.ViewModels
             get {
                 if (rcLoad == null)
                 {
-                    rcLoad = new RelayCommand(() =>
+                    rcLoad = new RelayCommand(async () =>
                     {
-                        //Task.Run(() => LoadData());
-                        LoadData();
+                        await Task.Run(() => LoadData()).ContinueWith(a =>
+                        {
+                            if (a.Status == TaskStatus.RanToCompletion)
+                            {
+                                _dataList = new ObservableCollection<DataModel>(a.Result);
+                            }
+                        }, TaskContinuationOptions.OnlyOnRanToCompletion);
+                        
                     });
                 }
                 return rcLoad;
@@ -110,31 +117,74 @@ namespace MainApp.ViewModels
         #endregion
 
         #region methods
-        public async void LoadData()
+        public async Task<List<DataModel>> LoadData()
         {
-            int result = dataLoader.Load("dataset_final.csv");
-            //var dataList = new List<DataModel>()
-            //{
-            //    new DataModel() { BUI = 1.3f, DC = 3, DMC = 5.5f, FFMC = 46.5f, FWI = 0.003f, ISI = 3.3f, Precipitation = 13, RelativeHumidity=45, Temperature = 13.4, WindSpeed = 5 }
-            //};
+            List<DataModel> data = new List<DataModel>();
+            try
+            {
 
-            var dataLista = await dataLoader.GetAllAsync();
+                using (StreamReader streamReader = new StreamReader("dataset_final.csv"))
+                {
 
-            result = dataLoader.Close();
 
-            _dataList = new ObservableCollection<DataModel>(dataLista);
+                    // RelVlaznost;TempZraka;Padavine24;BrzinaVjetraKMh
 
-            RaisePropertyChanged(nameof(ModelData));
-            //Task.WhenAll(dataList)
-            //dataList.ContinueWith(a =>
-            //{
-            //    result = dataLoader.Close();
-            //}, TaskContinuationOptions.OnlyOnRanToCompletion);
+                    FWIService fWIService = new FWIService();
 
-            //_dataList = new ObservableCollection<DataModel>(dataList);
-            //return dataList;
-            //return Task.FromResult(dataList);
-            
+                    string line = await streamReader.ReadLineAsync();
+
+                    while (line != null)
+                    {
+                        string[] fields = line.Split(';');
+
+                        System.Globalization.CultureInfo cultureInfo = new System.Globalization.CultureInfo("bs-BA");
+                        //cultureInfo.NumberFormat.NumberDecimalSeparator = ",";
+
+                        float RelVlaznost = float.Parse(fields[0], cultureInfo); //, System.Globalization.NumberStyles.Float);
+                        float TempZraka = float.Parse(fields[1], cultureInfo);
+                        float Padavine24 = float.Parse(fields[2], cultureInfo);
+                        float BrzinaVjetraKMh = float.Parse(fields[3], cultureInfo);
+
+                        float ffmc = 85f, dmc = 6f, dc = 15f, isi = 0.0f, bui = 0.0f, fwi = 0.0f;
+
+                        fWIService.FFMCcalc(TempZraka, RelVlaznost, BrzinaVjetraKMh, Padavine24, ffmc, ref ffmc);
+                        fWIService.DMCcalc(TempZraka, RelVlaznost, Padavine24, dmc, 9, ref dmc);   // fale dani i mjeseci. Dodati u dataset
+                        fWIService.DCcalc(TempZraka, Padavine24, dc, 9, ref dc);
+                        fWIService.ISIcalc(ffmc, BrzinaVjetraKMh, ref isi);
+                        fWIService.BUIcalc(dmc, dc, ref bui);
+                        fWIService.FWIcalc(isi, bui, ref fwi);
+
+                        DataModel dataModel = new DataModel()
+                        {
+                            RelativeHumidity = RelVlaznost,
+                            Temperature = TempZraka,
+                            Precipitation = Padavine24,
+                            WindSpeed = BrzinaVjetraKMh,
+                            FFMC = ffmc,
+                            DMC = dmc,
+                            DC = dc,
+                            ISI = isi,
+                            BUI = bui,
+                            FWI = fwi
+                        };
+
+                        data.Add(dataModel);
+                        //_dataList.Add(dataModel);
+                        //CurrentPosition++;
+
+                        // get next one
+                        line = await streamReader.ReadLineAsync();
+                    }
+                }
+            }
+            catch (System.Exception)
+            {
+                //return new List<DataModel>();
+            }
+
+            //streamReader.Close();
+
+            return data;
         }
         #endregion
 

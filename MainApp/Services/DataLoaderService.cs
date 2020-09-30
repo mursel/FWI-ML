@@ -63,7 +63,7 @@ namespace MainApp.Services
             try
             {
                 // just checking
-                if (streamReader == null) return new List<DataModel>();
+                if (streamReader == null) this.Load("dataset_final.csv");
                 
                 // RelVlaznost;TempZraka;Padavine24;BrzinaVjetraKMh
 
