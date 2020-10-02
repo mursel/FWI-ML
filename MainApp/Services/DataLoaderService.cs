@@ -2,6 +2,7 @@ using BspCore;
 using MainApp.Service.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -62,65 +63,69 @@ namespace MainApp.Services
             List<DataModel> data = new List<DataModel>();
             try
             {
-                // just checking
-                if (streamReader == null) this.Load("dataset_final.csv");
-                
-                // RelVlaznost;TempZraka;Padavine24;BrzinaVjetraKMh
-
-                FWIService fWIService = new FWIService();
-
-                string line = await streamReader.ReadLineAsync();
-
-                while (line != null)
+                using (StreamReader streamReader2 = new StreamReader("dataset_final.csv"))
                 {
-                    string[] fields = line.Split(';');
+                    // just checking
+                    if (streamReader2 == null) this.Load("dataset_final.csv");
 
-                    CultureInfo cultureInfo = CultureInfo.CurrentCulture;
-                    cultureInfo.NumberFormat.NumberDecimalSeparator = ",";
+                    // RelVlaznost;TempZraka;Padavine24;BrzinaVjetraKMh
 
-                    float RelVlaznost = float.Parse(fields[0], cultureInfo); //, System.Globalization.NumberStyles.Float);
-                    float TempZraka = float.Parse(fields[1], cultureInfo);
-                    float Padavine24 = float.Parse(fields[2], cultureInfo);
-                    float BrzinaVjetraKMh = float.Parse(fields[3], cultureInfo);
+                    FWIService fWIService = new FWIService();
 
-                    float ffmc = 85f, dmc = 6f, dc = 15f, isi = 0.0f, bui = 0.0f, fwi = 0.0f;
+                    string line = await streamReader2.ReadLineAsync();
 
-                    fWIService.FFMCcalc(TempZraka, RelVlaznost, BrzinaVjetraKMh, Padavine24, ffmc, ref ffmc);
-                    fWIService.DMCcalc(TempZraka, RelVlaznost, Padavine24, dmc, 9, ref dmc);   // fale dani i mjeseci. Dodati u dataset
-                    fWIService.DCcalc(TempZraka, Padavine24, dc, 9, ref dc);
-                    fWIService.ISIcalc(ffmc, BrzinaVjetraKMh, ref isi);
-                    fWIService.BUIcalc(dmc, dc, ref bui);
-                    fWIService.FWIcalc(isi, bui, ref fwi);
-
-                    DataModel dataModel = new DataModel()
+                    while (line != null)
                     {
-                        RelativeHumidity = RelVlaznost,
-                        Temperature = TempZraka,
-                        Precipitation = Padavine24,
-                        WindSpeed = BrzinaVjetraKMh,
-                        FFMC = ffmc,
-                        DMC = dmc,
-                        DC = dc,
-                        ISI = isi,
-                        BUI = bui,
-                        FWI = fwi
-                    };
+                        string[] fields = line.Split(';');
 
-                    data.Add(dataModel);
-                    CurrentPosition++;
+                        CultureInfo cultureInfo = CultureInfo.GetCultureInfo("bs-Latn-BA");
+                        //cultureInfo.NumberFormat.NumberDecimalSeparator = ",";
 
-                    // get next one
-                    line = await streamReader.ReadLineAsync();
+                        float RelVlaznost = float.Parse(fields[0], cultureInfo); //, System.Globalization.NumberStyles.Float);
+                        float TempZraka = float.Parse(fields[1], cultureInfo);
+                        float Padavine24 = float.Parse(fields[2], cultureInfo);
+                        float BrzinaVjetraKMh = float.Parse(fields[3], cultureInfo);
+
+                        float ffmc = 85f, dmc = 6f, dc = 15f, isi = 0.0f, bui = 0.0f, fwi = 0.0f;
+
+                        fWIService.FFMCcalc(TempZraka, RelVlaznost, BrzinaVjetraKMh, Padavine24, ffmc, ref ffmc);
+                        fWIService.DMCcalc(TempZraka, RelVlaznost, Padavine24, dmc, 9, ref dmc);   // fale dani i mjeseci. Dodati u dataset
+                        fWIService.DCcalc(TempZraka, Padavine24, dc, 9, ref dc);
+                        fWIService.ISIcalc(ffmc, BrzinaVjetraKMh, ref isi);
+                        fWIService.BUIcalc(dmc, dc, ref bui);
+                        fWIService.FWIcalc(isi, bui, ref fwi);
+
+                        DataModel dataModel = new DataModel()
+                        {
+                            RelativeHumidity = RelVlaznost,
+                            Temperature = TempZraka,
+                            Precipitation = Padavine24,
+                            WindSpeed = BrzinaVjetraKMh,
+                            FFMC = ffmc,
+                            DMC = dmc,
+                            DC = dc,
+                            ISI = isi,
+                            BUI = bui,
+                            FWI = fwi
+                        };
+
+                        data.Add(dataModel);
+                        CurrentPosition++;
+
+                        // get next one
+                        line = await streamReader2.ReadLineAsync();
+                    }
+
+                    streamReader2.Close();
                 }
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                return new List<DataModel>();
+                throw new ApplicationException("Greška!", ex.InnerException);
+                //return new List<DataModel>();
             }
 
-            //streamReader.Close();
-
-            return data;
+            return new List<DataModel>(data);
         }
 
         public int Save()

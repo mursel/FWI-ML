@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Threading;
 using MainApp.Service.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -10,6 +11,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Data;
 
 namespace MainApp.ViewModels
 {
@@ -17,12 +19,17 @@ namespace MainApp.ViewModels
     {
         private readonly IDataLoader dataLoader;
 
-        public MainViewModel(IDataLoader _dataLoader) => this.dataLoader = _dataLoader;
+        public MainViewModel(IDataLoader _dataLoader)
+        {
+            this.dataLoader = _dataLoader;
+            ModelData = new ObservableCollection<DataModel>();
+            //Task.Run(() => LoadDataAsync());
+        }
 
 
         #region Properties
 
-        private ObservableCollection<DataModel> _dataList = new ObservableCollection<DataModel>();
+        private ObservableCollection<DataModel> _dataList;
 
         public ObservableCollection<DataModel> ModelData
         {
@@ -81,16 +88,16 @@ namespace MainApp.ViewModels
             get {
                 if (rcLoad == null)
                 {
-                    rcLoad = new RelayCommand(async () =>
+                    rcLoad = new RelayCommand(() =>
                     {
-                        await Task.Run(() => LoadData()).ContinueWith(a =>
+                        try
                         {
-                            if (a.Status == TaskStatus.RanToCompletion)
-                            {
-                                _dataList = new ObservableCollection<DataModel>(a.Result);
-                            }
-                        }, TaskContinuationOptions.OnlyOnRanToCompletion);
-                        
+                            LoadDataAsync();
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new ApplicationException("Greška!", ex.InnerException);
+                        }
                     });
                 }
                 return rcLoad;
@@ -115,8 +122,21 @@ namespace MainApp.ViewModels
 
 
         #endregion
+ #region methods
 
-        #region methods
+        private async void LoadDataAsync()
+        {
+            try
+            {
+                var lista = await dataLoader.GetAllAsync();
+                ModelData = new ObservableCollection<DataModel>(lista);
+            }
+            catch (System.Exception ex)
+            {
+                throw new ApplicationException("Greška!", ex.InnerException);
+            }            
+        }
+
         public async Task<List<DataModel>> LoadData()
         {
             List<DataModel> data = new List<DataModel>();
