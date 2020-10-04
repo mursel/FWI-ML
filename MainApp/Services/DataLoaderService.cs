@@ -116,7 +116,7 @@ namespace MainApp.Services
                         line = await streamReader2.ReadLineAsync();
                     }
 
-                    streamReader2.Close();
+                    //streamReader2.Close();
                 }
             }
             catch (System.Exception ex)
@@ -125,7 +125,7 @@ namespace MainApp.Services
                 //return new List<DataModel>();
             }
 
-            return new List<DataModel>(data);
+            return data;
         }
 
         public int Save()

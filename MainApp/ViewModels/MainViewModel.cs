@@ -7,8 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
@@ -23,7 +25,7 @@ namespace MainApp.ViewModels
         {
             this.dataLoader = _dataLoader;
             ModelData = new ObservableCollection<DataModel>();
-            //Task.Run(() => LoadDataAsync());
+
         }
 
 
@@ -88,11 +90,19 @@ namespace MainApp.ViewModels
             get {
                 if (rcLoad == null)
                 {
-                    rcLoad = new RelayCommand(() =>
+                    rcLoad = new RelayCommand(async () =>
                     {
                         try
                         {
-                            LoadDataAsync();
+                            try
+                            {
+                                var data = await dataLoader.GetAllAsync();
+                                data.ToList().ForEach(n => ModelData.Add(n));
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new ApplicationException("err", ex.InnerException);
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -122,9 +132,29 @@ namespace MainApp.ViewModels
 
 
         #endregion
- #region methods
+        
+        #region methods
 
-        private async void LoadDataAsync()
+        public async Task LoadDataDirectly()
+        {
+            try
+            {
+                var data = await dataLoader.GetAllAsync();
+                data.ToList().ForEach(n => ModelData.Add(n));
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("err", ex.InnerException);
+            }
+            //var task = new Task(() => dataLoader.GetAllAsync());
+            //task.Start();
+            //task.ContinueWith(t =>
+            //{
+            //    ModelData = new ObservableCollection<DataModel>();
+            //}, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private async Task LoadDataAsync()
         {
             try
             {
