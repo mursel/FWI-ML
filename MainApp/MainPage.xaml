@@ -18,7 +18,7 @@
             <!--<AppBarButton Icon="Delete" Label="Ukloni" Command="{x:Bind ViewModel.Ukloni}" CommandParameter="{Binding ElementName=planoviDataGrid, Path=SelectedItem}" />-->
         </CommandBar>
         <controls:DataGrid x:Name="dataListGrid" RelativePanel.Below="mainCmdBar"
-                           AutoGenerateColumns="False" Height="400" Margin="0 10 0 0"
+                           AutoGenerateColumns="False" Height="600" Margin="0 10 0 0"
                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                            AlternatingRowBackground="Transparent" AlternatingRowForeground="Black"
                            SelectionMode="Extended"
@@ -47,37 +47,36 @@
                     Binding="{Binding Precipitation}" />
                 <controls:DataGridTextColumn
                     Header="FFMC"
-                    Width="100"
+                    Width="150"
                     FontSize="20"
                     Binding="{Binding FFMC}" />
                 <controls:DataGridTextColumn
                     Header="DMC"
-                    Width="100"
+                    Width="150"
                     FontSize="20"
                     Binding="{Binding DMC}" />
                 <controls:DataGridTextColumn
                     Header="DC"
-                    Width="100"
+                    Width="150"
                     FontSize="20"
                     Binding="{Binding DC}" />
                 <controls:DataGridTextColumn
                     Header="ISI"
-                    Width="100"
+                    Width="150"
                     FontSize="20"
                     Binding="{Binding ISI}" />
                 <controls:DataGridTextColumn
                     Header="BUI"
-                    Width="100"
+                    Width="150"
                     FontSize="20"
                     Binding="{Binding BUI}" />
                 <controls:DataGridTextColumn
                     Header="FWI"
-                    Width="100"
+                    Width="150"
                     FontSize="20"
                     Binding="{Binding FWI}" />
             </controls:DataGrid.Columns>
         </controls:DataGrid>
-        <Button x:Name="btnLoad" Command="{x:Bind ViewModel.LoadDataSet}" Content="Click me" RelativePanel.Below="dataListGrid" />
     </RelativePanel>
     
 </Page>
