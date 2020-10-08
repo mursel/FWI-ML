@@ -68,11 +68,15 @@ namespace MainApp.Services
                     // just checking
                     if (streamReader2 == null) this.Load("dataset_final.csv");
 
-                    // RelVlaznost;TempZraka;Padavine24;BrzinaVjetraKMh
+                    // Mjeseci;RelVlaznost;TempZraka;Padavine24;BrzinaVjetraKMh
 
                     FWIService fWIService = new FWIService();
+                                        
+                    string line = await streamReader2.ReadLineAsync();  // header! not needed right now...
+                    line = await streamReader2.ReadLineAsync();
 
-                    string line = await streamReader2.ReadLineAsync();
+                    float ffmc0 = 85f, dmc0 = 6f, dc0 = 15f, isi = 0.0f, bui = 0.0f, fwi = 0.0f;    // init
+                    float ffmc = 0.0f, dmc = 0.0f, dc = 0.0f, dsr = 0.0f;                           //
 
                     while (line != null)
                     {
@@ -81,32 +85,34 @@ namespace MainApp.Services
                         CultureInfo cultureInfo = CultureInfo.GetCultureInfo("bs-Latn-BA");
                         //cultureInfo.NumberFormat.NumberDecimalSeparator = ",";
 
-                        float RelVlaznost = float.Parse(fields[0], cultureInfo); //, System.Globalization.NumberStyles.Float);
-                        float TempZraka = float.Parse(fields[1], cultureInfo);
-                        float Padavine24 = float.Parse(fields[2], cultureInfo);
-                        float BrzinaVjetraKMh = float.Parse(fields[3], cultureInfo);
+                        int mjesec = short.Parse(fields[0], cultureInfo);
+                        float RelVlaznost = float.Parse(fields[1], cultureInfo); //, System.Globalization.NumberStyles.Float);
+                        float TempZraka = float.Parse(fields[2], cultureInfo);
+                        float Padavine24 = float.Parse(fields[3], cultureInfo);
+                        float BrzinaVjetraKMh = float.Parse(fields[4], cultureInfo);
 
-                        float ffmc = 85f, dmc = 6f, dc = 15f, isi = 0.0f, bui = 0.0f, fwi = 0.0f;
-
-                        fWIService.FFMCcalc(TempZraka, RelVlaznost, BrzinaVjetraKMh, Padavine24, ffmc, ref ffmc);
-                        fWIService.DMCcalc(TempZraka, RelVlaznost, Padavine24, dmc, 9, ref dmc);   // fale dani i mjeseci. Dodati u dataset
-                        fWIService.DCcalc(TempZraka, Padavine24, dc, 9, ref dc);
+                        fWIService.FFMCcalc(TempZraka, RelVlaznost, BrzinaVjetraKMh, Padavine24, ffmc0, ref ffmc);
+                        fWIService.DMCcalc(TempZraka, RelVlaznost, Padavine24, dmc0, mjesec, ref dmc);   
+                        fWIService.DCcalc(TempZraka, Padavine24, dc0, mjesec, ref dc);
                         fWIService.ISIcalc(ffmc, BrzinaVjetraKMh, ref isi);
                         fWIService.BUIcalc(dmc, dc, ref bui);
                         fWIService.FWIcalc(isi, bui, ref fwi);
+                        fWIService.DSRCalc(fwi, ref dsr);
 
                         DataModel dataModel = new DataModel()
                         {
-                            RelativeHumidity = RelVlaznost,
-                            Temperature = TempZraka,
-                            Precipitation = Padavine24,
-                            WindSpeed = BrzinaVjetraKMh,
-                            FFMC = ffmc,
-                            DMC = dmc,
-                            DC = dc,
-                            ISI = isi,
-                            BUI = bui,
-                            FWI = fwi
+                            Mjesec = mjesec,
+                            RelativeHumidity = (float)Math.Round(RelVlaznost,0),
+                            Temperature = (float)Math.Round(TempZraka,0),
+                            Precipitation = (float)Math.Round(Padavine24,0),
+                            WindSpeed = (float)Math.Round(BrzinaVjetraKMh,0),
+                            FFMC = (float)Math.Round(ffmc,0),
+                            DMC = (float)Math.Round(dmc,2),
+                            DC = (float)Math.Round(dc,2),
+                            ISI = (float)Math.Round(isi,2),
+                            BUI = (float)Math.Round(bui,2),
+                            FWI = (float)Math.Round(fwi,2),
+                            DSR = (float)Math.Round(dsr,2)
                         };
 
                         data.Add(dataModel);
@@ -114,6 +120,11 @@ namespace MainApp.Services
 
                         // get next one
                         line = await streamReader2.ReadLineAsync();
+
+                        // set previous values as input on next iteration
+                        ffmc0 = ffmc;
+                        dmc0 = dmc;
+                        dc0 = dc;
                     }
 
                     //streamReader2.Close();

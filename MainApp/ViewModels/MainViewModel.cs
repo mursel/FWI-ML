@@ -46,6 +46,9 @@ namespace MainApp.ViewModels
             set { Set(ref _selectedDataModelRow, value); }
         }
 
+        private int _mjesec;
+        public int Mjesec { get => _mjesec; set { Set(ref _mjesec, value); } }
+
         private float _temp;
         public float Temperature { get => _temp; set { Set(ref _temp, value); } }
 
@@ -80,7 +83,6 @@ namespace MainApp.ViewModels
 
         #region Commands
         private RelayCommand rcLoad;
-
         public RelayCommand LoadDataSet
         {
             get {
@@ -104,7 +106,6 @@ namespace MainApp.ViewModels
         }
 
         private RelayCommand rcCalculate;
-
         public RelayCommand Izracunaj
         {
             get {

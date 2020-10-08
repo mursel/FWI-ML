@@ -131,6 +131,7 @@ namespace MainApp
             if (P <= .4 * D) bui = 0.8f * P * D / (P + .4f * D);                           /*Eq. 27a*/
             else bui = P - (1 - .8f * D / (P + .4f * D)) * (.92f + (float)Math.Pow(.0114 * P, 1.7));       /*Eq. 27b*/
             if (bui <= 0.0f) bui = 0.0f;
+            if (float.IsNaN(bui)) bui = 0.0f;   // check for NaN value - Mursel Musabasic (08.10.2020)
         }
 
         /* FWI calculation */
@@ -144,6 +145,12 @@ namespace MainApp
             B = .1f * R * Fd;                                                       /*Eq. 29*/
             if (B > 1f) fwi = (float)Math.Exp(2.72 * Math.Pow(.434 * Math.Log(B), .647)); /*Eq. 30a*/
             else fwi = B;                                                       /*Eq. 30b*/
+        }
+
+        /* Daily Severity Rating calculation for current day*/
+        public void DSRCalc(float FWI, ref float dsr)
+        {
+            dsr = 0.0272f * (float)Math.Pow(FWI, 1.77);
         }
     }
 }

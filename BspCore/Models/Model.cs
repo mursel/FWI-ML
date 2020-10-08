@@ -2,6 +2,7 @@ namespace BspCore
 {
     public class DataModel
     {
+        public int Mjesec { get; set; }
         public double Temperature { get; set; }
         public float WindSpeed { get; set; }
         public float RelativeHumidity { get; set; }
@@ -12,6 +13,7 @@ namespace BspCore
         public float ISI { get; set; }
         public float BUI { get; set; }
         public float FWI { get; set; }
+        public float DSR { get; set; }
 
         //public override string ToString()
         //{

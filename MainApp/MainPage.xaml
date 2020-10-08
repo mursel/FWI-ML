@@ -12,9 +12,9 @@
     <RelativePanel Margin="12">
         <TextBlock x:Name="LogRegTitle" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" Text="Fire prediction using logistic regression" Margin="0,20" />
         <CommandBar x:Name="mainCmdBar" OverflowButtonVisibility="Collapsed" IsOpen="False" DefaultLabelPosition="Right" RelativePanel.Below="LogRegTitle">
-            <AppBarButton Icon="Upload" Label="Učitaj podatke" Command="{x:Bind ViewModel.LoadDataSet}" AllowFocusOnInteraction="True" />
+            <AppBarButton Icon="Upload" Label="Load data" Command="{x:Bind ViewModel.LoadDataSet}" AllowFocusOnInteraction="True" />
             <AppBarSeparator />
-            <AppBarButton Icon="Calculator" Label="Izračunaj" Command="{x:Bind ViewModel.Izracunaj}" />
+            <AppBarButton Icon="Calculator" Label="Calculate logit" Command="{x:Bind ViewModel.Izracunaj}" />
             <!--<AppBarButton Icon="Delete" Label="Ukloni" Command="{x:Bind ViewModel.Ukloni}" CommandParameter="{Binding ElementName=planoviDataGrid, Path=SelectedItem}" />-->
         </CommandBar>
         <controls:DataGrid x:Name="dataListGrid" RelativePanel.Below="mainCmdBar"
@@ -26,55 +26,65 @@
                            ItemsSource="{x:Bind ViewModel.ModelData}">
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn
-                    Header="Temperature"
+                    Header="Mjesec"
                     Width="SizeToHeader"
-                    FontSize="20"
+                    FontSize="16"
+                    Binding="{Binding Mjesec}" />                
+                <controls:DataGridTextColumn
+                    Header="Temperature C°"
+                    Width="SizeToHeader"
+                    FontSize="16"
                     Binding="{Binding Temperature}" />
                 <controls:DataGridTextColumn
-                    Header="Wind speed"
+                    Header="Wind speed KM/h"
                     Width="SizeToHeader"
-                    FontSize="20"
+                    FontSize="16"
                     Binding="{Binding WindSpeed}" />
                 <controls:DataGridTextColumn
-                    Header="Relative humidity"
+                    Header="Relative humidity %"
                     Width="SizeToHeader"
-                    FontSize="20"
+                    FontSize="16"
                     Binding="{Binding RelativeHumidity}" />
                 <controls:DataGridTextColumn
-                    Header="Precipitation"
+                    Header="Precipitation (mm)"
                     Width="SizeToHeader"
-                    FontSize="20"
+                    FontSize="16"
                     Binding="{Binding Precipitation}" />
                 <controls:DataGridTextColumn
                     Header="FFMC"
                     Width="150"
-                    FontSize="20"
+                    FontSize="16"
                     Binding="{Binding FFMC}" />
                 <controls:DataGridTextColumn
                     Header="DMC"
                     Width="150"
-                    FontSize="20"
+                    FontSize="16"
                     Binding="{Binding DMC}" />
                 <controls:DataGridTextColumn
                     Header="DC"
                     Width="150"
-                    FontSize="20"
+                    FontSize="16"
                     Binding="{Binding DC}" />
                 <controls:DataGridTextColumn
                     Header="ISI"
                     Width="150"
-                    FontSize="20"
+                    FontSize="16"
                     Binding="{Binding ISI}" />
                 <controls:DataGridTextColumn
                     Header="BUI"
                     Width="150"
-                    FontSize="20"
+                    FontSize="16"
                     Binding="{Binding BUI}" />
                 <controls:DataGridTextColumn
                     Header="FWI"
                     Width="150"
-                    FontSize="20"
+                    FontSize="16"
                     Binding="{Binding FWI}" />
+                <controls:DataGridTextColumn
+                    Header="DSR"
+                    Width="150"
+                    FontSize="16"
+                    Binding="{Binding DSR}" />                
             </controls:DataGrid.Columns>
         </controls:DataGrid>
     </RelativePanel>

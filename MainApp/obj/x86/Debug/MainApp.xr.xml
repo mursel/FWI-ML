@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Roots >
   <Roots.PropertyPathNames>
+    <RootPropertyPathName Name="DSR" />
     <RootPropertyPathName Name="FWI" />
     <RootPropertyPathName Name="BUI" />
     <RootPropertyPathName Name="ISI" />
@@ -11,6 +12,7 @@
     <RootPropertyPathName Name="RelativeHumidity" />
     <RootPropertyPathName Name="WindSpeed" />
     <RootPropertyPathName Name="Temperature" />
+    <RootPropertyPathName Name="Mjesec" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
     <RootType FullName="Windows.UI.Xaml.Application" />
