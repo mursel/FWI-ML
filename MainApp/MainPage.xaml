@@ -26,10 +26,10 @@
                            ItemsSource="{x:Bind ViewModel.ModelData}">
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn
-                    Header="Mjesec"
+                    Header="Datum"
                     Width="SizeToHeader"
                     FontSize="16"
-                    Binding="{Binding Mjesec}" />                
+                    Binding="{Binding Datum}" />                
                 <controls:DataGridTextColumn
                     Header="Temperature C°"
                     Width="SizeToHeader"
@@ -84,7 +84,12 @@
                     Header="DSR"
                     Width="150"
                     FontSize="16"
-                    Binding="{Binding DSR}" />                
+                    Binding="{Binding DSR}" />
+                <controls:DataGridTextColumn
+                    Header="Fire"
+                    Width="150"
+                    FontSize="16"
+                    Binding="{Binding Fire}" />
             </controls:DataGrid.Columns>
         </controls:DataGrid>
     </RelativePanel>

@@ -1,7 +1,10 @@
+using System;
+
 namespace BspCore
 {
     public class DataModel
     {
+        public DateTime Datum { get; set; }
         public int Mjesec { get; set; }
         public double Temperature { get; set; }
         public float WindSpeed { get; set; }
@@ -14,6 +17,7 @@ namespace BspCore
         public float BUI { get; set; }
         public float FWI { get; set; }
         public float DSR { get; set; }
+        public short Fire { get; set; }
 
         //public override string ToString()
         //{

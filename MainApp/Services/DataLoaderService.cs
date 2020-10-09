@@ -78,6 +78,8 @@ namespace MainApp.Services
                     float ffmc0 = 85f, dmc0 = 6f, dc0 = 15f, isi = 0.0f, bui = 0.0f, fwi = 0.0f;    // init
                     float ffmc = 0.0f, dmc = 0.0f, dc = 0.0f, dsr = 0.0f;                           //
 
+                    DateTime dateTime = new DateTime(2010, 7, 31);
+
                     while (line != null)
                     {
                         string[] fields = line.Split(';');
@@ -101,22 +103,26 @@ namespace MainApp.Services
 
                         DataModel dataModel = new DataModel()
                         {
+                            Datum = dateTime,
                             Mjesec = mjesec,
-                            RelativeHumidity = (float)Math.Round(RelVlaznost,0),
-                            Temperature = (float)Math.Round(TempZraka,0),
-                            Precipitation = (float)Math.Round(Padavine24,0),
-                            WindSpeed = (float)Math.Round(BrzinaVjetraKMh,0),
-                            FFMC = (float)Math.Round(ffmc,0),
-                            DMC = (float)Math.Round(dmc,2),
-                            DC = (float)Math.Round(dc,2),
-                            ISI = (float)Math.Round(isi,2),
-                            BUI = (float)Math.Round(bui,2),
-                            FWI = (float)Math.Round(fwi,2),
-                            DSR = (float)Math.Round(dsr,2)
+                            RelativeHumidity = (float)Math.Round(RelVlaznost, 0),
+                            Temperature = (float)Math.Round(TempZraka, 0),
+                            Precipitation = (float)Math.Round(Padavine24, 0),
+                            WindSpeed = (float)Math.Round(BrzinaVjetraKMh, 0),
+                            FFMC = (float)Math.Round(ffmc, 0),
+                            DMC = (float)Math.Round(dmc, 2),
+                            DC = (float)Math.Round(dc, 2),
+                            ISI = (float)Math.Round(isi, 2),
+                            BUI = (float)Math.Round(bui, 2),
+                            FWI = (float)Math.Round(fwi, 2),
+                            DSR = (float)Math.Round(dsr, 2),
+                            Fire = (short)Math.Round(dsr / fwi)
                         };
 
                         data.Add(dataModel);
                         CurrentPosition++;
+
+                        dateTime = dateTime.AddDays(1);
 
                         // get next one
                         line = await streamReader2.ReadLineAsync();
