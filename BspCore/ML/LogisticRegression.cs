@@ -20,5 +20,17 @@ namespace BspCore.ML
         }
 
         #endregion
+
+        #region Methods
+
+        public double Predict(float[] dataSetItems, float[] weights)
+        {
+            float Z = 0f;
+
+            Z = weights[0]; // postavimo vrijednost Z na b0
+
+        }
+
+        #endregion
     }
 }
