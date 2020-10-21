@@ -25,10 +25,10 @@ namespace BspCore.ML
         #region Methods
 
         /// <summary>
-        /// Koristeći podatke iz dataseta i izracunate vrijednosti tezina 
+        /// Izračun logističke regresije
         /// </summary>
-        /// <param name="dataSetItems"></param>
-        /// <param name="weights"></param>
+        /// <param name="dataSetItems">Dataset input</param>
+        /// <param name="weights">Tezinske vrijednosti/faktori</param>
         /// <returns></returns>
         public double Predict(float[] dataSetItems, float[] weights)
         {
@@ -41,7 +41,7 @@ namespace BspCore.ML
                 // Z = Bi * Xi
                 Z += weights[i + 1] * dataSetItems[i];
             }
-            return 1 / (1 + Math.Exp(-Z));
+            return 1 / (1 + Math.Exp(-Z)); // logit jednacina
         }
 
 
