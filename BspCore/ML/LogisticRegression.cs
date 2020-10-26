@@ -44,6 +44,20 @@ namespace BspCore.ML
             return 1 / (1 + Math.Exp(-Z)); // logit jednacina
         }
 
+        public double[] Train(double[][] trainData, int numOfPasses, double learningRate)
+        {
+            int step = 0;
+
+            while (step < numOfPasses)
+            {
+
+
+                step++;
+            }
+
+            return new double[] { };
+        }
+
 
 
         #endregion
