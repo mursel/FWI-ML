@@ -44,6 +44,20 @@ namespace BspCore.ML
             return 1 / (1 + Math.Exp(-Z)); // logit jednacina
         }
 
+        public List<DataModel> PrepareTestData(List<DataModel> realData)
+        {
+            DataModel[] copyData = new DataModel[realData.Count];
+            
+            Random random = new Random(Environment.TickCount);
+
+            realData.CopyTo(copyData);
+
+            for (int i = 0; i < copyData.Length; i++)
+            {
+                int randomIndex = random.Next(i, copyData.Length);
+            }
+        }
+
         public double[] Train(double[][] trainData, int numOfPasses, double learningRate)
         {
             int step = 0;
