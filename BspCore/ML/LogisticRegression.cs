@@ -52,10 +52,16 @@ namespace BspCore.ML
 
             realData.CopyTo(copyData);
 
+            // pomijesaj podatke
             for (int i = 0; i < copyData.Length; i++)
             {
                 int randomIndex = random.Next(i, copyData.Length);
+                DataModel temp = copyData[randomIndex];
+                copyData[randomIndex] = copyData[i];
+                copyData[i] = temp;
             }
+
+            return copyData.ToList();
         }
 
         public double[] Train(double[][] trainData, int numOfPasses, double learningRate)
