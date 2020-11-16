@@ -224,3 +224,8 @@ C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\Microsoft.Toolki
 C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid.pdb
 C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid.pri.xml
 C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid\en-US\Microsoft.Toolkit.Uwp.UI.Controls.Properties.Resources.resw
+C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\PredictPage.xbf
+C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.g.i.cs
+C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.g.cs
+C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.xaml
+C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.xbf

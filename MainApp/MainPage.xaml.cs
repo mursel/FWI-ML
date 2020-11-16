@@ -1,4 +1,5 @@
 ﻿using MainApp.ViewModels;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -16,6 +17,11 @@ namespace MainApp
         {
             this.InitializeComponent();
             this.ViewModel = ViewModelLocator.MainViewModel;
+        }
+
+        private void AppBarButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {            
+                                   
         }
     }
 }

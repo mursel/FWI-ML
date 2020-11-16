@@ -10,18 +10,19 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <RelativePanel Margin="12">
-        <TextBlock x:Name="LogRegTitle" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" Text="Fire prediction using logistic regression" Margin="0,20" />
+        <TextBlock x:Name="LogRegTitle" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" Text="Fire prediction using logistic regression" Margin="0,10,0,20" />
         <CommandBar x:Name="mainCmdBar" OverflowButtonVisibility="Collapsed" IsOpen="False" DefaultLabelPosition="Right" RelativePanel.Below="LogRegTitle">
             <AppBarButton Icon="Upload" Label="Load data" Command="{x:Bind ViewModel.LoadDataSet}" AllowFocusOnInteraction="True" />
             <AppBarSeparator />
             <AppBarButton Icon="Calculator" Label="Calculate logit" Command="{x:Bind ViewModel.Izracunaj}" />
+            <AppBarButton Icon="Download" Label="Export" Click="AppBarButton_Click"/>
             <!--<AppBarButton Icon="Delete" Label="Ukloni" Command="{x:Bind ViewModel.Ukloni}" CommandParameter="{Binding ElementName=planoviDataGrid, Path=SelectedItem}" />-->
         </CommandBar>
         <controls:DataGrid x:Name="dataListGrid" RelativePanel.Below="mainCmdBar"
-                           AutoGenerateColumns="False" Height="600" Margin="0 10 0 0"
+                           AutoGenerateColumns="False" Height="600" Margin="0 25 0 0"
                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                            AlternatingRowBackground="Transparent" AlternatingRowForeground="Black"
-                           SelectionMode="Extended"
+                           SelectionMode="Extended" ClipboardCopyMode="IncludeHeader"
                            SelectedItem="{x:Bind ViewModel.SelectedDataModelRow, Mode=TwoWay}"
                            ItemsSource="{x:Bind ViewModel.ModelData}">
             <controls:DataGrid.Columns>

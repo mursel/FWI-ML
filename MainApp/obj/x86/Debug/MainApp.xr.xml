@@ -49,6 +49,7 @@
       <RootProperty Name="AlternatingRowBackground" />
       <RootProperty Name="AlternatingRowForeground" />
       <RootProperty Name="SelectionMode" />
+      <RootProperty Name="ClipboardCopyMode" />
       <RootProperty Name="SelectedItem" />
       <RootProperty Name="ItemsSource" />
       <RootProperty Name="Columns" />
@@ -68,9 +69,12 @@
       <RootProperty Name="Label" />
       <RootProperty Name="Command" />
       <RootProperty Name="AllowFocusOnInteraction" />
+      <RootEvent Name="Click" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarSeparator" />
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
     <RootType FullName="MainApp.MainPage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Grid" />
+    <RootType FullName="MainApp.PredictPage" />
   </Roots.RootTypes>
 </Roots>
