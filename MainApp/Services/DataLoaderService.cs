@@ -20,6 +20,14 @@ namespace MainApp.Services
         public int NumberOfRecords { get; set; }
         public int CurrentPosition { get; set; }
 
+        private List<float> _temps;
+
+        public List<float> Temperatures
+        {
+            get { return _temps; }
+            set { _temps = value; }
+        }
+
         #endregion
 
         public int Load(string _fileName)
@@ -93,6 +101,8 @@ namespace MainApp.Services
                         float Padavine24 = float.Parse(fields[3], cultureInfo);
                         float BrzinaVjetraKMh = float.Parse(fields[4], cultureInfo);
 
+                        //_temps.Add(TempZraka);
+
                         fWIService.FFMCcalc(TempZraka, RelVlaznost, BrzinaVjetraKMh, Padavine24, ffmc0, ref ffmc);
                         fWIService.DMCcalc(TempZraka, RelVlaznost, Padavine24, dmc0, mjesec, ref dmc);   
                         fWIService.DCcalc(TempZraka, Padavine24, dc0, mjesec, ref dc);
@@ -105,11 +115,11 @@ namespace MainApp.Services
                         {
                             Datum = dateTime,
                             Mjesec = mjesec,
-                            RelativeHumidity = (float)Math.Round(RelVlaznost, 0),
-                            Temperature = (float)Math.Round(TempZraka, 0),
-                            Precipitation = (float)Math.Round(Padavine24, 0),
-                            WindSpeed = (float)Math.Round(BrzinaVjetraKMh, 0),
-                            FFMC = (float)Math.Round(ffmc, 0),
+                            RelativeHumidity = (float)Math.Round(RelVlaznost, 2),
+                            Temperature = (float)Math.Round(TempZraka, 2),
+                            Precipitation = (float)Math.Round(Padavine24, 2),
+                            WindSpeed = (float)Math.Round(BrzinaVjetraKMh, 2),
+                            FFMC = (float)Math.Round(ffmc, 2),
                             DMC = (float)Math.Round(dmc, 2),
                             DC = (float)Math.Round(dc, 2),
                             ISI = (float)Math.Round(isi, 2),

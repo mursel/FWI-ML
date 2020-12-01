@@ -20,14 +20,17 @@ namespace BspCore.ML
             set { _numOfInputs = value; }
         }
 
+        private double _z;
+
+        public double Z
+        {
+            get { return _z; }
+            set { _z = value; }
+        }
+
         #endregion
 
         #region Methods
-
-        public double GetStdDev(double[] inputData)
-        {
-            return GetVariance(inputData);
-        }
 
         /// <summary>
         /// Izračun logističke regresije
@@ -51,6 +54,11 @@ namespace BspCore.ML
             return 1 / (1 + Math.Exp(-Z)); // logit jednacina
         }
 
+        /// <summary>
+        /// Shuffle data using Fisher–Yates method
+        /// </summary>
+        /// <param name="realData"></param>
+        /// <returns></returns>
         public List<DataModel> PrepareTestData(List<DataModel> realData)
         {
             DataModel[] copyData = new DataModel[realData.Count];
@@ -59,7 +67,7 @@ namespace BspCore.ML
 
             realData.CopyTo(copyData);
 
-            // pomijesaj podatke
+            // shuffle data using Fisher–Yates method
             for (int i = 0; i < copyData.Length; i++)
             {
                 int randomIndex = random.Next(i, copyData.Length);
@@ -71,7 +79,10 @@ namespace BspCore.ML
             return copyData.ToList();
         }
 
-        public double[] Train(double[][] trainData, int numOfPasses, double learningRate)
+        // kreirati train i test set u odnosu koji korisnik odredi
+        //public List<float> CreateTrain(List<float>)
+
+        public double[] Train(double[][] trainData, int numOfPasses, float learningRate)
         {
             int step = 0;
 

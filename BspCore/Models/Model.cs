@@ -6,7 +6,7 @@ namespace BspCore
     {
         public DateTime Datum { get; set; }
         public int Mjesec { get; set; }
-        public double Temperature { get; set; }
+        public float Temperature { get; set; }
         public float WindSpeed { get; set; }
         public float RelativeHumidity { get; set; }
         public float Precipitation { get; set; }

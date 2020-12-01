@@ -3,8 +3,10 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MainApp.Service.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using MainApp.Extensions;
 
 namespace MainApp.ViewModels
 {
@@ -16,6 +18,10 @@ namespace MainApp.ViewModels
         {
             this.dataLoader = _dataLoader;
             ModelData = new ObservableCollection<DataModel>();
+            _temps = new List<float>();
+            _rh = new List<float>();
+            _winds = new List<float>();
+            _precips = new List<float>();
         }
 
         #region Properties
@@ -79,6 +85,43 @@ namespace MainApp.ViewModels
         private float _fwi;
         public float FWI { get => _fwi; set { Set(ref _fwi, value); } }
 
+        private List<float> _temps;
+        /// <summary>
+        /// Get all temperatures from dataset
+        /// </summary>
+        public List<float> Temperatures
+        {
+            get { return _temps; }
+            set { _temps = value; }
+        }
+
+        private List<float> _rh;
+        /// <summary>
+        /// Get all values for relative humidity from dataset
+        /// </summary>
+        public List<float> RelativeHumidities
+        {
+            get { return _rh; }
+            set { _rh = value; }
+        }
+
+        private List<float> _winds;
+
+        public List<float> Winds
+        {
+            get { return _winds; }
+            set { _winds = value; }
+        }
+
+        private List<float> _precips;
+
+        public List<float> Precipitations
+        {
+            get { return _precips; }
+            set { _precips = value; }
+        }
+
+
         #endregion
 
         #region Commands
@@ -92,8 +135,21 @@ namespace MainApp.ViewModels
                     {
                         try
                         {
+                            // load our data as collection
                             var data = await dataLoader.GetAllAsync();
                             data.ToList().ForEach(n => ModelData.Add(n));
+
+                            // seperate our independent variables in lists
+                            _temps = data.Select(t => t.Temperature).ToList();
+                            _winds = data.Select(w => w.WindSpeed).ToList();
+                            _precips = data.Select(p => p.Precipitation).ToList();
+                            _rh = data.Select(rh => rh.RelativeHumidity).ToList();
+
+                            // normalize data using z-score formula
+                            //_temps.Normalize();
+                            //_winds.Normalize();
+                            //_precips.Normalize();
+                            //_rh.Normalize();
                         }
                         catch (Exception ex)
                         {

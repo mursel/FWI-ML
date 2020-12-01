@@ -229,3 +229,8 @@ C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.g
 C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.g.cs
 C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.xaml
 C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.xbf
+C:\Users\murse\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.g.i.cs
+C:\Users\murse\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.g.cs
+C:\Users\murse\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.xaml
+C:\Users\murse\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.xbf
+C:\Users\murse\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\PredictPage.xbf
