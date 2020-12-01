@@ -24,6 +24,11 @@ namespace BspCore.ML
 
         #region Methods
 
+        public double GetStdDev(double[] inputData)
+        {
+            return GetVariance(inputData);
+        }
+
         /// <summary>
         /// Izračun logističke regresije
         /// </summary>
@@ -32,10 +37,12 @@ namespace BspCore.ML
         /// <returns></returns>
         public double Predict(float[] dataSetItems, float[] weights)
         {
+            // Z je ponder prirodnog logaritma
             float Z = 0f;
 
             Z = weights[0]; // postavimo vrijednost Z na b0 (tacka presjeka)
 
+            // izracunamo skalarni proizvod vektora 
             for (int i = 0; i < weights.Length; i++)
             {
                 // Z = Bi * Xi
