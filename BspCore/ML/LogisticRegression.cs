@@ -28,6 +28,17 @@ namespace BspCore.ML
             set { _z = value; }
         }
 
+        /// <summary>
+        /// Number of features in dataset
+        /// </summary>
+        private int _numOfFeatures;
+
+        public int NumberOfFeatures
+        {
+            get { return _numOfFeatures; }
+            set { _numOfFeatures = value; }
+        }
+
         #endregion
 
         #region Methods
@@ -96,7 +107,7 @@ namespace BspCore.ML
             return new double[] { };
         }
 
-
+        //public void GenerateRandomWeights() { }     
 
         #endregion
     }

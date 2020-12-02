@@ -18,6 +18,7 @@ namespace BspCore
         public float FWI { get; set; }
         public float DSR { get; set; }
         public short Fire { get; set; }
+        public float Weight { get; set; }
 
         //public override string ToString()
         //{

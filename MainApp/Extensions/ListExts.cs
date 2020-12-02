@@ -49,5 +49,34 @@ namespace MainApp.Extensions
                 a = (a - avg) / stdDev;
             });
         }
+
+        /// <summary>
+        /// Shuffle values of type float in collection using Fisher-Yates method
+        /// </summary>
+        /// <param name="list"></param>
+        public static void Shuffle<T>(this List<T> list)
+        {
+            var index = 0;
+            var rnd = new Random(Environment.TickCount);
+
+            list.ForEach(a =>
+            {                
+                var randIndex = rnd.Next(index, list.Count);
+                var rndA = list.ElementAt(randIndex);
+                var tempA = a;
+                a = rndA;
+                index++;
+            });
+        }
+
+        public static void GenerateWeights(this List<float> list, int methodType = 0)
+        {
+            var rnd = new Random(Environment.TickCount);
+
+            list.ForEach(a =>
+            {
+                a = rnd.Next(-4, 4);
+            });
+        }
     }
 }

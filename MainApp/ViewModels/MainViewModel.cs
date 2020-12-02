@@ -121,7 +121,6 @@ namespace MainApp.ViewModels
             set { _precips = value; }
         }
 
-
         #endregion
 
         #region Commands
@@ -144,6 +143,8 @@ namespace MainApp.ViewModels
                             _winds = data.Select(w => w.WindSpeed).ToList();
                             _precips = data.Select(p => p.Precipitation).ToList();
                             _rh = data.Select(rh => rh.RelativeHumidity).ToList();
+
+                            data.Select(w => w.Weight).ToList().GenerateWeights();
 
                             // normalize data using z-score formula
                             //_temps.Normalize();
