@@ -13,14 +13,14 @@ namespace MainApp.Extensions
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static float Variance(this List<float> list)
+        public static double Variance(this List<double> list)
         {
-            float var = 0f;
+            double var = 0f;
             var avg = list.Average();
 
             list.ForEach(a =>
             {
-                var += (float)Math.Pow(a - avg, 2);
+                var += (double)Math.Pow(a - avg, 2);
             });
 
             return var / list.Count;
@@ -31,16 +31,16 @@ namespace MainApp.Extensions
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static float StandardDeviation(this List<float> list)
+        public static double StandardDeviation(this List<double> list)
         {
-            return (float)Math.Sqrt(list.Variance());
+            return Math.Sqrt(list.Variance());
         }
 
         /// <summary>
         /// Normalize data using z-score formula
         /// </summary>
         /// <param name="list"></param>
-        public static void Normalize(this List<float> list)
+        public static void Normalize(this List<double> list)
         {
             var avg = list.Average();
             var stdDev = list.StandardDeviation();
@@ -51,7 +51,7 @@ namespace MainApp.Extensions
         }
 
         /// <summary>
-        /// Shuffle values of type float in collection using Fisher-Yates method
+        /// Shuffle values of type double in collection using Fisher-Yates method
         /// </summary>
         /// <param name="list"></param>
         public static void Shuffle<T>(this List<T> list)
@@ -69,13 +69,17 @@ namespace MainApp.Extensions
             });
         }
 
-        public static void GenerateWeights(this List<float> list, int methodType = 0)
+        /// <summary>
+        /// Generate initial weight values
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="randomize">If randomize is True, it will generate random values between 0 and 1</param>
+        public static void GenerateWeights(this List<double> list, bool randomize = false)
         {
             var rnd = new Random(Environment.TickCount);
-
             list.ForEach(a =>
             {
-                a = rnd.Next(-4, 4);
+                a = (randomize) ? rnd.NextDouble() : 0;
             });
         }
     }

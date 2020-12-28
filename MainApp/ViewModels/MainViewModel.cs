@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using MainApp.Extensions;
+using BspCore.ML;
 
 namespace MainApp.ViewModels
 {
@@ -18,10 +19,10 @@ namespace MainApp.ViewModels
         {
             this.dataLoader = _dataLoader;
             ModelData = new ObservableCollection<DataModel>();
-            _temps = new List<float>();
-            _rh = new List<float>();
-            _winds = new List<float>();
-            _precips = new List<float>();
+            _temps = new List<double>();
+            _rh = new List<double>();
+            _winds = new List<double>();
+            _precips = new List<double>();
         }
 
         #region Properties
@@ -55,67 +56,67 @@ namespace MainApp.ViewModels
         private int _mjesec;
         public int Mjesec { get => _mjesec; set { Set(ref _mjesec, value); } }
 
-        private float _temp;
-        public float Temperature { get => _temp; set { Set(ref _temp, value); } }
+        private double _temp;
+        public double Temperature { get => _temp; set { Set(ref _temp, value); } }
 
-        private float _windSpeed;
-        public float WindSpeed { get => _windSpeed; set { Set(ref _windSpeed, value); } }
+        private double _windSpeed;
+        public double WindSpeed { get => _windSpeed; set { Set(ref _windSpeed, value); } }
 
-        private float _relHum;
-        public float RelativeHumidity { get => _relHum; set { Set(ref _relHum, value); } }
+        private double _relHum;
+        public double RelativeHumidity { get => _relHum; set { Set(ref _relHum, value); } }
 
-        private float _precip;
-        public float Precipitation { get => _precip; set { Set(ref _precip, value); } }
+        private double _precip;
+        public double Precipitation { get => _precip; set { Set(ref _precip, value); } }
 
-        private float _ffmc;
-        public float FFMC { get => _ffmc; set { Set(ref _ffmc, value); } }
+        private double _ffmc;
+        public double FFMC { get => _ffmc; set { Set(ref _ffmc, value); } }
 
-        private float _dmc;
-        public float DMC { get => _dmc; set { Set(ref _dmc, value); } }
+        private double _dmc;
+        public double DMC { get => _dmc; set { Set(ref _dmc, value); } }
 
-        private float _dc;
-        public float DC { get => _dc; set { Set(ref _dc, value); } }
+        private double _dc;
+        public double DC { get => _dc; set { Set(ref _dc, value); } }
 
-        private float _isi;
-        public float ISI { get => _isi; set { Set(ref _isi, value); } }
+        private double _isi;
+        public double ISI { get => _isi; set { Set(ref _isi, value); } }
 
-        private float _bui;
-        public float BUI { get => _bui; set { Set(ref _bui, value); } }
+        private double _bui;
+        public double BUI { get => _bui; set { Set(ref _bui, value); } }
 
-        private float _fwi;
-        public float FWI { get => _fwi; set { Set(ref _fwi, value); } }
+        private double _fwi;
+        public double FWI { get => _fwi; set { Set(ref _fwi, value); } }
 
-        private List<float> _temps;
+        private List<double> _temps;
         /// <summary>
         /// Get all temperatures from dataset
         /// </summary>
-        public List<float> Temperatures
+        public List<double> Temperatures
         {
             get { return _temps; }
             set { _temps = value; }
         }
 
-        private List<float> _rh;
+        private List<double> _rh;
         /// <summary>
         /// Get all values for relative humidity from dataset
         /// </summary>
-        public List<float> RelativeHumidities
+        public List<double> RelativeHumidities
         {
             get { return _rh; }
             set { _rh = value; }
         }
 
-        private List<float> _winds;
+        private List<double> _winds;
 
-        public List<float> Winds
+        public List<double> Winds
         {
             get { return _winds; }
             set { _winds = value; }
         }
 
-        private List<float> _precips;
+        private List<double> _precips;
 
-        public List<float> Precipitations
+        public List<double> Precipitations
         {
             get { return _precips; }
             set { _precips = value; }
@@ -143,14 +144,6 @@ namespace MainApp.ViewModels
                             _winds = data.Select(w => w.WindSpeed).ToList();
                             _precips = data.Select(p => p.Precipitation).ToList();
                             _rh = data.Select(rh => rh.RelativeHumidity).ToList();
-
-                            data.Select(w => w.Weight).ToList().GenerateWeights();
-
-                            // normalize data using z-score formula
-                            //_temps.Normalize();
-                            //_winds.Normalize();
-                            //_precips.Normalize();
-                            //_rh.Normalize();
                         }
                         catch (Exception ex)
                         {
@@ -170,7 +163,7 @@ namespace MainApp.ViewModels
                 {
                     rcCalculate = new RelayCommand(() =>
                     {
-                        // izracun logit funkcije
+                        var lr = new LogisticRegression();
                     });
                 }
                 return rcCalculate; }

@@ -20,8 +20,8 @@ namespace BspCore.ML
             set { _numOfInputs = value; }
         }
 
-        private double _z;
 
+        private double _z;
         public double Z
         {
             get { return _z; }
@@ -32,11 +32,30 @@ namespace BspCore.ML
         /// Number of features in dataset
         /// </summary>
         private int _numOfFeatures;
-
         public int NumberOfFeatures
         {
             get { return _numOfFeatures; }
             set { _numOfFeatures = value; }
+        }
+
+        /// <summary>
+        /// Final weights
+        /// </summary>
+        private double[] _weights;
+        public double[] ComputedWeights
+        {
+            get { return _weights; }
+            set { _weights = value; }
+        }
+
+        /// <summary>
+        /// McFadden pseudo-R squared
+        /// </summary>
+        private double _pseudoR2;
+        public double McFaddenR2
+        {
+            get { return _pseudoR2; }
+            set { _pseudoR2 = value; }
         }
 
         #endregion
@@ -44,25 +63,16 @@ namespace BspCore.ML
         #region Methods
 
         /// <summary>
-        /// Izračun logističke regresije
+        /// Compute sigma function
         /// </summary>
         /// <param name="dataSetItems">Dataset input</param>
-        /// <param name="weights">Tezinske vrijednosti/faktori</param>
+        /// <param name="weights">Weights</param>
         /// <returns></returns>
-        public double Predict(float[] dataSetItems, float[] weights)
+        public double Predict(double[] dataSetItems, double[] weights)
         {
-            // Z je ponder prirodnog logaritma
-            float Z = 0f;
+            var dot = Dot(dataSetItems, weights);
 
-            Z = weights[0]; // postavimo vrijednost Z na b0 (tacka presjeka)
-
-            // izracunamo skalarni proizvod vektora 
-            for (int i = 0; i < weights.Length; i++)
-            {
-                // Z = Bi * Xi
-                Z += weights[i + 1] * dataSetItems[i];
-            }
-            return 1 / (1 + Math.Exp(-Z)); // logit jednacina
+            return 1 / (1 + Math.Exp(-Z));
         }
 
         /// <summary>
@@ -89,11 +99,8 @@ namespace BspCore.ML
 
             return copyData.ToList();
         }
-
-        // kreirati train i test set u odnosu koji korisnik odredi
-        //public List<float> CreateTrain(List<float>)
-
-        public double[] Train(double[][] trainData, int numOfPasses, float learningRate)
+                
+        public double[] Train(double[][] trainData, int numOfPasses, double learningRate)
         {
             int step = 0;
 
@@ -107,7 +114,14 @@ namespace BspCore.ML
             return new double[] { };
         }
 
-        //public void GenerateRandomWeights() { }     
+        private double Dot(double[] x, double[] w)
+        {
+            double z = 0.0;
+            z += w[0];
+            for (int j = 1; j < w.Length; j++)
+                z += w[j] * x[j - 1];
+            return z;
+        }
 
         #endregion
     }

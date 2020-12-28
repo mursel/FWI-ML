@@ -6,19 +6,19 @@ namespace BspCore
     {
         public DateTime Datum { get; set; }
         public int Mjesec { get; set; }
-        public float Temperature { get; set; }
-        public float WindSpeed { get; set; }
-        public float RelativeHumidity { get; set; }
-        public float Precipitation { get; set; }
-        public float FFMC { get; set; }
-        public float DMC { get; set; }
-        public float DC { get; set; }
-        public float ISI { get; set; }
-        public float BUI { get; set; }
-        public float FWI { get; set; }
-        public float DSR { get; set; }
+        public double Temperature { get; set; }
+        public double WindSpeed { get; set; }
+        public double RelativeHumidity { get; set; }
+        public double Precipitation { get; set; }
+        public double FFMC { get; set; }
+        public double DMC { get; set; }
+        public double DC { get; set; }
+        public double ISI { get; set; }
+        public double BUI { get; set; }
+        public double FWI { get; set; }
+        public double DSR { get; set; }
         public short Fire { get; set; }
-        public float Weight { get; set; }
+        public double Weight { get; set; }
 
         //public override string ToString()
         //{
