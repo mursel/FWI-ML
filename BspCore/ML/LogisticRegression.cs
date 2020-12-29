@@ -20,14 +20,6 @@ namespace BspCore.ML
             set { _numOfInputs = value; }
         }
 
-
-        private double _z;
-        public double Z
-        {
-            get { return _z; }
-            set { _z = value; }
-        }
-
         /// <summary>
         /// Number of features in dataset
         /// </summary>
@@ -49,14 +41,55 @@ namespace BspCore.ML
         }
 
         /// <summary>
-        /// McFadden pseudo-R squared
+        /// Penalty value for regularization
         /// </summary>
-        private double _pseudoR2;
-        public double McFaddenR2
+        private¸double _alphaPenalty;
+        public double AlphaPenalty
         {
-            get { return _pseudoR2; }
-            set { _pseudoR2 = value; }
+            get { return _alphaPenalty; }
+            set { _alphaPenalty = value; }
         }
+
+        /// <summary>
+        /// Get/Set learning rate 
+        /// </summary>
+        private double _learnRate;
+        public double LearningRate
+        {
+            get { return _learnRate; }
+            set { _learnRate = value; }
+        }
+
+        /// <summary>
+        /// Number of iterations for learning process
+        /// </summary>
+        private int _epochs;
+        public int MaxEpochs
+        {
+            get { return _epochs; }
+            set { _epochs = value; }
+        }
+
+        public enum Regularization
+        {
+            L1 = 0, // lasso regularization not implemented
+            L2 = 1
+        }
+
+        private List<DataModel> _trainSet;
+        public List<DataModel> TrainSet
+        {
+            get { return _trainSet; }
+            set { _trainSet = value; }
+        }
+
+        private List<DataModel> _testSet;
+        public List<DataModel> TestSet
+        {
+            get { return _testSet; }
+            set { _testSet = value; }
+        }
+
 
         #endregion
 
@@ -70,9 +103,9 @@ namespace BspCore.ML
         /// <returns></returns>
         public double Predict(double[] dataSetItems, double[] weights)
         {
-            var dot = Dot(dataSetItems, weights);
+            var z = Dot(dataSetItems, weights);
 
-            return 1 / (1 + Math.Exp(-Z));
+            return 1 / (1 + Math.Exp(-z));
         }
 
         /// <summary>
@@ -80,13 +113,13 @@ namespace BspCore.ML
         /// </summary>
         /// <param name="realData"></param>
         /// <returns></returns>
-        public List<DataModel> PrepareTestData(List<DataModel> realData)
+        public List<DataModel> ShuffleData(List<DataModel> data)
         {
-            DataModel[] copyData = new DataModel[realData.Count];
+            DataModel[] copyData = new DataModel[data.Count];
             
             Random random = new Random(Environment.TickCount);
 
-            realData.CopyTo(copyData);
+            data.CopyTo(copyData);
 
             // shuffle data using Fisher–Yates method
             for (int i = 0; i < copyData.Length; i++)
@@ -98,6 +131,14 @@ namespace BspCore.ML
             }
 
             return copyData.ToList();
+        }
+
+        public void SplitData(List<DataModel> data, double trainSize = 0.8)
+        {
+            int trainCount = (int)(data.Count * 0.8);
+            DataModel[] trainData = new DataModel[trainCount];
+
+            
         }
                 
         public double[] Train(double[][] trainData, int numOfPasses, double learningRate)
@@ -114,6 +155,17 @@ namespace BspCore.ML
             return new double[] { };
         }
 
+        private double GetProbabilites(double[][] data)
+        {
+            double y_trues = 0.0;
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (data[i][2] == 1)
+                    y_trues++;
+            }
+            return y_trues / data.Length;
+        }
+
         private double Dot(double[] x, double[] w)
         {
             double z = 0.0;
@@ -121,6 +173,71 @@ namespace BspCore.ML
             for (int j = 1; j < w.Length; j++)
                 z += w[j] * x[j - 1];
             return z;
+        }
+
+        public double McFaddenR2(double LLFit, double LLNull)
+        {
+            var ratio = LLFit / LLNull;
+            return 1 - ratio;
+        }
+
+        public double Accuracy(double[][] dataset, double[] weights, int dummyParam = 0)
+        {
+            var counter = 0;
+            for (int i = 0; i < dataset.Length; i++)
+            {
+                var predictedY = Predict(dataset[i], weights);
+                predictedY = (predictedY < 0.5) ? 0 : 1;
+                if (dataset[i][2] == predictedY)
+                    counter++;
+            }
+            var ratio = (counter * 1.0) / dataset.Length;
+            return ratio;
+        }
+
+        public double CostFunction(double[][] trainData, double[] weights)
+        {
+            var cost = 0.0;
+            double ws = 0.0;
+
+            for (int w = 0; w < weights.Length; w++)
+            {
+                ws += weights[w] * weights[w];
+            }
+
+            for (int i = 0; i < trainData.Length; i++)
+            {
+                // var y_hat = y_pred[i];
+                var y_hat = Predict(trainData[i], weights);
+                var y = trainData[i][2];
+                cost += -y * Math.Log(y_hat) - (1 - y) * Math.Log(1 - y_hat);
+            }
+            return (cost - AlphaPenalty * ws) / trainData.Length;
+        }
+        
+        public double LogLikelihood(double[][] data, double[] weights)
+        {
+            double ll = 0.0;
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                var p = Predict(data[i], weights);
+                var y = data[i][2];
+                ll += y * Math.Log(p) + (1 - y) * Math.Log(1 - p);
+            }
+            return ll;
+        }
+
+        public double ChiSquare(double[][] trainData, double[] computedY)
+        {
+            double cs = 0.0;
+            for (int i = 0; i < trainData.Length; i++)
+            {
+                var y = trainData[i][2];
+                var y_hat = computedY[i];
+                cs += Math.Pow((y - y_hat), 2) / y_hat;
+            }
+            return cs;
         }
 
         #endregion
