@@ -10,14 +10,14 @@ namespace BspCore.ML
         public LogisticRegression() { }
 
         #region Properties
-        private int _numOfInputs;
+        private int _dataLength;
         /// <summary>
-        /// Number of elements in dataset
+        /// Total number of elements in dataset (train + test)
         /// </summary>
-        public int Length
+        public int DataLength
         {
-            get { return _numOfInputs; }
-            set { _numOfInputs = value; }
+            get { return _dataLength; }
+            set { _dataLength = value; }
         }
 
         /// <summary>
@@ -76,21 +76,27 @@ namespace BspCore.ML
             L2 = 1
         }
 
-        private List<DataModel> _trainSet;
-        public List<DataModel> TrainSet
+        private double[][] _data;
+
+        public double[][] Data
         {
-            get { return _trainSet; }
-            set { _trainSet = value; }
+            get { return _data; }
+            set { _data = value; }
         }
 
-        private List<DataModel> _testSet;
-        public List<DataModel> TestSet
+        private double[][] _trainSet;
+        public double[][] TrainSet
         {
-            get { return _testSet; }
-            set { _testSet = value; }
+            get { return _data; }
+            set { _data = value; }
         }
 
-
+        private double[][] _testSet;
+        public double[][] TestSet
+        {
+            get { return _data; }
+            set { _data = value; }
+        }
         #endregion
 
         #region Methods
@@ -113,41 +119,58 @@ namespace BspCore.ML
         /// </summary>
         /// <param name="realData"></param>
         /// <returns></returns>
-        public List<DataModel> ShuffleData(List<DataModel> data)
+        public double[][] ShuffleData(double[][] data)
         {
-            DataModel[] copyData = new DataModel[data.Count];
+            double[][] copyData = new double[data.Length][];
             
             Random random = new Random(Environment.TickCount);
 
-            data.CopyTo(copyData);
+            copyData = data.Select(a => a.ToArray()).ToArray();
 
             // shuffle data using Fisher–Yates method
             for (int i = 0; i < copyData.Length; i++)
             {
                 int randomIndex = random.Next(i, copyData.Length);
-                DataModel temp = copyData[randomIndex];
+                double[] temp = copyData[randomIndex];
                 copyData[randomIndex] = copyData[i];
                 copyData[i] = temp;
             }
 
-            return copyData.ToList();
+            return copyData;
         }
 
-        public void SplitData(List<DataModel> data, double trainSize = 0.8)
+        public void SplitData(double trainSize = 0.8)
         {
-            int trainCount = (int)(data.Count * 0.8);
-            DataModel[] trainData = new DataModel[trainCount];
+            int trainCount = (int)(_data.Length * 0.8);
 
-            
+            _trainSet = new double[trainCount][];
+            _testSet = new double[(_dataLength - 1) - trainCount][];
+
+            // generate train and test sets
+            for (int i = 0; i < _trainSet.Length; i++)
+            {
+                _trainSet[i] = new double[_numOfFeatures + 1];
+                _trainSet[i] = _data[i];
+            }
+
+            for (int i = 0; i < _testSet.Length; i++)
+            {
+                _testSet[i] = new double[_numOfFeatures + 1];
+                _testSet[i] = _data[trainCount + i];
+            }
         }
                 
-        public double[] Train(double[][] trainData, int numOfPasses, double learningRate)
+        public double[] Train()
         {
             int step = 0;
 
-            while (step < numOfPasses)
+            while (step < _epochs)
             {
-
+                // for every row in train set
+                for (int i = 0; i < _trainSet.Length; i++)
+                {
+                    double computedY = Predict(_trainSet[i], )
+                }
 
                 step++;
             }
@@ -164,6 +187,11 @@ namespace BspCore.ML
                     y_trues++;
             }
             return y_trues / data.Length;
+        }
+
+        private void InitializeWeights()
+        {
+
         }
 
         private double Dot(double[] x, double[] w)
