@@ -5,6 +5,12 @@ using System.Text;
 
 namespace BspCore.ML
 {
+    public enum Regularization : ushort
+    {
+        L1 = 0, // lasso regularization not implemented
+        L2 = 1
+    }
+
     public class LogisticRegression
     {
         public LogisticRegression() { }
@@ -43,7 +49,7 @@ namespace BspCore.ML
         /// <summary>
         /// Penalty value for regularization
         /// </summary>
-        private¸double _alphaPenalty;
+        private double _alphaPenalty;
         public double AlphaPenalty
         {
             get { return _alphaPenalty; }
@@ -69,12 +75,8 @@ namespace BspCore.ML
             get { return _epochs; }
             set { _epochs = value; }
         }
+                
 
-        public enum Regularization
-        {
-            L1 = 0, // lasso regularization not implemented
-            L2 = 1
-        }
 
         private double[][] _data;
 
@@ -164,12 +166,34 @@ namespace BspCore.ML
         {
             int step = 0;
 
+            _weights.GenerateWeights();
+
             while (step < _epochs)
             {
                 // for every row in train set
                 for (int i = 0; i < _trainSet.Length; i++)
                 {
-                    double computedY = Predict(_trainSet[i], )
+                    double computedY = Predict(_trainSet[i], _weights);
+                    double targetY = _trainSet[i][_numOfFeatures];
+
+                    var diff = targetY - computedY;     // error
+
+                    _weights[0] += _learnRate * diff;   // intercept
+
+                    for (int k = 1; k < _weights.Length; k++)
+                    {
+                        _weights[k] += _learnRate * diff * _trainSet[l][k - 1];     // update weights
+                    }
+
+                    if (_alphaPenalty > 0.0)
+                    {
+                        for (int j = 0; j < _weights.Length; j++)
+                        {
+                            _weights[j] -= _learnRate * _alphaPenalty * _weights[j];
+                        }
+                    }
+
+
                 }
 
                 step++;

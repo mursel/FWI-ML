@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MainApp.Extensions
+namespace BspCore.ML
 {
     public static class ListDataModelExtensions
     {
