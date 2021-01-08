@@ -1,6 +1,8 @@
 using BspCore;
+using MainApp.Models;
 using MainApp.Service.Interfaces;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -20,13 +22,14 @@ namespace MainApp.Services
         public int NumberOfRecords { get; set; }
         public int CurrentPosition { get; set; }
 
-        private List<float> _temps;
+        private List<DataModel> data;
 
-        public List<float> Temperatures
+        public List<DataModel> Data
         {
-            get { return _temps; }
-            set { _temps = value; }
+            get { return data; }
+            set { data = value; }
         }
+
 
         #endregion
 
@@ -66,15 +69,15 @@ namespace MainApp.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<DataModel>> GetAllAsync()
+        public async Task<List<DataModel>> GetAllAsync(string _fileName)
         {
-            List<DataModel> data = new List<DataModel>();
+            data = new List<DataModel>();
             try
             {
-                using (StreamReader streamReader2 = new StreamReader("dataset_final.csv"))
+                using (StreamReader streamReader2 = new StreamReader(_fileName))
                 {
                     // just checking
-                    if (streamReader2 == null) this.Load("dataset_final.csv");
+                    if (streamReader2 == null) this.Load(_fileName);
 
                     // Mjeseci;RelVlaznost;TempZraka;Padavine24;BrzinaVjetraKMh
 
@@ -83,8 +86,8 @@ namespace MainApp.Services
                     string line = await streamReader2.ReadLineAsync();  // header! not needed right now...
                     line = await streamReader2.ReadLineAsync();
 
-                    float ffmc0 = 85f, dmc0 = 6f, dc0 = 15f, isi = 0.0f, bui = 0.0f, fwi = 0.0f;    // init
-                    float ffmc = 0.0f, dmc = 0.0f, dc = 0.0f, dsr = 0.0f;                           //
+                    double ffmc0 = 85, dmc0 = 6, dc0 = 15, isi = 0.0, bui = 0.0, fwi = 0.0;    // init
+                    double ffmc = 0.0, dmc = 0.0, dc = 0.0, dsr = 0.0;                           //
 
                     DateTime dateTime = new DateTime(2010, 7, 31);
 
@@ -96,36 +99,36 @@ namespace MainApp.Services
                         //cultureInfo.NumberFormat.NumberDecimalSeparator = ",";
 
                         int mjesec = short.Parse(fields[0], cultureInfo);
-                        float RelVlaznost = float.Parse(fields[1], cultureInfo); //, System.Globalization.NumberStyles.Float);
-                        float TempZraka = float.Parse(fields[2], cultureInfo);
-                        float Padavine24 = float.Parse(fields[3], cultureInfo);
-                        float BrzinaVjetraKMh = float.Parse(fields[4], cultureInfo);
+                        double RelVlaznost = double.Parse(fields[1], cultureInfo); //, System.Globalization.NumberStyles.double);
+                        double TempZraka = double.Parse(fields[2], cultureInfo);
+                        double Padavine24 = double.Parse(fields[3], cultureInfo);
+                        double BrzinaVjetraKMh = double.Parse(fields[4], cultureInfo);
 
                         //_temps.Add(TempZraka);
 
-                        fWIService.FFMCcalc(TempZraka, RelVlaznost, BrzinaVjetraKMh, Padavine24, ffmc0, ref ffmc);
-                        fWIService.DMCcalc(TempZraka, RelVlaznost, Padavine24, dmc0, mjesec, ref dmc);   
-                        fWIService.DCcalc(TempZraka, Padavine24, dc0, mjesec, ref dc);
-                        fWIService.ISIcalc(ffmc, BrzinaVjetraKMh, ref isi);
-                        fWIService.BUIcalc(dmc, dc, ref bui);
-                        fWIService.FWIcalc(isi, bui, ref fwi);
-                        fWIService.DSRCalc(fwi, ref dsr);
+                        ffmc = fWIService.FFMCcalc(TempZraka, RelVlaznost, BrzinaVjetraKMh, Padavine24, ffmc0);
+                        dmc = fWIService.DMCcalc(TempZraka, RelVlaznost, Padavine24, dmc0, mjesec);   
+                        dc = fWIService.DCcalc(TempZraka, Padavine24, dc0, mjesec);
+                        isi = fWIService.ISIcalc(ffmc, BrzinaVjetraKMh);
+                        bui = fWIService.BUIcalc(dmc, dc);
+                        fwi = fWIService.FWIcalc(isi, bui);
+                        dsr = fWIService.DSRCalc(fwi);
 
                         DataModel dataModel = new DataModel()
                         {
                             Datum = dateTime,
                             Mjesec = mjesec,
-                            RelativeHumidity = (float)Math.Round(RelVlaznost, 2),
-                            Temperature = (float)Math.Round(TempZraka, 2),
-                            Precipitation = (float)Math.Round(Padavine24, 2),
-                            WindSpeed = (float)Math.Round(BrzinaVjetraKMh, 2),
-                            FFMC = (float)Math.Round(ffmc, 2),
-                            DMC = (float)Math.Round(dmc, 2),
-                            DC = (float)Math.Round(dc, 2),
-                            ISI = (float)Math.Round(isi, 2),
-                            BUI = (float)Math.Round(bui, 2),
-                            FWI = (float)Math.Round(fwi, 2),
-                            DSR = (float)Math.Round(dsr, 2),
+                            RelativeHumidity = Math.Round(RelVlaznost, 4),
+                            Temperature = Math.Round(TempZraka, 4),
+                            Precipitation = Math.Round(Padavine24, 4),
+                            WindSpeed = Math.Round(BrzinaVjetraKMh, 4),
+                            FFMC = Math.Round(ffmc, 4),
+                            DMC = Math.Round(dmc, 4),
+                            DC = Math.Round(dc, 4),
+                            ISI = Math.Round(isi, 4),
+                            BUI = Math.Round(bui, 4),
+                            FWI = Math.Round(fwi, 4),
+                            DSR = Math.Round(dsr, 4),
                             Fire = (short)Math.Round((fwi > 20) ? 1.0 : 0.0, 0)
                         };
 
@@ -152,7 +155,80 @@ namespace MainApp.Services
                 //return new List<DataModel>();
             }
 
+            Data = data;
+
             return data;
+        }
+
+        /// <summary>
+        /// Ostaviti mogucnost proslijedjivanja indexa kolona koje nas interesuju
+        /// </summary>
+        /// <param name="columns"></param>
+        /// <returns></returns>
+        public double[][] ToArray(int[] columns)
+        {
+            double[][] newData = new double[data.Count][];
+
+            if (columns.Length > 0)
+            {
+                for (int i = 0; i < data.Count; i++)
+                {
+                    newData[i] = new double[columns.Length];
+
+                    for (int j = 0; j < columns.Length; j++)
+                    {
+                        var index = columns[j];
+                        //newData[i][j] = data.ElementAt(index)
+                        newData[i][1] = data[i].Mjesec;
+                        newData[i][2] = data[i].RelativeHumidity;
+                        newData[i][3] = data[i].Temperature;
+                        newData[i][4] = data[i].Precipitation;
+                        newData[i][5] = data[i].WindSpeed;
+                        newData[i][6] = data[i].FFMC;
+                        newData[i][7] = data[i].DMC;
+                        newData[i][8] = data[i].DC;
+                        newData[i][9] = data[i].ISI;
+                        newData[i][10] = data[i].BUI;
+                        newData[i][11] = data[i].FWI;
+                        newData[i][12] = data[i].DSR;
+                        newData[i][13] = data[i].Fire;
+                    }
+
+                }
+            }
+            else {
+
+                for (int i = 0; i < data.Count; i++)
+                {
+                    newData[i] = new double[14];
+                    newData[i][0] = data[i].Datum.ToOADate();
+                    newData[i][1] = data[i].Mjesec;
+                    newData[i][2] = data[i].RelativeHumidity;
+                    newData[i][3] = data[i].Temperature;
+                    newData[i][4] = data[i].Precipitation;
+                    newData[i][5] = data[i].WindSpeed;
+                    newData[i][6] = data[i].FFMC;
+                    newData[i][7] = data[i].DMC;
+                    newData[i][8] = data[i].DC;
+                    newData[i][9] = data[i].ISI;
+                    newData[i][10] = data[i].BUI;
+                    newData[i][11] = data[i].FWI;
+                    newData[i][12] = data[i].DSR;
+                    newData[i][13] = data[i].Fire;
+                }
+            }
+
+            return newData;
+        }
+
+
+        /// <summary>
+        /// Ostaviti mogucnost indeksiranja svih kolona 
+        /// </summary>
+        /// <returns></returns>
+        public double[][] ToArray()
+        {
+            return ToArray(new int[] { });
         }
 
         public int Save()

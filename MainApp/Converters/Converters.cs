@@ -20,4 +20,18 @@ namespace MainApp.Converters
             throw new NotImplementedException();
         }
     }
+
+    public class NumberConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            var num = int.Parse(value.ToString());
+            return num;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

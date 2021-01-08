@@ -234,3 +234,10 @@ C:\Users\murse\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.g.cs
 C:\Users\murse\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.xaml
 C:\Users\murse\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.xbf
 C:\Users\murse\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\PredictPage.xbf
+C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\data.csv
+C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\dataset1.csv
+C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\dataset_final - scaled.csv
+C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\testdata.csv
+C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\Titanic.csv
+C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\titanic1.csv
+C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\export.csv

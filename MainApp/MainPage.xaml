@@ -8,6 +8,7 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     xmlns:cs="using:MainApp.Converters"
+    xmlns:dp="using:Microsoft.Toolkit.Uwp.UI.Controls.Primitives"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <cs:DateConverter x:Key="DateConverter" />
@@ -18,7 +19,7 @@
         <CommandBar x:Name="mainCmdBar" OverflowButtonVisibility="Collapsed" IsOpen="False" DefaultLabelPosition="Right" RelativePanel.Below="LogRegTitle">
             <AppBarButton Icon="Upload" Label="Load data" Command="{x:Bind ViewModel.LoadDataSet}" AllowFocusOnInteraction="True" />
             <AppBarSeparator />
-            <AppBarButton Icon="Calculator" Label="Calculate" Command="{x:Bind ViewModel.Izracunaj}" />
+            <AppBarButton Icon="Calculator" Label="Train" Command="{x:Bind ViewModel.Izracunaj}" />
             <AppBarButton Icon="Download" Label="Export" Click="AppBarButton_Click"/>
             <!--<AppBarButton Icon="Delete" Label="Ukloni" Command="{x:Bind ViewModel.Ukloni}" CommandParameter="{Binding ElementName=planoviDataGrid, Path=SelectedItem}" />-->
         </CommandBar>
@@ -27,6 +28,7 @@
                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                            AlternatingRowBackground="Transparent" AlternatingRowForeground="Black"
                            SelectionMode="Extended" ClipboardCopyMode="IncludeHeader"
+                           
                            SelectedItem="{x:Bind ViewModel.SelectedDataModelRow, Mode=TwoWay}"
                            ItemsSource="{x:Bind ViewModel.ModelData}">
             <controls:DataGrid.Columns>
@@ -34,69 +36,219 @@
                     Header="Datum"
                     Width="SizeToHeader"
                     FontSize="16"
-                    Binding="{Binding Datum, Converter={StaticResource DateConverter}}" />                
+                    Binding="{Binding Datum, Converter={StaticResource DateConverter}}" />
                 <controls:DataGridTextColumn
                     Header="Temperature C°"
                     Width="SizeToHeader"
                     FontSize="16"
-                    Binding="{Binding Temperature}" />
+                    Binding="{Binding Temperature}">
+                    <controls:DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="dp:DataGridColumnHeader">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cbTemperature" Content="Temperature"></CheckBox>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:DataGridTextColumn.HeaderStyle>
+                </controls:DataGridTextColumn>
                 <controls:DataGridTextColumn
                     Header="Wind speed KM/h"
                     Width="SizeToHeader"
                     FontSize="16"
-                    Binding="{Binding WindSpeed}" />
+                    Binding="{Binding WindSpeed}">
+                    <controls:DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="dp:DataGridColumnHeader">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cbWindSpeed" Content="Wind speed KM/h"></CheckBox>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:DataGridTextColumn.HeaderStyle>
+                </controls:DataGridTextColumn>
                 <controls:DataGridTextColumn
                     Header="Relative humidity %"
                     Width="SizeToHeader"
                     FontSize="16"
-                    Binding="{Binding RelativeHumidity}" />
+                    Binding="{Binding RelativeHumidity}">
+                    <controls:DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="dp:DataGridColumnHeader">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cbRelativeHum" Content="Relative humidity %"></CheckBox>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:DataGridTextColumn.HeaderStyle>
+                </controls:DataGridTextColumn>
                 <controls:DataGridTextColumn
                     Header="Precipitation (mm)"
                     Width="SizeToHeader"
                     FontSize="16"
-                    Binding="{Binding Precipitation}" />
+                    Binding="{Binding Precipitation}">
+                    <controls:DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="dp:DataGridColumnHeader">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate >
+                                        <CheckBox x:Name="cbPrecipitation" Content="Precipitation (mm)" Command="{Binding ElementName=dataListGrid, Path=DataContext.AddColumnIndex}" CommandParameter="4"></CheckBox>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:DataGridTextColumn.HeaderStyle>
+                </controls:DataGridTextColumn>
                 <controls:DataGridTextColumn
                     Header="FFMC"
                     Width="150"
                     FontSize="16"
-                    Binding="{Binding FFMC}" />
+                    Binding="{Binding FFMC}" >
+                    <controls:DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="dp:DataGridColumnHeader">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cbFFMC" Content="FFMC"></CheckBox>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:DataGridTextColumn.HeaderStyle>
+                </controls:DataGridTextColumn>
                 <controls:DataGridTextColumn
                     Header="DMC"
                     Width="150"
                     FontSize="16"
-                    Binding="{Binding DMC}" />
+                    Binding="{Binding DMC}" >
+                    <controls:DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="dp:DataGridColumnHeader">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cbDMC" Content="DMC"></CheckBox>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:DataGridTextColumn.HeaderStyle>
+                </controls:DataGridTextColumn>
                 <controls:DataGridTextColumn
                     Header="DC"
                     Width="150"
                     FontSize="16"
-                    Binding="{Binding DC}" />
+                    Binding="{Binding DC}" >
+                    <controls:DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="dp:DataGridColumnHeader">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cbDC" Content="DC"></CheckBox>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:DataGridTextColumn.HeaderStyle>
+                </controls:DataGridTextColumn>
                 <controls:DataGridTextColumn
                     Header="ISI"
                     Width="150"
                     FontSize="16"
-                    Binding="{Binding ISI}" />
+                    Binding="{Binding ISI}"  >
+                    <controls:DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="dp:DataGridColumnHeader">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cbISI" Content="ISI"></CheckBox>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:DataGridTextColumn.HeaderStyle>
+                </controls:DataGridTextColumn>
                 <controls:DataGridTextColumn
                     Header="BUI"
                     Width="150"
                     FontSize="16"
-                    Binding="{Binding BUI}" />
+                    Binding="{Binding BUI}"  >
+                    <controls:DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="dp:DataGridColumnHeader">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cbBUI" Content="BUI"></CheckBox>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:DataGridTextColumn.HeaderStyle>
+                </controls:DataGridTextColumn>
                 <controls:DataGridTextColumn
                     Header="FWI"
                     Width="150"
                     FontSize="16"
-                    Binding="{Binding FWI}" />
+                    Binding="{Binding FWI}"  >
+                    <controls:DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="dp:DataGridColumnHeader">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cbFWI" Content="FWI"></CheckBox>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:DataGridTextColumn.HeaderStyle>
+                </controls:DataGridTextColumn>
                 <controls:DataGridTextColumn
                     Header="DSR"
                     Width="150"
                     FontSize="16"
-                    Binding="{Binding DSR}" />
+                    Binding="{Binding DSR}"  >
+                    <controls:DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="dp:DataGridColumnHeader">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cbDSR" Content="DSR"></CheckBox>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:DataGridTextColumn.HeaderStyle>
+                </controls:DataGridTextColumn>
                 <controls:DataGridTextColumn
                     Header="Fire"
                     Width="150"
                     FontSize="16"
-                    Binding="{Binding Fire}" />
+                    Binding="{Binding Fire}" >
+                    <controls:DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="dp:DataGridColumnHeader">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cbFire" Content="Fire"></CheckBox>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:DataGridTextColumn.HeaderStyle>
+                </controls:DataGridTextColumn>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
+        <StackPanel x:Name="stackPanel" Orientation="Vertical" RelativePanel.Below="dataListGrid">
+            <TextBlock Text="Cost:  " />
+            <TextBlock Text="{x:Bind ViewModel.Cost}"/>
+            <TextBlock Text="McFadden R^2:  " />
+            <TextBlock Text="{x:Bind ViewModel.McFaddenR2}"/>
+        </StackPanel>
     </RelativePanel>
     
 </Page>

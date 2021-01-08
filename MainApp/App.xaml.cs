@@ -1,4 +1,5 @@
-﻿using MainApp.Service.Interfaces;
+﻿using GalaSoft.MvvmLight.Views;
+using MainApp.Service.Interfaces;
 using MainApp.Services;
 using MainApp.ViewModels;
 using Microsoft.Extensions.Configuration;
@@ -40,6 +41,11 @@ namespace MainApp
         {
             services.AddScoped<IDataLoader, DataLoaderService>();
             services.AddSingleton<MainViewModel>();
+
+            var navigationService = new NavigationService();
+            navigationService.Configure(nameof(MainPage), typeof(MainPage));
+            navigationService.Configure(nameof(PredictPage), typeof(PredictPage));
+            services.AddScoped<INavigationService, NavigationService>((service) => navigationService);
         }
 
         /// <summary>

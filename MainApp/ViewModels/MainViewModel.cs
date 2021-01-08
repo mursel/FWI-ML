@@ -6,16 +6,18 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using MainApp.Extensions;
 using BspCore.ML;
+using GalaSoft.MvvmLight.Views;
+using MainApp.Models;
 
 namespace MainApp.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
         private readonly IDataLoader dataLoader;
+        private readonly INavigationService navigationService;
 
-        public MainViewModel(IDataLoader _dataLoader)
+        public MainViewModel(IDataLoader _dataLoader, INavigationService service)
         {
             this.dataLoader = _dataLoader;
             ModelData = new ObservableCollection<DataModel>();
@@ -23,6 +25,7 @@ namespace MainApp.ViewModels
             _rh = new List<double>();
             _winds = new List<double>();
             _precips = new List<double>();
+            navigationService = service;
         }
 
         #region Properties
@@ -86,6 +89,22 @@ namespace MainApp.ViewModels
         private double _fwi;
         public double FWI { get => _fwi; set { Set(ref _fwi, value); } }
 
+        private double _cost;
+
+        public double Cost
+        {
+            get { return _cost; }
+            set { Set(ref _cost, value); }
+        }
+
+        private double _pseudoR2;
+
+        public double McFaddenR2
+        {
+            get { return _pseudoR2; }
+            set { Set(ref _pseudoR2, value); }
+        }
+
         private List<double> _temps;
         /// <summary>
         /// Get all temperatures from dataset
@@ -136,7 +155,7 @@ namespace MainApp.ViewModels
                         try
                         {
                             // load our data as collection
-                            var data = await dataLoader.GetAllAsync();
+                            var data = await dataLoader.GetAllAsync("dataset_final.csv");
                             data.ToList().ForEach(n => ModelData.Add(n));
 
                             // seperate our independent variables in lists
@@ -163,15 +182,49 @@ namespace MainApp.ViewModels
                 {
                     rcCalculate = new RelayCommand(() =>
                     {
-                        var lr = new LogisticRegression();
+                        var lr = new LogisticRegression(1000, 0.01, 0.0, 13);
+
+                        lr.Data = dataLoader.ToArray();
+
+                        lr.SplitData();
+
+                        double[] weights = lr.Train();
+
+
+                        _cost = lr.Cost_MLE;
+
+                        double accuracy1 = lr.Accuracy(lr.TrainSet, weights);
+                        double accuracy2 = lr.Accuracy(lr.TestSet, weights);
+
+                        double r2 = lr.R2;
+
+
+                        //navigationService.NavigateTo(nameof(PredictPage));
                     });
                 }
                 return rcCalculate; }
         }
 
+        private RelayCommand<int> cmdAddColumnIndex;
+
+        public RelayCommand<int> AddColumnIndex
+        {
+            get {
+                if(cmdAddColumnIndex == null)
+                {
+                    cmdAddColumnIndex = new RelayCommand<int>(AddColumnIndexMethod);
+                }
+                
+                return cmdAddColumnIndex; }
+        }
+
+        private void AddColumnIndexMethod(int index)
+        {
+            var i = index;
+        }
 
 
         #endregion
-        
+
     }
 }

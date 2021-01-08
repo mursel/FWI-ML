@@ -1,6 +1,6 @@
 using System;
 
-namespace BspCore
+namespace MainApp.Models
 {
     public class DataModel
     {
@@ -18,7 +18,6 @@ namespace BspCore
         public double FWI { get; set; }
         public double DSR { get; set; }
         public short Fire { get; set; }
-        public double Weight { get; set; }
 
         //public override string ToString()
         //{
@@ -26,4 +25,5 @@ namespace BspCore
         //    "FFMC: {this.FFMC}, DMC: {this.DMC}, DC: {this.DC}, ISI: {this.ISI}, BUI: {this.BUI}, FWI: {this.FWI} ";
         //}
     }
+
 }

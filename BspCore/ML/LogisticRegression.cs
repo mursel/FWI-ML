@@ -14,6 +14,17 @@ namespace BspCore.ML
     public class LogisticRegression
     {
         public LogisticRegression() { }
+        public LogisticRegression(int _maxExpochs, double _learningRate) { 
+            this._epochs = _maxExpochs; this._learnRate = _learningRate; 
+        }
+        public LogisticRegression(int _maxExpochs, double _learningRate, double _L2Penalty) {
+            this._epochs = _maxExpochs; this._learnRate = _learningRate; this._alphaPenalty = _L2Penalty;
+        }
+
+        public LogisticRegression(int _maxExpochs, double _learningRate, double _L2Penalty, int _featureCount)
+        {
+            this._epochs = _maxExpochs; this._learnRate = _learningRate; this._alphaPenalty = _L2Penalty; this._numOfFeatures = _featureCount;
+        }
 
         #region Properties
         private int _dataLength;
@@ -76,8 +87,6 @@ namespace BspCore.ML
             set { _epochs = value; }
         }
                 
-
-
         private double[][] _data;
 
         public double[][] Data
@@ -99,6 +108,23 @@ namespace BspCore.ML
             get { return _data; }
             set { _data = value; }
         }
+
+        private double _MleCost;
+        public double Cost_MLE
+        {
+            get { return _MleCost; }
+            set { _MleCost = value; }
+        }
+
+        private double _McFaddenR2;
+
+        public double R2
+        {
+            get { return _McFaddenR2; }
+            set { _McFaddenR2 = value; }
+        }
+
+
         #endregion
 
         #region Methods
@@ -146,7 +172,7 @@ namespace BspCore.ML
             int trainCount = (int)(_data.Length * 0.8);
 
             _trainSet = new double[trainCount][];
-            _testSet = new double[(_dataLength - 1) - trainCount][];
+            _testSet = new double[(_data.Length - 1) - trainCount][];
 
             // generate train and test sets
             for (int i = 0; i < _trainSet.Length; i++)
@@ -166,6 +192,8 @@ namespace BspCore.ML
         {
             int step = 0;
 
+            if (_weights == null) _weights = new double[_numOfFeatures + 1];
+
             _weights.GenerateWeights();
 
             while (step < _epochs)
@@ -182,7 +210,7 @@ namespace BspCore.ML
 
                     for (int k = 1; k < _weights.Length; k++)
                     {
-                        _weights[k] += _learnRate * diff * _trainSet[l][k - 1];     // update weights
+                        _weights[k] += _learnRate * diff * _trainSet[i][k - 1];     // update weights
                     }
 
                     if (_alphaPenalty > 0.0)
@@ -192,30 +220,29 @@ namespace BspCore.ML
                             _weights[j] -= _learnRate * _alphaPenalty * _weights[j];
                         }
                     }
-
-
                 }
+
+                _MleCost = CostFunction(_trainSet, _weights);
 
                 step++;
             }
 
-            return new double[] { };
+            double LLFit = LogLikelihood(_trainSet, _weights);
+            double LLFit2 = LogLikelihood(_trainSet, GetProbabilites(_trainSet));
+            _McFaddenR2 = McFaddenR2(LLFit, LLFit2);
+
+            return _weights;
         }
 
-        private double GetProbabilites(double[][] data)
+        public double GetProbabilites(double[][] data)
         {
             double y_trues = 0.0;
             for (int i = 0; i < data.Length; i++)
             {
-                if (data[i][2] == 1)
+                if (data[i][_numOfFeatures] == 1)
                     y_trues++;
             }
             return y_trues / data.Length;
-        }
-
-        private void InitializeWeights()
-        {
-
         }
 
         private double Dot(double[] x, double[] w)
@@ -240,7 +267,7 @@ namespace BspCore.ML
             {
                 var predictedY = Predict(dataset[i], weights);
                 predictedY = (predictedY < 0.5) ? 0 : 1;
-                if (dataset[i][2] == predictedY)
+                if (dataset[i][_numOfFeatures] == predictedY)
                     counter++;
             }
             var ratio = (counter * 1.0) / dataset.Length;
@@ -261,10 +288,13 @@ namespace BspCore.ML
             {
                 // var y_hat = y_pred[i];
                 var y_hat = Predict(trainData[i], weights);
-                var y = trainData[i][2];
+                var y = trainData[i][_numOfFeatures];
                 cost += -y * Math.Log(y_hat) - (1 - y) * Math.Log(1 - y_hat);
             }
-            return (cost - AlphaPenalty * ws) / trainData.Length;
+
+            // there is alpha penalty value??
+            var output = (AlphaPenalty > 0.0) ? ((cost - AlphaPenalty * ws) / trainData.Length) : cost / trainData.Length;
+            return output;
         }
         
         public double LogLikelihood(double[][] data, double[] weights)
@@ -274,7 +304,18 @@ namespace BspCore.ML
             for (int i = 0; i < data.Length; i++)
             {
                 var p = Predict(data[i], weights);
-                var y = data[i][2];
+                var y = data[i][_numOfFeatures];
+                ll += y * Math.Log(p) + (1 - y) * Math.Log(1 - p);
+            }
+            return ll;
+        }
+
+        private double LogLikelihood(double[][] data, double p)
+        {
+            double ll = 0.0;
+            for (int i = 0; i < data.Length; i++)
+            {
+                var y = data[i][_numOfFeatures];
                 ll += y * Math.Log(p) + (1 - y) * Math.Log(1 - p);
             }
             return ll;
@@ -285,7 +326,7 @@ namespace BspCore.ML
             double cs = 0.0;
             for (int i = 0; i < trainData.Length; i++)
             {
-                var y = trainData[i][2];
+                var y = trainData[i][_numOfFeatures];
                 var y_hat = computedY[i];
                 cs += Math.Pow((y - y_hat), 2) / y_hat;
             }

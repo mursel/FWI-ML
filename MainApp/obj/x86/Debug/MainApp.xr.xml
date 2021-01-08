@@ -13,6 +13,8 @@
     <RootPropertyPathName Name="DMC" />
     <RootPropertyPathName Name="FFMC" />
     <RootPropertyPathName Name="Precipitation" />
+    <RootPropertyPathName Name="DataContext" />
+    <RootPropertyPathName Name="AddColumnIndex" />
     <RootPropertyPathName Name="RelativeHumidity" />
     <RootPropertyPathName Name="WindSpeed" />
     <RootPropertyPathName Name="Temperature" />
@@ -59,6 +61,10 @@
       <RootProperty Name="ItemsSource" />
       <RootProperty Name="Columns" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
+      <RootProperty Name="Orientation" />
+      <RootProperty Name="Children" />
+    </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.BindExtension">
       <RootProperty Name="Mode" />
     </RootType>
@@ -67,9 +73,28 @@
       <RootProperty Name="Width" />
       <RootProperty Name="FontSize" />
       <RootProperty Name="Binding" />
+      <RootProperty Name="HeaderStyle" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Data.Binding">
+      <RootProperty Name="ElementName" />
+      <RootProperty Name="Path" />
       <RootProperty Name="Converter" />
+    </RootType>
+    <RootType FullName="Microsoft.Toolkit.Uwp.UI.Controls.Primitives.DataGridColumnHeader" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ContentControl">
+      <RootProperty Name="ContentTemplate" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Setter">
+      <RootProperty Name="Property" />
+      <RootProperty Name="Value" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.DataTemplate">
+      <RootProperty Name="Template" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.CheckBox">
+      <RootProperty Name="Content" />
+      <RootProperty Name="Command" />
+      <RootProperty Name="CommandParameter" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarButton">
