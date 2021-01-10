@@ -6,6 +6,8 @@
   <Roots.PropertyPathNames>
     <RootPropertyPathName Name="Fire" />
     <RootPropertyPathName Name="DSR" />
+    <RootPropertyPathName Name="DataContext" />
+    <RootPropertyPathName Name="AddColumnIndex" />
     <RootPropertyPathName Name="FWI" />
     <RootPropertyPathName Name="BUI" />
     <RootPropertyPathName Name="ISI" />
@@ -13,8 +15,6 @@
     <RootPropertyPathName Name="DMC" />
     <RootPropertyPathName Name="FFMC" />
     <RootPropertyPathName Name="Precipitation" />
-    <RootPropertyPathName Name="DataContext" />
-    <RootPropertyPathName Name="AddColumnIndex" />
     <RootPropertyPathName Name="RelativeHumidity" />
     <RootPropertyPathName Name="WindSpeed" />
     <RootPropertyPathName Name="Temperature" />
@@ -29,6 +29,8 @@
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="MainApp.Converters.DateConverter" />
+    <RootType FullName="MainApp.Converters.NumberConverter" />
+    <RootType FullName="MainApp.Converters.DefaultValueConverter" />
     <RootType FullName="Windows.UI.Xaml.Controls.RelativePanel">
       <RootProperty Name="Margin" />
       <RootProperty Name="Children" />
@@ -63,6 +65,7 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
       <RootProperty Name="Orientation" />
+      <RootProperty Name="Margin" />
       <RootProperty Name="Children" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.BindExtension">
@@ -74,6 +77,7 @@
       <RootProperty Name="FontSize" />
       <RootProperty Name="Binding" />
       <RootProperty Name="HeaderStyle" />
+      <RootProperty Name="Visibility" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Data.Binding">
       <RootProperty Name="ElementName" />
@@ -105,8 +109,36 @@
       <RootEvent Name="Click" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarSeparator" />
+    <RootType FullName="Windows.UI.Xaml.Controls.AppBarElementContainer">
+      <RootProperty Name="Margin" />
+      <RootProperty Name="Padding" />
+      <RootProperty Name="Resources" />
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">
+      <RootProperty Name="Color" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.FrameworkElement">
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Margin" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
+      <RootProperty Name="Width" />
+      <RootProperty Name="InputScope" />
+      <RootProperty Name="Text" />
+      <RootProperty Name="Margin" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Grid">
+      <RootProperty Name="Margin" />
+      <RootProperty Name="ColumnDefinitions" />
+      <RootProperty Name="Children" />
+      <RootMethod Name="GetColumn" />
+      <RootMethod Name="SetColumn" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ColumnDefinition">
+      <RootProperty Name="Width" />
+    </RootType>
     <RootType FullName="MainApp.MainPage" />
-    <RootType FullName="Windows.UI.Xaml.Controls.Grid" />
     <RootType FullName="MainApp.PredictPage" />
   </Roots.RootTypes>
 </Roots>

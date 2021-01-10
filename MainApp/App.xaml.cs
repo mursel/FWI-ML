@@ -7,8 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Diagnostics;
+using System.Globalization;
+using System.Threading;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Globalization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -37,6 +40,7 @@ namespace MainApp
             };
         }
 
+        
         private void ConfigureServices(IConfiguration configuration, IServiceCollection services)
         {
             services.AddScoped<IDataLoader, DataLoaderService>();
@@ -55,6 +59,13 @@ namespace MainApp
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            CultureInfo ci = CultureInfo.GetCultureInfo("bs-Latn-BA");
+            Thread.CurrentThread.CurrentCulture = ci;
+            Thread.CurrentThread.CurrentUICulture = ci;
+            ApplicationLanguages.PrimaryLanguageOverride = "bs-Latn-BA";
+            Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView().Reset();
+            Windows.ApplicationModel.Resources.Core.ResourceContext.GetForViewIndependentUse().Reset();
+
             host = new HostBuilder()    // za UWP aplikacije se mora incijalizirati koristeci new HostBuilder()
             .ConfigureServices((context, services) =>
             {

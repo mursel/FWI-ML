@@ -129,7 +129,7 @@ namespace MainApp.Services
                             BUI = Math.Round(bui, 4),
                             FWI = Math.Round(fwi, 4),
                             DSR = Math.Round(dsr, 4),
-                            Fire = (short)Math.Round((fwi > 20) ? 1.0 : 0.0, 0)
+                            Fire = (short)Math.Round((fwi >= 11.2) ? 1.0 : 0.0, 0)
                         };
 
                         data.Add(dataModel);

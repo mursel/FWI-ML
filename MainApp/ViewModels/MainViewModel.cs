@@ -17,6 +17,8 @@ namespace MainApp.ViewModels
         private readonly IDataLoader dataLoader;
         private readonly INavigationService navigationService;
 
+        private List<int> columnIndices = new List<int>();
+
         public MainViewModel(IDataLoader _dataLoader, INavigationService service)
         {
             this.dataLoader = _dataLoader;
@@ -88,6 +90,19 @@ namespace MainApp.ViewModels
 
         private double _fwi;
         public double FWI { get => _fwi; set { Set(ref _fwi, value); } }
+
+        private double _iter;
+        public double MaxIter { get => _iter; set { Set(ref _iter, value); } }
+
+        private double _learnRate;
+        public double LearnRate { get => _learnRate; set { Set(ref _learnRate, value); } }
+
+        private double _l2val;
+        public double L2Penalty { get => _l2val; 
+            set {
+                Set(ref _l2val, value); 
+            } 
+        }
 
         private double _cost;
 
@@ -182,9 +197,13 @@ namespace MainApp.ViewModels
                 {
                     rcCalculate = new RelayCommand(() =>
                     {
-                        var lr = new LogisticRegression(1000, 0.01, 0.0, 13);
+                        var featureCount = 13;
 
-                        lr.Data = dataLoader.ToArray();
+                        if (columnIndices.Count > 0) featureCount = columnIndices.Count;
+                        
+                        var lr = new LogisticRegression(1000, 0.01, 0.0, featureCount);
+
+                        lr.Data = dataLoader.ToArray(columnIndices.ToArray());
 
                         lr.SplitData();
 
@@ -205,22 +224,26 @@ namespace MainApp.ViewModels
                 return rcCalculate; }
         }
 
-        private RelayCommand<int> cmdAddColumnIndex;
+        private RelayCommand<string> cmdAddColumnIndex;
 
-        public RelayCommand<int> AddColumnIndex
+        public RelayCommand<string> AddColumnIndex
         {
             get {
                 if(cmdAddColumnIndex == null)
                 {
-                    cmdAddColumnIndex = new RelayCommand<int>(AddColumnIndexMethod);
+                    cmdAddColumnIndex = new RelayCommand<string>(AddColumnIndexMethod);
                 }
                 
                 return cmdAddColumnIndex; }
         }
 
-        private void AddColumnIndexMethod(int index)
+        private void AddColumnIndexMethod(string index)
         {
-            var i = index;
+            var i = int.Parse(index);
+            if (columnIndices.Contains(i))
+                columnIndices.Remove(i);
+            else
+                columnIndices.Add(i);           
         }
 
 

@@ -12,6 +12,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <cs:DateConverter x:Key="DateConverter" />
+        <cs:NumberConverter x:Key="NumConverter" />
+        <cs:DefaultValueConverter x:Key="DefaultValConverter" />
     </Page.Resources>
     
     <RelativePanel Margin="12">
@@ -21,6 +23,49 @@
             <AppBarSeparator />
             <AppBarButton Icon="Calculator" Label="Train" Command="{x:Bind ViewModel.Izracunaj}" />
             <AppBarButton Icon="Download" Label="Export" Click="AppBarButton_Click"/>
+            <AppBarSeparator />
+            <AppBarElementContainer Margin="0" Padding="0">
+                <AppBarElementContainer.Resources>
+                    <SolidColorBrush x:Key="ButtonBackground"
+                                 Color="Transparent"/>
+                    <SolidColorBrush x:Key="ButtonBackgroundPressed"
+                                 Color="{ThemeResource SystemListMediumColor}"/>
+                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver"
+                                 Color="{ThemeResource SystemListLowColor}"/>
+                    <SolidColorBrush x:Key="ButtonBorderBrush"
+                                 Color="Transparent"/>
+                    <SolidColorBrush x:Key="ButtonBorderBrushPointerOver"
+                                 Color="Transparent"/>
+                    <SolidColorBrush x:Key="ButtonBorderBrushChecked"
+                                 Color="Transparent"/>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Margin" Value="0" />
+                    </Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Margin" Value="0" />
+                    </Style>
+                </AppBarElementContainer.Resources>
+                <Grid Margin="0,-1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                        <TextBlock Text="Max. iterations: " Margin="10 0 0 0" />
+                        <TextBox x:Name="txtMaxIter" Width="100" Text="{x:Bind ViewModel.MaxIter, Mode=TwoWay }" Margin="5 5 10 4" />
+                        <AppBarSeparator />
+                        <TextBlock Text="Learning rate: " Margin="10 0 0 0" />
+                        <TextBox x:Name="txtLearnRate" Width="100" Text="{x:Bind ViewModel.LearnRate, Mode=TwoWay}" Margin="5 5 1 4" />
+                        <AppBarSeparator />
+                        <TextBlock Text="L2 penalty: " Margin="10 0 0 0" />
+                        <TextBox x:Name="txtL2Penalty" Width="100" Text="{x:Bind ViewModel.L2Penalty, Mode=TwoWay}" Margin="5 5 10 4" />
+                    </StackPanel>
+                    
+                </Grid>
+            </AppBarElementContainer>
             <!--<AppBarButton Icon="Delete" Label="Ukloni" Command="{x:Bind ViewModel.Ukloni}" CommandParameter="{Binding ElementName=planoviDataGrid, Path=SelectedItem}" />-->
         </CommandBar>
         <controls:DataGrid x:Name="dataListGrid" RelativePanel.Below="mainCmdBar"
@@ -46,8 +91,12 @@
                         <Style TargetType="dp:DataGridColumnHeader">
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
-                                    <DataTemplate>
-                                        <CheckBox x:Name="cbTemperature" Content="Temperature"></CheckBox>
+                                    <DataTemplate >
+                                        <CheckBox x:Name="cbTemperature" Content="Temperature C°"                                                  
+                                                  Command="{Binding 
+                                            ElementName=dataListGrid, 
+                                            Path=DataContext.AddColumnIndex}" 
+                                                  CommandParameter="1"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -64,7 +113,11 @@
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                        <CheckBox x:Name="cbWindSpeed" Content="Wind speed KM/h"></CheckBox>
+                                        <CheckBox x:Name="cbWindSpeed" Content="Wind speed KM/h"                                                  
+                                                  Command="{Binding 
+                                            ElementName=dataListGrid, 
+                                            Path=DataContext.AddColumnIndex}" 
+                                                  CommandParameter="2"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -81,7 +134,11 @@
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                        <CheckBox x:Name="cbRelativeHum" Content="Relative humidity %"></CheckBox>
+                                        <CheckBox x:Name="cbRelativeHum" Content="Relative humidity %"                                                  
+                                                  Command="{Binding 
+                                            ElementName=dataListGrid, 
+                                            Path=DataContext.AddColumnIndex}" 
+                                                  CommandParameter="3"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -98,7 +155,11 @@
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate >
-                                        <CheckBox x:Name="cbPrecipitation" Content="Precipitation (mm)" Command="{Binding ElementName=dataListGrid, Path=DataContext.AddColumnIndex}" CommandParameter="4"></CheckBox>
+                                        <CheckBox x:Name="cbPrecipitation" Content="Precipitation (mm)"                                                  
+                                                  Command="{Binding 
+                                            ElementName=dataListGrid, 
+                                            Path=DataContext.AddColumnIndex}" 
+                                                  CommandParameter="4"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -115,7 +176,11 @@
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                        <CheckBox x:Name="cbFFMC" Content="FFMC"></CheckBox>
+                                        <CheckBox x:Name="cbFFMC" Content="FFMC"                                                  
+                                                  Command="{Binding 
+                                            ElementName=dataListGrid, 
+                                            Path=DataContext.AddColumnIndex}" 
+                                                  CommandParameter="5"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -132,7 +197,11 @@
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                        <CheckBox x:Name="cbDMC" Content="DMC"></CheckBox>
+                                        <CheckBox x:Name="cbDMC" Content="DMC"                                                  
+                                                  Command="{Binding 
+                                            ElementName=dataListGrid, 
+                                            Path=DataContext.AddColumnIndex}" 
+                                                  CommandParameter="6"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -149,7 +218,11 @@
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                        <CheckBox x:Name="cbDC" Content="DC"></CheckBox>
+                                        <CheckBox x:Name="cbDC" Content="DC"                                                  
+                                                  Command="{Binding 
+                                            ElementName=dataListGrid, 
+                                            Path=DataContext.AddColumnIndex}" 
+                                                  CommandParameter="7"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -166,7 +239,11 @@
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                        <CheckBox x:Name="cbISI" Content="ISI"></CheckBox>
+                                        <CheckBox x:Name="cbISI" Content="ISI"                                                  
+                                                  Command="{Binding 
+                                            ElementName=dataListGrid, 
+                                            Path=DataContext.AddColumnIndex}" 
+                                                  CommandParameter="8"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -183,7 +260,11 @@
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                        <CheckBox x:Name="cbBUI" Content="BUI"></CheckBox>
+                                        <CheckBox x:Name="cbBUI" Content="BUI"                                                  
+                                                  Command="{Binding 
+                                            ElementName=dataListGrid, 
+                                            Path=DataContext.AddColumnIndex}" 
+                                                  CommandParameter="9"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -200,7 +281,11 @@
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                        <CheckBox x:Name="cbFWI" Content="FWI"></CheckBox>
+                                        <CheckBox x:Name="cbFWI" Content="FWI"                                                  
+                                                  Command="{Binding 
+                                            ElementName=dataListGrid, 
+                                            Path=DataContext.AddColumnIndex}" 
+                                                  CommandParameter="10"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -208,6 +293,7 @@
                     </controls:DataGridTextColumn.HeaderStyle>
                 </controls:DataGridTextColumn>
                 <controls:DataGridTextColumn
+                    Visibility="Collapsed"
                     Header="DSR"
                     Width="150"
                     FontSize="16"
@@ -217,7 +303,11 @@
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                        <CheckBox x:Name="cbDSR" Content="DSR"></CheckBox>
+                                        <CheckBox x:Name="cbDSR" Content="DSR"                                                  
+                                                  Command="{Binding 
+                                            ElementName=dataListGrid, 
+                                            Path=DataContext.AddColumnIndex}" 
+                                                  CommandParameter="11"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -228,22 +318,10 @@
                     Header="Fire"
                     Width="150"
                     FontSize="16"
-                    Binding="{Binding Fire}" >
-                    <controls:DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="dp:DataGridColumnHeader">
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <CheckBox x:Name="cbFire" Content="Fire"></CheckBox>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </controls:DataGridTextColumn.HeaderStyle>
-                </controls:DataGridTextColumn>
+                    Binding="{Binding Fire}" />
             </controls:DataGrid.Columns>
         </controls:DataGrid>
-        <StackPanel x:Name="stackPanel" Orientation="Vertical" RelativePanel.Below="dataListGrid">
+        <StackPanel x:Name="stackPanel" Orientation="Vertical" RelativePanel.Below="dataListGrid" Margin="12 12 0 0">
             <TextBlock Text="Cost:  " />
             <TextBlock Text="{x:Bind ViewModel.Cost}"/>
             <TextBlock Text="McFadden R^2:  " />
