@@ -9,6 +9,7 @@ using System.Linq;
 using BspCore.ML;
 using GalaSoft.MvvmLight.Views;
 using MainApp.Models;
+using System.Globalization;
 
 namespace MainApp.ViewModels
 {
@@ -91,18 +92,32 @@ namespace MainApp.ViewModels
         private double _fwi;
         public double FWI { get => _fwi; set { Set(ref _fwi, value); } }
 
-        private double _iter;
-        public double MaxIter { get => _iter; set { Set(ref _iter, value); } }
+        private int _iter;
+        public int MaxIter { get => _iter; set { Set(ref _iter, value); } }
 
         private double _learnRate;
         public double LearnRate { get => _learnRate; set { Set(ref _learnRate, value); } }
 
         private double _l2val;
-        public double L2Penalty { get => _l2val; 
+        public double L2Penalty { 
+            get => _l2val; 
             set {
+                //double res = -1.0;
+                //double.TryParse(value.ToString(), NumberStyles.Number, new NumberFormatInfo()
+                //{
+                //    NumberDecimalSeparator = ","
+                //}, out res);
                 Set(ref _l2val, value); 
             } 
         }
+
+        private bool? _shuffleData = false;
+        public bool? ShuffleData
+        {
+            get { return _shuffleData; }
+            set { Set(ref _shuffleData, value); }
+        }
+
 
         private double _cost;
 
@@ -201,7 +216,7 @@ namespace MainApp.ViewModels
 
                         if (columnIndices.Count > 0) featureCount = columnIndices.Count;
                         
-                        var lr = new LogisticRegression(1000, 0.01, 0.0, featureCount);
+                        var lr = new LogisticRegression(_iter, _learnRate, _l2val, featureCount);
 
                         lr.Data = dataLoader.ToArray(columnIndices.ToArray());
 

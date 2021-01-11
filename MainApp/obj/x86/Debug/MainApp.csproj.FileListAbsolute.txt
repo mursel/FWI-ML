@@ -241,3 +241,10 @@ C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\testdata.csv
 C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\Titanic.csv
 C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\titanic1.csv
 C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\export.csv
+C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\data.csv
+C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\dataset1.csv
+C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\dataset_final - scaled.csv
+C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\export.csv
+C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\testdata.csv
+C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\Titanic.csv
+C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\titanic1.csv

@@ -55,13 +55,15 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Column="1">
                         <TextBlock Text="Max. iterations: " Margin="10 0 0 0" />
-                        <TextBox x:Name="txtMaxIter" Width="100" Text="{x:Bind ViewModel.MaxIter, Mode=TwoWay }" Margin="5 5 10 4" />
+                        <TextBox x:Name="txtMaxIter" Width="100" Text="{x:Bind ViewModel.MaxIter, Converter={StaticResource DefaultValConverter}, Mode=TwoWay}" Margin="5 5 10 4" ToolTipService.ToolTip="Maximum iterations / epochs" />
                         <AppBarSeparator />
                         <TextBlock Text="Learning rate: " Margin="10 0 0 0" />
-                        <TextBox x:Name="txtLearnRate" Width="100" Text="{x:Bind ViewModel.LearnRate, Mode=TwoWay}" Margin="5 5 1 4" />
+                        <TextBox x:Name="txtLearnRate" Width="100" Text="{x:Bind ViewModel.LearnRate, Converter={StaticResource DefaultValConverter}, Mode=TwoWay}" Margin="5 5 1 4" ToolTipService.ToolTip="Learning rate" />
                         <AppBarSeparator />
                         <TextBlock Text="L2 penalty: " Margin="10 0 0 0" />
-                        <TextBox x:Name="txtL2Penalty" Width="100" Text="{x:Bind ViewModel.L2Penalty, Mode=TwoWay}" Margin="5 5 10 4" />
+                        <TextBox x:Name="txtL2Penalty" Width="100" Text="{x:Bind ViewModel.L2Penalty, Converter={StaticResource DefaultValConverter}, Mode=TwoWay}" Margin="5 5 10 4" ToolTipService.ToolTip="Ridge regression penalty" />
+                        <AppBarSeparator />
+                        <CheckBox x:Name="cbShuffle" Content="Use shuffle?" IsChecked="{x:Bind ViewModel.ShuffleData, Mode=TwoWay}" ToolTipService.ToolTip="Shuffle data during model training" />
                     </StackPanel>
                     
                 </Grid>

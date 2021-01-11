@@ -70,6 +70,7 @@
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.BindExtension">
       <RootProperty Name="Mode" />
+      <RootProperty Name="Converter" />
     </RootType>
     <RootType FullName="Microsoft.Toolkit.Uwp.UI.Controls.DataGridTextColumn">
       <RootProperty Name="Header" />
@@ -99,6 +100,7 @@
       <RootProperty Name="Content" />
       <RootProperty Name="Command" />
       <RootProperty Name="CommandParameter" />
+      <RootProperty Name="IsChecked" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarButton">
@@ -124,7 +126,6 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
       <RootProperty Name="Width" />
-      <RootProperty Name="InputScope" />
       <RootProperty Name="Text" />
       <RootProperty Name="Margin" />
     </RootType>
@@ -137,6 +138,10 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ColumnDefinition">
       <RootProperty Name="Width" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ToolTipService">
+      <RootMethod Name="GetToolTip" />
+      <RootMethod Name="SetToolTip" />
     </RootType>
     <RootType FullName="MainApp.MainPage" />
     <RootType FullName="MainApp.PredictPage" />

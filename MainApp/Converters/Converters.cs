@@ -43,14 +43,26 @@ namespace MainApp.Converters
             
             var str = value.ToString();
             //str = str.ToString(ci.NumberFormat);
-            return (string.IsNullOrEmpty(str) || str == "0") ? parameter.ToString() : str;
+            return str;
+            //return (string.IsNullOrEmpty(str) || str == "0") ? parameter.ToString() : str;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             CultureInfo ci = CultureInfo.GetCultureInfo("bs-Latn-BA");
-            var v = double.Parse(value.ToString(), ci.NumberFormat);
-            return v;
+            var number = 0.0;
+            double.TryParse(value.ToString(), NumberStyles.Number, ci.NumberFormat, out number);
+
+            switch (Type.GetTypeCode(number.GetType()))
+            {
+                case TypeCode.Int32:
+                    return int.Parse(value.ToString(), ci.NumberFormat);
+                case TypeCode.Double:
+                    return double.Parse(value.ToString(), ci.NumberFormat);
+                default:
+                    break;
+            }
+            return 0;
         }
     }
 }
