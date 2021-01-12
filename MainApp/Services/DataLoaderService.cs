@@ -69,6 +69,8 @@ namespace MainApp.Services
             throw new NotImplementedException();
         }
 
+
+
         public async Task<List<DataModel>> GetAllAsync(string _fileName)
         {
             data = new List<DataModel>();
@@ -264,6 +266,53 @@ namespace MainApp.Services
         public int Save()
         {
             throw new NotImplementedException();
+        }
+
+        public double[] GetAllByColumnIndex(int index)
+        {
+           /* 1 - temp         5 - ffmc
+            * 2 - wind         6 - dmc
+            * 3 - humidity     7 - dc
+            * 4 - rain         8 - isi
+            *                  9 - bui
+            *                  10 - fwi
+            */
+           double[] tempData = new double[D]
+            switch (index)
+            {
+                case 1:
+                    newData[i][j] = data[i].Temperature;
+                    break;
+                case 2:
+                    newData[i][j] = data[i].WindSpeed;
+                    break;
+                case 3:
+                    newData[i][j] = data[i].RelativeHumidity;
+                    break;
+                case 4:
+                    newData[i][j] = data[i].Precipitation;
+                    break;
+                case 5:
+                    newData[i][j] = data[i].FFMC;
+                    break;
+                case 6:
+                    newData[i][j] = data[i].DMC;
+                    break;
+                case 7:
+                    newData[i][j] = data[i].DC;
+                    break;
+                case 8:
+                    newData[i][j] = data[i].ISI;
+                    break;
+                case 9:
+                    newData[i][j] = data[i].BUI;
+                    break;
+                case 10:
+                    newData[i][j] = data[i].FWI;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

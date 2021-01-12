@@ -208,6 +208,29 @@ namespace MainApp.ViewModels
             }
         }
 
+        private RelayCommand _corrPage;
+
+        public RelayCommand CorrelationPage
+        {
+            get
+            {
+                if (_corrPage == null)
+                {
+                    _corrPage = new RelayCommand(() =>
+                    {
+                        double[][] twoVars = PrepareData(columnIndices.ToArray());
+                        navigationService.NavigateTo(nameof(CorrPage));
+                    });
+                }
+                return _corrPage;
+            }
+        }
+
+        private double[][] PrepareData(int[] vs)
+        {
+            dataLoader.GetAll();
+        }
+
         private RelayCommand rcCalculate;
         public RelayCommand Izracunaj
         {

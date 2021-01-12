@@ -21,6 +21,8 @@
         <CommandBar x:Name="mainCmdBar" OverflowButtonVisibility="Collapsed" IsOpen="False" DefaultLabelPosition="Right" RelativePanel.Below="LogRegTitle">
             <AppBarButton Icon="Upload" Label="Load data" Command="{x:Bind ViewModel.LoadDataSet}" AllowFocusOnInteraction="True" />
             <AppBarSeparator />
+            <AppBarButton Icon="Link" Label="Correlation" Command="{x:Bind ViewModel.CorrelationPage}" />
+            <AppBarSeparator />
             <AppBarButton Icon="Calculator" Label="Train" Command="{x:Bind ViewModel.Izracunaj}" />
             <AppBarButton Icon="Download" Label="Export" Click="AppBarButton_Click"/>
             <AppBarSeparator />
