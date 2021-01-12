@@ -173,27 +173,57 @@ namespace MainApp.Services
             {
                 for (int i = 0; i < data.Count; i++)
                 {
-                    newData[i] = new double[columns.Length];
+                    newData[i] = new double[columns.Length + 1];
 
                     for (int j = 0; j < columns.Length; j++)
                     {
+                        /* 1 - temp         5 - ffmc
+                         * 2 - wind         6 - dmc
+                         * 3 - humidity     7 - dc
+                         * 4 - rain         8 - isi
+                         *                  9 - bui
+                         *                  10 - fwi
+                         */
                         var index = columns[j];
-                        //newData[i][j] = data.ElementAt(index)
-                        newData[i][1] = data[i].Mjesec;
-                        newData[i][2] = data[i].RelativeHumidity;
-                        newData[i][3] = data[i].Temperature;
-                        newData[i][4] = data[i].Precipitation;
-                        newData[i][5] = data[i].WindSpeed;
-                        newData[i][6] = data[i].FFMC;
-                        newData[i][7] = data[i].DMC;
-                        newData[i][8] = data[i].DC;
-                        newData[i][9] = data[i].ISI;
-                        newData[i][10] = data[i].BUI;
-                        newData[i][11] = data[i].FWI;
-                        newData[i][12] = data[i].DSR;
-                        newData[i][13] = data[i].Fire;
+                        switch (index)
+                        {
+                            case 1:
+                                newData[i][j] = data[i].Temperature;
+                                break;
+                            case 2:
+                                newData[i][j] = data[i].WindSpeed;
+                                break;
+                            case 3:
+                                newData[i][j] = data[i].RelativeHumidity;
+                                break;
+                            case 4:
+                                newData[i][j] = data[i].Precipitation;
+                                break;
+                            case 5:
+                                newData[i][j] = data[i].FFMC;
+                                break;
+                            case 6:
+                                newData[i][j] = data[i].DMC;
+                                break;
+                            case 7:
+                                newData[i][j] = data[i].DC;
+                                break;
+                            case 8:
+                                newData[i][j] = data[i].ISI;
+                                break;
+                            case 9:
+                                newData[i][j] = data[i].BUI;
+                                break;
+                            case 10:
+                                newData[i][j] = data[i].FWI;
+                                break;
+                            default:
+                                break;
+                        }
+                        
                     }
-
+                    
+                    newData[i][columns.Length] = data[i].Fire;
                 }
             }
             else {

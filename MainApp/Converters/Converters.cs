@@ -40,20 +40,17 @@ namespace MainApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            
-            var str = value.ToString();
+            var v = (parameter.ToString().Length > 0 || value.ToString().Length == 0) ? parameter.ToString() : value.ToString();
             //str = str.ToString(ci.NumberFormat);
-            return str;
+            return v;
             //return (string.IsNullOrEmpty(str) || str == "0") ? parameter.ToString() : str;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             CultureInfo ci = CultureInfo.GetCultureInfo("bs-Latn-BA");
-            var number = 0.0;
-            double.TryParse(value.ToString(), NumberStyles.Number, ci.NumberFormat, out number);
-
-            switch (Type.GetTypeCode(number.GetType()))
+                        
+            switch (Type.GetTypeCode(targetType))
             {
                 case TypeCode.Int32:
                     return int.Parse(value.ToString(), ci.NumberFormat);

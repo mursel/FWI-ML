@@ -62,10 +62,10 @@ namespace BspCore.ML
         }
 
         /// <summary>
-        /// Shuffle values of type double in collection using Fisher-Yates method
+        /// Randomize values of type double in collection using Fisher-Yates method
         /// </summary>
         /// <param name="list"></param>
-        public static void Shuffle(this double[] list)
+        public static void Randomize(this double[] list)
         {
             var index = 0;
             var rnd = new Random(Environment.TickCount);

@@ -143,11 +143,11 @@ namespace BspCore.ML
         }
 
         /// <summary>
-        /// Shuffle data using Fisher–Yates method
+        /// Randomize data using Fisher–Yates method
         /// </summary>
         /// <param name="realData"></param>
         /// <returns></returns>
-        public double[][] ShuffleData(double[][] data)
+        public double[][] Randomize(double[][] data)
         {
             double[][] copyData = new double[data.Length][];
             
@@ -188,7 +188,7 @@ namespace BspCore.ML
             }
         }
                 
-        public double[] Train()
+        public double[] Train(bool useShuffle)
         {
             int step = 0;
 
@@ -198,6 +198,9 @@ namespace BspCore.ML
 
             while (step < _epochs)
             {
+                if (useShuffle)
+                    _trainSet = Randomize(_trainSet);
+
                 // for every row in train set
                 for (int i = 0; i < _trainSet.Length; i++)
                 {

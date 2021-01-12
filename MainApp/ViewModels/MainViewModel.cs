@@ -92,14 +92,18 @@ namespace MainApp.ViewModels
         private double _fwi;
         public double FWI { get => _fwi; set { Set(ref _fwi, value); } }
 
-        private int _iter;
-        public int MaxIter { get => _iter; set { Set(ref _iter, value); } }
+        private int _iter = 1000;
+        public int MaxIter {
+            get => _iter; 
+            set { Set(ref _iter, value); 
+            } 
+        }
 
-        private double _learnRate;
+        private double _learnRate = 0.01;
         public double LearnRate { get => _learnRate; set { Set(ref _learnRate, value); } }
 
-        private double _l2val;
-        public double L2Penalty { 
+        private double _l2val = 0.0;
+        public double L2Penalty {
             get => _l2val; 
             set {
                 //double res = -1.0;
@@ -212,9 +216,10 @@ namespace MainApp.ViewModels
                 {
                     rcCalculate = new RelayCommand(() =>
                     {
-                        var featureCount = 13;
+                        var featureCount = 10;  
 
-                        if (columnIndices.Count > 0) featureCount = columnIndices.Count;
+                        if (columnIndices.Count > 0) 
+                            featureCount = columnIndices.Count;
                         
                         var lr = new LogisticRegression(_iter, _learnRate, _l2val, featureCount);
 
@@ -222,7 +227,7 @@ namespace MainApp.ViewModels
 
                         lr.SplitData();
 
-                        double[] weights = lr.Train();
+                        double[] weights = lr.Train(_shuffleData.Value);
 
 
                         _cost = lr.Cost_MLE;
