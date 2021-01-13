@@ -195,7 +195,6 @@
       <Name>BspCore</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="dataset_final.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

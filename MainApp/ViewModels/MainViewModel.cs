@@ -1,4 +1,5 @@
-﻿using BspCore;
+﻿using BspCore.ML;
+using BspCore.ML.Extensions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MainApp.Service.Interfaces;
@@ -6,10 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using BspCore.ML;
 using GalaSoft.MvvmLight.Views;
 using MainApp.Models;
-using System.Globalization;
 
 namespace MainApp.ViewModels
 {
@@ -193,7 +192,7 @@ namespace MainApp.ViewModels
                             // load our data as collection
                             var data = await dataLoader.GetAllAsync("dataset_final.csv");
                             data.ToList().ForEach(n => ModelData.Add(n));
-
+                            
                             // seperate our independent variables in lists
                             _temps = data.Select(t => t.Temperature).ToList();
                             _winds = data.Select(w => w.WindSpeed).ToList();
@@ -220,7 +219,15 @@ namespace MainApp.ViewModels
                 {
                     _corrPage = new RelayCommand(() =>
                     {
-                        double r = PrepareData(columnIndices.ToArray());
+                        int i = 0;
+                        Action<int[]> recursive = (d) =>
+                        {
+                            int currentIndex = d[i];
+                            double[] selectedData = GetDataByIndex(currentIndex);
+                            i++;
+                        };
+                        
+                        recursive(columnIndices.ToArray());
                         //navigationService.NavigateTo(nameof(CorrPage));
                     });
                 }
@@ -228,22 +235,51 @@ namespace MainApp.ViewModels
             }
         }
 
-        private double PrepareData(int[] vs)
+        private double[] GetDataByIndex(int currentIndex)
         {
-            Action<int[]> recursive = null;
-
-            recursive = (d) =>
+            /* 1 - temp         5 - ffmc
+             * 2 - wind         6 - dmc
+             * 3 - humidity     7 - dc
+             * 4 - rain         8 - isi
+             *                  9 - bui
+             *                  10 - fwi
+             */
+            
+            switch (currentIndex)
             {
-
-            };
-            for (int i = 0; i < vs.Length; i++)
-            {
-                int index1 = vs[i];
-                vs.Where(i=>i != index1).ToList().ForEach()
+                case 1:
+                    return _temps.ToArray();
+                    break;
+                case 2:
+                    return _winds.ToArray();
+                    break;
+                case 3:
+                    return _rh.ToArray();
+                    break;
+                case 4:
+                    return _precips.ToArray();
+                    break;
+                case 5:
+                    return _dataList.Select
+                    break;
+                case 6:
+                    newData[i][j] = data[i].DMC;
+                    break;
+                case 7:
+                    newData[i][j] = data[i].DC;
+                    break;
+                case 8:
+                    newData[i][j] = data[i].ISI;
+                    break;
+                case 9:
+                    newData[i][j] = data[i].BUI;
+                    break;
+                case 10:
+                    newData[i][j] = data[i].FWI;
+                    break;
+                default:
+                    break;
             }
-            vs.ToList().ForEach((item) => {
-                vs.Where(i => i != item).ToList()
-            });
         }
 
         private RelayCommand rcCalculate;

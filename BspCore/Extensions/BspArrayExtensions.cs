@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BspCore.ML
+namespace BspCore.ML.Extensions
 {
     public static class BspArrayExtensions
     {
