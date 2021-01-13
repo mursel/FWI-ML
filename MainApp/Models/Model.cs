@@ -19,6 +19,7 @@ namespace MainApp.Models
         public double DSR { get; set; }
         public short Fire { get; set; }
 
+
         //public override string ToString()
         //{
         //    return $"T: {this.Temperature}, RH: {this.RelativeHumidity}, PR: {this.Precipitation}, WS: {this.WindSpeed}, " +

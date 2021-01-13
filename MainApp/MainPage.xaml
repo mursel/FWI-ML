@@ -73,11 +73,14 @@
             <!--<AppBarButton Icon="Delete" Label="Ukloni" Command="{x:Bind ViewModel.Ukloni}" CommandParameter="{Binding ElementName=planoviDataGrid, Path=SelectedItem}" />-->
         </CommandBar>
         <controls:DataGrid x:Name="dataListGrid" RelativePanel.Below="mainCmdBar"
-                           AutoGenerateColumns="False" Height="600" Margin="0 25 0 0"
+                           AutoGenerateColumns="False" Height="500" Margin="0 25 0 0"
                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                            AlternatingRowBackground="Transparent" AlternatingRowForeground="Gray"
                            SelectionMode="Extended" ClipboardCopyMode="IncludeHeader"                           
                            SelectedItem="{x:Bind ViewModel.SelectedDataModelRow, Mode=TwoWay}"
+                           GridLinesVisibility="All"
+                           
+                           SelectionChanged=""
                            ItemsSource="{x:Bind ViewModel.ModelData}">
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn

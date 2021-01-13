@@ -44,12 +44,15 @@ namespace MainApp
         private void ConfigureServices(IConfiguration configuration, IServiceCollection services)
         {
             services.AddScoped<IDataLoader, DataLoaderService>();
+            services.AddScoped<IDialogService, DialogService>();
             services.AddSingleton<MainViewModel>();
 
             var navigationService = new NavigationService();
             navigationService.Configure(nameof(MainPage), typeof(MainPage));
             navigationService.Configure(nameof(PredictPage), typeof(PredictPage));
             services.AddScoped<INavigationService, NavigationService>((service) => navigationService);
+
+            
         }
 
         /// <summary>

@@ -17,10 +17,11 @@ namespace MainApp.ViewModels
     {
         private readonly IDataLoader dataLoader;
         private readonly INavigationService navigationService;
+        private readonly IDialogService dialogService;
 
         private List<int> columnIndices = new List<int>();
 
-        public MainViewModel(IDataLoader _dataLoader, INavigationService service)
+        public MainViewModel(IDataLoader _dataLoader, INavigationService service, IDialogService dialog)
         {
             this.dataLoader = _dataLoader;
             ModelData = new ObservableCollection<DataModel>();
@@ -29,6 +30,7 @@ namespace MainApp.ViewModels
             _winds = new List<double>();
             _precips = new List<double>();
             navigationService = service;
+            dialogService = dialog;
         }
 
         #region Properties
@@ -218,17 +220,30 @@ namespace MainApp.ViewModels
                 {
                     _corrPage = new RelayCommand(() =>
                     {
-                        double[][] twoVars = PrepareData(columnIndices.ToArray());
-                        navigationService.NavigateTo(nameof(CorrPage));
+                        double r = PrepareData(columnIndices.ToArray());
+                        //navigationService.NavigateTo(nameof(CorrPage));
                     });
                 }
                 return _corrPage;
             }
         }
 
-        private double[][] PrepareData(int[] vs)
+        private double PrepareData(int[] vs)
         {
-            dataLoader.GetAll();
+            Action<int[]> recursive = null;
+
+            recursive = (d) =>
+            {
+
+            };
+            for (int i = 0; i < vs.Length; i++)
+            {
+                int index1 = vs[i];
+                vs.Where(i=>i != index1).ToList().ForEach()
+            }
+            vs.ToList().ForEach((item) => {
+                vs.Where(i => i != item).ToList()
+            });
         }
 
         private RelayCommand rcCalculate;
