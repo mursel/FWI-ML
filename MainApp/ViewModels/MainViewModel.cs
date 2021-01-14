@@ -32,9 +32,9 @@ namespace MainApp.ViewModels
 
         struct CorrelationData
         {
-            string SourceColumnName;
-            string DestColumnName;
-            double CorValue;
+            public string SourceColumnName;
+            public string DestColumnName;
+            public double CorValue;
         };
 
         private bool _isLoading;
@@ -200,26 +200,71 @@ namespace MainApp.ViewModels
                             {
                                 var itemData = GetDataByIndex(item);
                                 var corValue = selectedData.Correlation(itemData);
-                                //dialogService.ShowMessage(corValue.ToString("F4"), "Correlation value");
-                                //corData.Add(new CorrelationData()
-                                //{
-                                    
-                                //});
-                                
+
+                                CorrelationData correlationData = new CorrelationData()
+                                {
+                                    CorValue = corValue,
+                                    SourceColumnName = GetColumnNameByIndex(currentIndex),
+                                    DestColumnName = GetColumnNameByIndex(item)
+                                };
+                                corData.Add(correlationData);
                             });
-                            i++;
-                            if (currentIndex != columnIndices.Last())
-                                recursive(d);    
+
+                            if (d.Length > 2) { 
+                                i++;
+                                if (currentIndex != columnIndices.Last())
+                                    recursive(d);
+                            }
                         };
                         
                         recursive(columnIndices.ToArray());
+
+                        var str = string.Empty;
+
+                        /*          temp    wind
+                         *  
+                         *  temp    1       0,3
+                         *  wind    0,3     1
+                         *  
+                        */
+
+                        // get headers
+                        
+                        corData.ForEach((c) => str += "     " + c.SourceColumnName + "    " + c.DestColumnName);
+
+                        corData.ForEach((c) => str += c.SourceColumnName + "\n\n" + c.DestColumnName);
+
+                        //corData.ForEach((c) => str += c.DestColumnName + "    " + c.CorValue.ToString("F2") + "    " + "\n");
+
+                        dialogService.ShowMessage(str, "Correlations");
+
+
                         //navigationService.NavigateTo(nameof(CorrPage));
                     });
                 }
                 return _corrPage;
             }
         }
-        
+
+        private string GetColumnNameByIndex(int currentIndex)
+        {
+            switch (currentIndex)
+            {
+                case 1: return "temp";
+                case 2: return "wind";
+                case 3: return "RH";
+                case 4: return "rainfall";
+                case 5: return "ffmc";
+                case 6: return "dmc";
+                case 7: return "dc";
+                case 8: return "isi";
+                case 9: return "bui";
+                case 10: return "fwi";
+                default: break;
+            }
+            return string.Empty;
+        }
+
         private double[] GetDataByIndex(int currentIndex)
         {
             /* 1 - temp         5 - ffmc
@@ -305,6 +350,23 @@ namespace MainApp.ViewModels
                 columnIndices.Add(i);           
         }
 
+        private RelayCommand _goToMain;
+
+        public RelayCommand GoToMainPage
+        {
+            get
+            {
+                if (_goToMain == null)
+                {
+                    _goToMain = new RelayCommand(()=>
+                    {
+                        navigationService.NavigateTo(nameof(MainPage));
+                    });
+                }
+
+                return _goToMain;
+            }
+        }
 
         #endregion
 

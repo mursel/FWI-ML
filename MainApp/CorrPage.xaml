@@ -11,7 +11,7 @@
     <RelativePanel Margin="12">
         <TextBlock x:Name="LogRegTitle" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" Text="Fire prediction using logistic regression - correlation" Margin="0,10,0,20" />
         <CommandBar x:Name="mainCmdBar" OverflowButtonVisibility="Collapsed" IsOpen="False" DefaultLabelPosition="Right" RelativePanel.Below="LogRegTitle">
-            <!--<AppBarButton Icon="Back" Label="Back" Command="{x:Bind ViewModel.LoadDataSet}" AllowFocusOnInteraction="True" />-->
+            <AppBarButton Icon="Back" Label="Back" Command="{x:Bind ViewModel.GoToMainPage}" AllowFocusOnInteraction="True" />
         </CommandBar>
         
     </RelativePanel>
