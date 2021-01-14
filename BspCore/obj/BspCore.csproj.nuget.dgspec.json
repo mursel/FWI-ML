@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj": {}
+    "C:\\Users\\murse\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj": {
+    "C:\\Users\\murse\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj",
+        "projectUniqueName": "C:\\Users\\murse\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj",
         "projectName": "BspCore",
-        "projectPath": "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj",
-        "packagesPath": "C:\\Users\\m.mursel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\obj\\",
+        "projectPath": "C:\\Users\\murse\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj",
+        "packagesPath": "C:\\Users\\murse\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\murse\\source\\repos\\mursel\\FWI-ML\\BspCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\m.mursel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\murse\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -27,7 +27,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://nuget.syncfusion.com/nuget_universalwindows/nuget/getsyncfusionpackages/universalwindows": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

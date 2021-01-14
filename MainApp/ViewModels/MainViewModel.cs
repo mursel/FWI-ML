@@ -24,15 +24,18 @@ namespace MainApp.ViewModels
         {
             this.dataLoader = _dataLoader;
             ModelData = new ObservableCollection<DataModel>();
-            _temps = new List<double>();
-            _rh = new List<double>();
-            _winds = new List<double>();
-            _precips = new List<double>();
             navigationService = service;
             dialogService = dialog;
         }
 
         #region Properties
+
+        struct CorrelationData
+        {
+            string SourceColumnName;
+            string DestColumnName;
+            double CorValue;
+        };
 
         private bool _isLoading;
 
@@ -116,6 +119,14 @@ namespace MainApp.ViewModels
             } 
         }
 
+        private double _trainSize;
+
+        public double TrainSize
+        {
+            get { return _trainSize; }
+            set { Set(ref _trainSize, value); }
+        }
+
         private bool? _shuffleData = false;
         public bool? ShuffleData
         {
@@ -140,42 +151,6 @@ namespace MainApp.ViewModels
             set { Set(ref _pseudoR2, value); }
         }
 
-        private List<double> _temps;
-        /// <summary>
-        /// Get all temperatures from dataset
-        /// </summary>
-        public List<double> Temperatures
-        {
-            get { return _temps; }
-            set { _temps = value; }
-        }
-
-        private List<double> _rh;
-        /// <summary>
-        /// Get all values for relative humidity from dataset
-        /// </summary>
-        public List<double> RelativeHumidities
-        {
-            get { return _rh; }
-            set { _rh = value; }
-        }
-
-        private List<double> _winds;
-
-        public List<double> Winds
-        {
-            get { return _winds; }
-            set { _winds = value; }
-        }
-
-        private List<double> _precips;
-
-        public List<double> Precipitations
-        {
-            get { return _precips; }
-            set { _precips = value; }
-        }
-
         #endregion
 
         #region Commands
@@ -192,12 +167,6 @@ namespace MainApp.ViewModels
                             // load our data as collection
                             var data = await dataLoader.GetAllAsync("dataset_final.csv");
                             data.ToList().ForEach(n => ModelData.Add(n));
-                            
-                            // seperate our independent variables in lists
-                            _temps = data.Select(t => t.Temperature).ToList();
-                            _winds = data.Select(w => w.WindSpeed).ToList();
-                            _precips = data.Select(p => p.Precipitation).ToList();
-                            _rh = data.Select(rh => rh.RelativeHumidity).ToList();
                         }
                         catch (Exception ex)
                         {
@@ -219,12 +188,28 @@ namespace MainApp.ViewModels
                 {
                     _corrPage = new RelayCommand(() =>
                     {
+                        List<CorrelationData> corData = new List<CorrelationData>();
+                        
                         int i = 0;
-                        Action<int[]> recursive = (d) =>
+                        Action<int[]> recursive = null;
+                        recursive = (d) =>
                         {
                             int currentIndex = d[i];
                             double[] selectedData = GetDataByIndex(currentIndex);
+                            d.ToList().ForEach((item) =>
+                            {
+                                var itemData = GetDataByIndex(item);
+                                var corValue = selectedData.Correlation(itemData);
+                                //dialogService.ShowMessage(corValue.ToString("F4"), "Correlation value");
+                                //corData.Add(new CorrelationData()
+                                //{
+                                    
+                                //});
+                                
+                            });
                             i++;
+                            if (currentIndex != columnIndices.Last())
+                                recursive(d);    
                         };
                         
                         recursive(columnIndices.ToArray());
@@ -234,7 +219,7 @@ namespace MainApp.ViewModels
                 return _corrPage;
             }
         }
-
+        
         private double[] GetDataByIndex(int currentIndex)
         {
             /* 1 - temp         5 - ffmc
@@ -244,42 +229,22 @@ namespace MainApp.ViewModels
              *                  9 - bui
              *                  10 - fwi
              */
-            
             switch (currentIndex)
             {
-                case 1:
-                    return _temps.ToArray();
-                    break;
-                case 2:
-                    return _winds.ToArray();
-                    break;
-                case 3:
-                    return _rh.ToArray();
-                    break;
-                case 4:
-                    return _precips.ToArray();
-                    break;
-                case 5:
-                    return _dataList.Select
-                    break;
-                case 6:
-                    newData[i][j] = data[i].DMC;
-                    break;
-                case 7:
-                    newData[i][j] = data[i].DC;
-                    break;
-                case 8:
-                    newData[i][j] = data[i].ISI;
-                    break;
-                case 9:
-                    newData[i][j] = data[i].BUI;
-                    break;
-                case 10:
-                    newData[i][j] = data[i].FWI;
-                    break;
-                default:
-                    break;
+                case 1: return _dataList.Select(a => a.Temperature).ToArray();
+                case 2: return _dataList.Select(a => a.WindSpeed).ToArray();
+                case 3: return _dataList.Select(a => a.RelativeHumidity).ToArray();
+                case 4: return _dataList.Select(a => a.Precipitation).ToArray();
+                case 5: return _dataList.Select(a => a.FFMC).ToArray();
+                case 6: return _dataList.Select(a => a.DMC).ToArray();
+                case 7: return _dataList.Select(a => a.DC).ToArray();
+                case 8: return _dataList.Select(a => a.ISI).ToArray();
+                case 9: return _dataList.Select(a => a.BUI).ToArray();
+                case 10: return _dataList.Select(a => a.FWI).ToArray();
+                default: break;
             }
+
+            return null;
         }
 
         private RelayCommand rcCalculate;
@@ -296,10 +261,10 @@ namespace MainApp.ViewModels
                             featureCount = columnIndices.Count;
                         
                         var lr = new LogisticRegression(_iter, _learnRate, _l2val, featureCount);
-
+                        
                         lr.Data = dataLoader.ToArray(columnIndices.ToArray());
 
-                        lr.SplitData();
+                        lr.SplitData(_trainSize);
 
                         double[] weights = lr.Train(_shuffleData.Value);
 

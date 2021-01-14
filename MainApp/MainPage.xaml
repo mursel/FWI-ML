@@ -65,6 +65,9 @@
                         <TextBlock Text="L2 penalty: " Margin="10 0 0 0" />
                         <TextBox x:Name="txtL2Penalty" Width="100" Text="{x:Bind ViewModel.L2Penalty, Converter={StaticResource DefaultValConverter}, ConverterParameter='0,0', Mode=TwoWay}" Margin="5 5 10 4" ToolTipService.ToolTip="Ridge regression penalty" />
                         <AppBarSeparator />
+                        <TextBlock Text="Split train size: " Margin="10 0 0 0" />
+                        <TextBox x:Name="txtSplitSize" Width="100" Text="{x:Bind ViewModel.TrainSize, Converter={StaticResource DefaultValConverter}, ConverterParameter='0,8', Mode=TwoWay}" Margin="5 5 1 4" ToolTipService.ToolTip="Train size to split" />
+                        <AppBarSeparator />
                         <CheckBox x:Name="cbShuffle" Content="Use shuffle?" IsChecked="{x:Bind ViewModel.ShuffleData, Mode=TwoWay}" ToolTipService.ToolTip="Shuffle data during model training" />
                     </StackPanel>
                     
@@ -79,8 +82,6 @@
                            SelectionMode="Extended" ClipboardCopyMode="IncludeHeader"                           
                            SelectedItem="{x:Bind ViewModel.SelectedDataModelRow, Mode=TwoWay}"
                            GridLinesVisibility="All"
-                           
-                           SelectionChanged=""
                            ItemsSource="{x:Bind ViewModel.ModelData}">
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn

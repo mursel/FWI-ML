@@ -24,13 +24,10 @@
     <RootType FullName="Windows.UI.Xaml.Application" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="Background" />
-      <RootProperty Name="Resources" />
       <RootProperty Name="Content" />
+      <RootProperty Name="Resources" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
-    <RootType FullName="MainApp.Converters.DateConverter" />
-    <RootType FullName="MainApp.Converters.NumberConverter" />
-    <RootType FullName="MainApp.Converters.DefaultValueConverter" />
     <RootType FullName="Windows.UI.Xaml.Controls.RelativePanel">
       <RootProperty Name="Margin" />
       <RootProperty Name="Children" />
@@ -49,6 +46,11 @@
       <RootProperty Name="DefaultLabelPosition" />
       <RootProperty Name="PrimaryCommands" />
     </RootType>
+    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
+    <RootType FullName="MainApp.CorrPage" />
+    <RootType FullName="MainApp.Converters.DateConverter" />
+    <RootType FullName="MainApp.Converters.NumberConverter" />
+    <RootType FullName="MainApp.Converters.DefaultValueConverter" />
     <RootType FullName="Microsoft.Toolkit.Uwp.UI.Controls.DataGrid">
       <RootProperty Name="AutoGenerateColumns" />
       <RootProperty Name="Height" />
@@ -60,6 +62,7 @@
       <RootProperty Name="SelectionMode" />
       <RootProperty Name="ClipboardCopyMode" />
       <RootProperty Name="SelectedItem" />
+      <RootProperty Name="GridLinesVisibility" />
       <RootProperty Name="ItemsSource" />
       <RootProperty Name="Columns" />
     </RootType>
@@ -103,7 +106,6 @@
       <RootProperty Name="CommandParameter" />
       <RootProperty Name="IsChecked" />
     </RootType>
-    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarButton">
       <RootProperty Name="Icon" />
       <RootProperty Name="Label" />

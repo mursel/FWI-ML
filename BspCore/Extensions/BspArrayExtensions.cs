@@ -30,15 +30,12 @@ namespace BspCore.ML.Extensions
         /// <returns></returns>        
         public static double Variance(this double[] list)
         {
-            double var = 0f;
+            double v = 0f;
             var avg = list.Average();
 
-            list.ToList().ForEach(a =>
-            {
-                var += (double)Math.Pow(a - avg, 2);
-            });
+            v = list.Sum(s => Math.Pow(s - avg, 2.0));
 
-            return var / list.Length;
+            return v; // / (list.Length);
         }
 
         public static double Covariance(this double[] v, double[] input)
@@ -88,7 +85,7 @@ namespace BspCore.ML.Extensions
         public static double Correlation(this double[] v, double[] input)
         {
             var k1 = v.Covariance(input);
-            var k2 = k1 / v.StandardDeviation() * input.StandardDeviation();
+            var k2 = k1 / Math.Sqrt(v.Variance() * input.Variance());
             return k2;
         }
     }

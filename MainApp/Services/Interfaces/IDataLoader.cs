@@ -12,7 +12,7 @@ namespace MainApp.Service.Interfaces
         double[][] ToArray(int[] columns);
         double[][] ToArray();
 
-        double[] GetAllByColumnIndex(int index);
+        // double[] GetAllByColumnIndex(int index);
 
         // any other custom methods goes here
     }
