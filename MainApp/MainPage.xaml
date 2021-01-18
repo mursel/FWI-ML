@@ -24,7 +24,6 @@
             <AppBarButton Icon="Link" Label="Correlation" Command="{x:Bind ViewModel.CorrelationPage}" />
             <AppBarSeparator />
             <AppBarButton Icon="Calculator" Label="Train" Command="{x:Bind ViewModel.Izracunaj}" />
-            <AppBarButton Icon="Download" Label="Export" Click="AppBarButton_Click"/>
             <AppBarSeparator />
             <AppBarElementContainer Margin="0" Padding="0">
                 <AppBarElementContainer.Resources>

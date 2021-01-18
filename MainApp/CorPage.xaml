@@ -1,0 +1,53 @@
+﻿<Page
+    x:Class="MainApp.CorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MainApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:MainApp.Models" 
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <DataTemplate x:Key="TextTemplate" x:DataType="data:CorrelationItem">
+            <Grid>
+                <StackPanel Orientation="Horizontal" Width="100">
+                    <TextBlock Style="{StaticResource TitleTextBlockStyle}" Margin="8" Text="{x:Bind Path=ColumnName}" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Width="100">
+                    <ItemsControl x:Name="tStack" Grid.Column="0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>                    
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+    <RelativePanel Margin="12">
+        <TextBlock x:Name="LogRegTitle" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" Text="Variable correlation" Margin="0,10,0,20" />
+        <CommandBar x:Name="mainCmdBar" OverflowButtonVisibility="Collapsed" IsOpen="False" DefaultLabelPosition="Right" RelativePanel.Below="LogRegTitle">
+            <AppBarButton Icon="Back" Label="Back" Command="{x:Bind ViewModel.GoToMainPage}" AllowFocusOnInteraction="True" />
+        </CommandBar>
+        <GridView x:Name="gridView" RelativePanel.Below="mainCmdBar"
+                  ItemsSource="{x:Bind ViewModel.CorrelationData}"
+                  ItemTemplate="{StaticResource TextTemplate}"
+                  IsItemClickEnabled="False"
+                  SelectionMode="Single">
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid x:Name="itemsWrapGrid" Orientation="Horizontal" 
+                                   MaximumRowsOrColumns="{Binding ElementName=gridView, Path=ViewModel.NumOfRowsAndColumns}" />
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+            
+        </GridView>
+        </RelativePanel>
+</Page>

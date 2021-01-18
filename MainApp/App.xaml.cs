@@ -49,6 +49,7 @@ namespace MainApp
 
             var navigationService = new NavigationService();
             navigationService.Configure(nameof(MainPage), typeof(MainPage));
+            navigationService.Configure(nameof(CorPage), typeof(CorPage));
             navigationService.Configure(nameof(PredictPage), typeof(PredictPage));
             services.AddScoped<INavigationService, NavigationService>((service) => navigationService);
 

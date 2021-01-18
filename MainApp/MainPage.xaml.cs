@@ -20,9 +20,5 @@ namespace MainApp
             this.DataContext = ViewModelLocator.MainViewModel;
         }
 
-        private void AppBarButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {            
-                                   
-        }
     }
 }

@@ -30,12 +30,23 @@ namespace MainApp.ViewModels
 
         #region Properties
 
-        struct CorrelationData
+        private int _numOfRC;
+
+        public int NumOfRowsAndColumns
         {
-            public string SourceColumnName;
-            public string DestColumnName;
-            public double CorValue;
-        };
+            get { return _numOfRC; }
+            set { Set(ref _numOfRC, value); }
+        }
+
+
+        private ObservableCollection<CorrelationItem> _corrList;
+
+        public ObservableCollection<CorrelationItem> CorrelationData
+        {
+            get { return _corrList; }
+            set { Set(ref _corrList, value); }
+        }
+
 
         private bool _isLoading;
 
@@ -187,28 +198,26 @@ namespace MainApp.ViewModels
                 if (_corrPage == null)
                 {
                     _corrPage = new RelayCommand(() =>
-                    {
-                        List<CorrelationData> corData = new List<CorrelationData>();
-                        
+                    {                        
                         int i = 0;
                         Action<int[]> recursive = null;
+                        List<CorrelationItem> correlationItems = new List<CorrelationItem>();
                         recursive = (d) =>
                         {
                             int currentIndex = d[i];
                             double[] selectedData = GetDataByIndex(currentIndex);
+                            
+                            CorrelationItem correlationItem = new CorrelationItem();
+                            correlationItem.ColumnName = GetColumnNameByIndex(currentIndex);
+
                             d.ToList().ForEach((item) =>
                             {
                                 var itemData = GetDataByIndex(item);
                                 var corValue = selectedData.Correlation(itemData);
-
-                                CorrelationData correlationData = new CorrelationData()
-                                {
-                                    CorValue = corValue,
-                                    SourceColumnName = GetColumnNameByIndex(currentIndex),
-                                    DestColumnName = GetColumnNameByIndex(item)
-                                };
-                                corData.Add(correlationData);
+                                correlationItem.ChildItems.Add(GetColumnNameByIndex(item), corValue);                                
                             });
+
+                            correlationItems.Add(correlationItem);
 
                             if (d.Length > 2) { 
                                 i++;
@@ -219,27 +228,13 @@ namespace MainApp.ViewModels
                         
                         recursive(columnIndices.ToArray());
 
-                        var str = string.Empty;
-
-                        /*          temp    wind
-                         *  
-                         *  temp    1       0,3
-                         *  wind    0,3     1
-                         *  
-                        */
-
-                        // get headers
+                        _corrList = new ObservableCollection<CorrelationItem>(correlationItems);
                         
-                        corData.ForEach((c) => str += "     " + c.SourceColumnName + "    " + c.DestColumnName);
+                        _numOfRC = columnIndices.Count();
+                        navigationService.NavigateTo(nameof(CorPage));
 
-                        corData.ForEach((c) => str += c.SourceColumnName + "\n\n" + c.DestColumnName);
+                        //dialogService.ShowMessage(correlationItems.Count.ToString(), "Correlations");
 
-                        //corData.ForEach((c) => str += c.DestColumnName + "    " + c.CorValue.ToString("F2") + "    " + "\n");
-
-                        dialogService.ShowMessage(str, "Correlations");
-
-
-                        //navigationService.NavigateTo(nameof(CorrPage));
                     });
                 }
                 return _corrPage;
@@ -360,6 +355,7 @@ namespace MainApp.ViewModels
                 {
                     _goToMain = new RelayCommand(()=>
                     {
+                        columnIndices.Clear();
                         navigationService.NavigateTo(nameof(MainPage));
                     });
                 }

@@ -18,15 +18,13 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MainApp
 {
-    
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class CorrPage : Page
+    public sealed partial class CorPage : Page
     {
         public MainViewModel ViewModel { get; set; }
-
-        public CorrPage()
+        public CorPage()
         {
             this.InitializeComponent();
             this.ViewModel = ViewModelLocator.MainViewModel;
