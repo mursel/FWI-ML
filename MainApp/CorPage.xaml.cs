@@ -30,5 +30,13 @@ namespace MainApp
             this.ViewModel = ViewModelLocator.MainViewModel;
             this.DataContext = ViewModelLocator.MainViewModel;
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+
+
+        }
     }
 }

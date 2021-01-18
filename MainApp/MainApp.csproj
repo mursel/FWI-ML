@@ -137,6 +137,7 @@
     <Compile Include="Services\Interfaces\ICFWIService.cs" />
     <Compile Include="Services\Interfaces\IDataLoader.cs" />
     <Compile Include="Services\Interfaces\IFileLoader.cs" />
+    <Compile Include="ViewModels\CorrelationViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
   </ItemGroup>

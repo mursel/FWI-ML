@@ -8,46 +8,39 @@
     xmlns:data="using:MainApp.Models" 
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Page.Resources>
-        <DataTemplate x:Key="TextTemplate" x:DataType="data:CorrelationItem">
-            <Grid>
-                <StackPanel Orientation="Horizontal" Width="100">
-                    <TextBlock Style="{StaticResource TitleTextBlockStyle}" Margin="8" Text="{x:Bind Path=ColumnName}" />
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Width="100">
-                    <ItemsControl x:Name="tStack" Grid.Column="0">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Vertical"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Content="{Binding}"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>                    
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
-    </Page.Resources>
+
     <RelativePanel Margin="12">
         <TextBlock x:Name="LogRegTitle" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" Text="Variable correlation" Margin="0,10,0,20" />
         <CommandBar x:Name="mainCmdBar" OverflowButtonVisibility="Collapsed" IsOpen="False" DefaultLabelPosition="Right" RelativePanel.Below="LogRegTitle">
             <AppBarButton Icon="Back" Label="Back" Command="{x:Bind ViewModel.GoToMainPage}" AllowFocusOnInteraction="True" />
         </CommandBar>
-        <GridView x:Name="gridView" RelativePanel.Below="mainCmdBar"
-                  ItemsSource="{x:Bind ViewModel.CorrelationData}"
-                  ItemTemplate="{StaticResource TextTemplate}"
-                  IsItemClickEnabled="False"
-                  SelectionMode="Single">
-            <GridView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <ItemsWrapGrid x:Name="itemsWrapGrid" Orientation="Horizontal" 
-                                   MaximumRowsOrColumns="{Binding ElementName=gridView, Path=ViewModel.NumOfRowsAndColumns}" />
-                </ItemsPanelTemplate>
-            </GridView.ItemsPanel>
-            
-        </GridView>
-        </RelativePanel>
+        <StackPanel x:Name="horHeaders" Orientation="Horizontal" RelativePanel.Below="mainCmdBar" Margin="50 10 0 0">
+            <ItemsControl x:Name="tStack2" ItemsSource="{x:Bind ViewModel.CorrelationData}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="data:CorrelationItem">
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind ColumnName}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+        <StackPanel x:Name="vertHeaders" Orientation="Vertical" RelativePanel.Below="horHeaders">
+            <ItemsControl x:Name="tStack" Grid.Column="0" ItemsSource="{x:Bind ViewModel.CorrelationData[0].ChildItems.Keys}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="data:CorrelationItem">
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </RelativePanel>
 </Page>
