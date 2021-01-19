@@ -345,24 +345,7 @@ namespace MainApp.ViewModels
                 columnIndices.Add(i);           
         }
 
-        private RelayCommand _goToMain;
 
-        public RelayCommand GoToMainPage
-        {
-            get
-            {
-                if (_goToMain == null)
-                {
-                    _goToMain = new RelayCommand(()=>
-                    {
-                        columnIndices.Clear();
-                        navigationService.NavigateTo(nameof(MainPage));
-                    });
-                }
-
-                return _goToMain;
-            }
-        }
 
         #endregion
 

@@ -23,12 +23,12 @@ namespace MainApp
     /// </summary>
     public sealed partial class CorPage : Page
     {
-        public MainViewModel ViewModel { get; set; }
+        public CorrelationViewModel ViewModel { get; set; }
         public CorPage()
         {
             this.InitializeComponent();
-            this.ViewModel = ViewModelLocator.MainViewModel;
-            this.DataContext = ViewModelLocator.MainViewModel;
+            this.ViewModel = ViewModelLocator.CorrelationViewModel;
+            //this.DataContext = ViewModelLocator.MainViewModel;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

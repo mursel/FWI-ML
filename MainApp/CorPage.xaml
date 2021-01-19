@@ -15,7 +15,7 @@
             <AppBarButton Icon="Back" Label="Back" Command="{x:Bind ViewModel.GoToMainPage}" AllowFocusOnInteraction="True" />
         </CommandBar>
         <StackPanel x:Name="horHeaders" Orientation="Horizontal" RelativePanel.Below="mainCmdBar" Margin="50 10 0 0">
-            <ItemsControl x:Name="tStack2" ItemsSource="{x:Bind ViewModel.CorrelationData}">
+            <ItemsControl x:Name="tStack2" ItemsSource="{x:Bind ViewModel.GridHeaders}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />
@@ -23,27 +23,27 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="data:CorrelationItem">
-                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind ColumnName}" Margin="15 0 0 0"/>
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind}" Margin="15 0 0 0"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
         <StackPanel x:Name="vertHeaders" Orientation="Vertical" RelativePanel.Below="horHeaders">
-            <ItemsControl x:Name="tStack" ItemsSource="{x:Bind ViewModel.CorrelationData[0].ChildItems.Keys}">
+            <ItemsControl x:Name="tStack" ItemsSource="{x:Bind ViewModel.GridHeaders}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="data:CorrelationItem">
-                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding}"/>
+                    <DataTemplate x:DataType="data:CorrelationItem">                        
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind}"/>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                </ItemsControl.ItemTemplate>                
             </ItemsControl>
         </StackPanel>
         <StackPanel x:Name="varvals" Orientation="Horizontal" RelativePanel.Below="horHeaders" RelativePanel.AlignLeftWith="vertHeaders"  Margin="50 0 0 0">
-            <ItemsControl x:Name="tStack3" ItemsSource="{x:Bind ViewModel.CorrelationData[0].ChildItems.Values}">
+            <ItemsControl x:Name="tStack3" ItemsSource="{x:Bind ViewModel.DataValues}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
@@ -56,5 +56,10 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
+        <GridView x:Name="gridView" RelativePanel.Below="vertHeaders" ItemsSource="{x:Bind ViewModel.DataValues}">
+            <GridViewHeaderItem>
+                <TextBlock Text="{Binding}" />
+            </GridViewHeaderItem>
+        </GridView>
     </RelativePanel>
 </Page>
