@@ -30,13 +30,6 @@ namespace MainApp.ViewModels
 
         #region Properties
 
-        private int _numOfRC;
-
-        public int NumOfRowsAndColumns
-        {
-            get { return _numOfRC; }
-            set { Set(ref _numOfRC, value); }
-        }
 
 
         private ObservableCollection<CorrelationItem> _corrList;
@@ -230,7 +223,6 @@ namespace MainApp.ViewModels
 
                         _corrList = new ObservableCollection<CorrelationItem>(correlationItems);
                         
-                        _numOfRC = columnIndices.Count();
                         navigationService.NavigateTo(nameof(CorPage));
 
                         //dialogService.ShowMessage(correlationItems.Count.ToString(), "Correlations");

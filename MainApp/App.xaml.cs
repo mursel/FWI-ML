@@ -46,7 +46,7 @@ namespace MainApp
             services.AddScoped<IDataLoader, DataLoaderService>();
             services.AddScoped<IDialogService, DialogService>();
             services.AddSingleton<MainViewModel>();
-            services.AddScoped<CorrelationViewModel>();
+            services.AddSingleton<CorrelationViewModel>();
 
             var navigationService = new NavigationService();
             navigationService.Configure(nameof(MainPage), typeof(MainPage));

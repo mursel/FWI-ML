@@ -82,7 +82,7 @@
                            SelectedItem="{x:Bind ViewModel.SelectedDataModelRow, Mode=TwoWay}"
                            GridLinesVisibility="All"
                            ItemsSource="{x:Bind ViewModel.ModelData}">
-            <controls:DataGrid.Columns>
+        <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn
                     Header="Datum"
                     Width="SizeToHeader"

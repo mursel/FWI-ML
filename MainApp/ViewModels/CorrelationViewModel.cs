@@ -37,6 +37,11 @@ namespace MainApp.ViewModels
             }
         }
 
+        public int NumOfRowsAndColumns
+        {
+            get { return GridHeaders.Count;  }
+        }
+
         private RelayCommand _goToMain;
 
         public RelayCommand GoToMainPage
