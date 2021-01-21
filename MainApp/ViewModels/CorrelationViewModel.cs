@@ -24,6 +24,7 @@ namespace MainApp.ViewModels
             get
             {
                 var headers = GetMainViewModel().CorrelationData.Select(h => h.ColumnName).ToList();
+                NumOfRowsAndColumns = headers.Count;
                 return headers;
             }
         }
@@ -33,13 +34,16 @@ namespace MainApp.ViewModels
             get
             {
                 var data = GetMainViewModel().CorrelationData.SelectMany(v => v.ChildItems.Values).ToList();
+                
                 return data;
             }
         }
 
+        private int _numOfRC;
         public int NumOfRowsAndColumns
         {
-            get { return GridHeaders.Count;  }
+            get { return _numOfRC;  }
+            set { Set(ref _numOfRC, value); }
         }
 
         private RelayCommand _goToMain;
@@ -58,6 +62,16 @@ namespace MainApp.ViewModels
 
                 return _goToMain;
             }
+        }
+
+        public static double GetOpacityLevel(double correlationValue)
+        {
+            return Math.Abs(correlationValue);
+        }
+
+        public static string DoubleToString(double number, int decimals = 2)
+        {
+            return number.ToString("F" + decimals.ToString());
         }
 
     }

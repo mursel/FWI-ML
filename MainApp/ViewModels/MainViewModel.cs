@@ -207,6 +207,8 @@ namespace MainApp.ViewModels
                             {
                                 var itemData = GetDataByIndex(item);
                                 var corValue = selectedData.Correlation(itemData);
+                                var opacity = corValue * 100;
+                                correlationItem.OpacityLevel = opacity;
                                 correlationItem.ChildItems.Add(GetColumnNameByIndex(item), corValue);                                
                             });
 

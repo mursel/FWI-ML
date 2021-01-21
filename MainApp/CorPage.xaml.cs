@@ -28,7 +28,7 @@ namespace MainApp
         {
             this.InitializeComponent();
             this.ViewModel = ViewModelLocator.CorrelationViewModel;
-            //this.DataContext = ViewModelLocator.MainViewModel;
+            this.DataContext = ViewModelLocator.CorrelationViewModel;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
