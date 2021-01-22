@@ -138,6 +138,14 @@ namespace MainApp.ViewModels
             set { Set(ref _shuffleData, value); }
         }
 
+        private bool? _normalizeData = false;
+
+        public bool? NormalizeData
+        {
+            get { return _normalizeData; }
+            set { Set(ref _normalizeData, value); }
+        }
+
 
         private double _cost;
 
@@ -154,6 +162,24 @@ namespace MainApp.ViewModels
             get { return _pseudoR2; }
             set { Set(ref _pseudoR2, value); }
         }
+
+        private double _accuracyTrain;
+
+        public double AccuracyTrain
+        {
+            get { return _accuracyTrain; }
+            set { Set(ref _accuracyTrain, value); }
+        }
+
+        private double _accuracyTest;
+
+        public double AccuracyTest
+        {
+            get { return _accuracyTest; }
+            set { Set(ref _accuracyTest, value); }
+        }
+
+
 
         #endregion
 
@@ -298,15 +324,15 @@ namespace MainApp.ViewModels
                         
                         lr.Data = dataLoader.ToArray(columnIndices.ToArray());
 
-                        lr.SplitData(_trainSize);
+                        lr.SplitData(_trainSize, _normalizeData.Value);
 
                         double[] weights = lr.Train(_shuffleData.Value);
 
 
                         _cost = lr.Cost_MLE;
 
-                        double accuracy1 = lr.Accuracy(lr.TrainSet, weights);
-                        double accuracy2 = lr.Accuracy(lr.TestSet, weights);
+                        _accuracyTrain = lr.Accuracy(lr.TrainSet, weights);
+                        _accuracyTest = lr.Accuracy(lr.TestSet, weights);
 
                         double r2 = lr.R2;
 

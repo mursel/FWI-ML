@@ -98,7 +98,6 @@ namespace BspCore.ML.Extensions
         {
             var min = v.SelectMany(a => a).Min();
             var max = v.SelectMany(a => a).Max();
-            int i = 0;
 
             v.ToList().ForEach((a) =>
             {

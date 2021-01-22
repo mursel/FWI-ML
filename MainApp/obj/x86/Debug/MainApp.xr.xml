@@ -98,6 +98,7 @@
       <RootProperty Name="Label" />
       <RootProperty Name="Command" />
       <RootProperty Name="AllowFocusOnInteraction" />
+      <RootProperty Name="Flyout" />
     </RootType>
     <RootType FullName="MainApp.CorPage" />
     <RootType FullName="MainApp.Converters.DateConverter" />
@@ -138,7 +139,6 @@
       <RootProperty Name="Content" />
       <RootProperty Name="Command" />
       <RootProperty Name="CommandParameter" />
-      <RootProperty Name="IsChecked" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarSeparator" />
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarElementContainer">
@@ -146,6 +146,13 @@
       <RootProperty Name="Padding" />
       <RootProperty Name="Resources" />
       <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.MenuFlyout">
+      <RootProperty Name="Items" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ToggleMenuFlyoutItem">
+      <RootProperty Name="Text" />
+      <RootProperty Name="IsChecked" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">
       <RootProperty Name="Color" />

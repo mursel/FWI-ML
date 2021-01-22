@@ -48,15 +48,6 @@ namespace BspCore.ML
             set { _numOfFeatures = value; }
         }
 
-        private bool _toNormalize;
-
-        public bool NormalizeData
-        {
-            get { return _toNormalize; }
-            set { Set(ref _toNormalize, value); }
-        }
-
-
         /// <summary>
         /// Final weights
         /// </summary>
@@ -177,7 +168,7 @@ namespace BspCore.ML
             return copyData;
         }
 
-        public void SplitData(double trainSize = 0.8)
+        public void SplitData(double trainSize = 0.8, bool _normalizeData = false)
         {
             int trainCount = (int)(_data.Length * 0.8);
 
@@ -195,6 +186,12 @@ namespace BspCore.ML
             {
                 _testSet[i] = new double[_numOfFeatures + 1];
                 _testSet[i] = _data[trainCount + i];
+            }
+
+            if(_normalizeData)
+            {
+                _trainSet.Normalize(_numOfFeatures);
+                _testSet.Normalize(_numOfFeatures);
             }
         }
                 
@@ -308,10 +305,21 @@ namespace BspCore.ML
             }
 
             // there is alpha penalty value??
-            var output = (AlphaPenalty > 0.0) ? ((cost - AlphaPenalty * ws) / trainData.Length) : cost / trainData.Length;
+            var output = (cost - AlphaPenalty * ws) / trainData.Length;
             return output;
         }
         
+        private double LogLikelihood(double[][] data, double p)
+        {
+            double ll = 0.0;
+            for (int i = 0; i < data.Length; i++)
+            {
+                var y = data[i][_numOfFeatures];
+                ll += y * Math.Log(p) + (1 - y) * Math.Log(1 - p);
+            }
+            return ll;
+        }
+
         public double LogLikelihood(double[][] data, double[] weights)
         {
             double ll = 0.0;
@@ -319,17 +327,6 @@ namespace BspCore.ML
             for (int i = 0; i < data.Length; i++)
             {
                 var p = Predict(data[i], weights);
-                var y = data[i][_numOfFeatures];
-                ll += y * Math.Log(p) + (1 - y) * Math.Log(1 - p);
-            }
-            return ll;
-        }
-
-        private double LogLikelihood(double[][] data, double p)
-        {
-            double ll = 0.0;
-            for (int i = 0; i < data.Length; i++)
-            {
                 var y = data[i][_numOfFeatures];
                 ll += y * Math.Log(p) + (1 - y) * Math.Log(1 - p);
             }
