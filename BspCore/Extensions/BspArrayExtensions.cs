@@ -88,5 +88,27 @@ namespace BspCore.ML.Extensions
             var k2 = k1 / Math.Sqrt(v.Variance() * input.Variance());
             return k2;
         }
+
+        /// <summary>
+        /// Normalize data values
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="featureCount"></param>
+        public static void Normalize(this double[][] v, int featureCount)
+        {
+            var min = v.SelectMany(a => a).Min();
+            var max = v.SelectMany(a => a).Max();
+            int i = 0;
+
+            v.ToList().ForEach((a) =>
+            {
+                for (int i = 0; i < featureCount; i++)
+                {
+                    a[i] = (a[i] - min) / (max - min);
+                }
+
+            });
+
+        }
     }
 }

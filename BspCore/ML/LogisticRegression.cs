@@ -48,6 +48,15 @@ namespace BspCore.ML
             set { _numOfFeatures = value; }
         }
 
+        private bool _toNormalize;
+
+        public bool NormalizeData
+        {
+            get { return _toNormalize; }
+            set { Set(ref _toNormalize, value); }
+        }
+
+
         /// <summary>
         /// Final weights
         /// </summary>
@@ -197,6 +206,8 @@ namespace BspCore.ML
 
             _weights.GenerateWeights();
 
+
+
             while (step < _epochs)
             {
                 if (useShuffle)
@@ -253,8 +264,8 @@ namespace BspCore.ML
         {
             double z = 0.0;
             z += w[0];
-            for (int j = 1; j < w.Length; j++)
-                z += w[j] * x[j - 1];
+            for (int j = 0; j < w.Length - 1; j++)
+                z += w[j + 1] * x[j];
             return z;
         }
 
