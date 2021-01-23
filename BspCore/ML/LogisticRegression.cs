@@ -125,7 +125,21 @@ namespace BspCore.ML
             set { _McFaddenR2 = value; }
         }
 
+        private double _accuracyTrain;
 
+        public double AccuracyTrain
+        {
+            get { return _accuracyTrain; }
+            set { _accuracyTrain= value; }
+        }
+
+        private double _accuracyTest;
+
+        public double AccuracyTest
+        {
+            get { return _accuracyTest; }
+            set { _accuracyTest = value; }
+        }
         #endregion
 
         #region Methods
@@ -170,7 +184,7 @@ namespace BspCore.ML
 
         public void SplitData(double trainSize = 0.8, bool _normalizeData = false)
         {
-            int trainCount = (int)(_data.Length * 0.8);
+            int trainCount = (int)(_data.Length * trainSize);
 
             _trainSet = new double[trainCount][];
             _testSet = new double[(_data.Length - 1) - trainCount][];
@@ -242,6 +256,9 @@ namespace BspCore.ML
             double LLFit = LogLikelihood(_trainSet, _weights);
             double LLFit2 = LogLikelihood(_trainSet, GetProbabilites(_trainSet));
             _McFaddenR2 = McFaddenR2(LLFit, LLFit2);
+
+            _accuracyTest = Accuracy(_testSet, _weights, 0);
+            _accuracyTrain = Accuracy(_trainSet, _weights, 0);
 
             return _weights;
         }

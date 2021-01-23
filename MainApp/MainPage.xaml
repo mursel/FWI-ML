@@ -8,6 +8,7 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     xmlns:cs="using:MainApp.Converters"
+    xmlns:sys="using:System"
     xmlns:dp="using:Microsoft.Toolkit.Uwp.UI.Controls.Primitives"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
@@ -17,7 +18,8 @@
     </Page.Resources>
     
     <RelativePanel Margin="12">
-        <TextBlock x:Name="LogRegTitle" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" Text="Fire prediction using logistic regression" Margin="0,10,0,20" />
+        <TextBlock x:Name="LogRegTitle" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" 
+                   Text="Fire prediction using logistic regression" Margin="0,10,0,20" />
         <CommandBar x:Name="mainCmdBar" OverflowButtonVisibility="Collapsed" IsOpen="False" DefaultLabelPosition="Right" RelativePanel.Below="LogRegTitle">
             <AppBarButton Icon="Upload" Label="Load data" Command="{x:Bind ViewModel.LoadDataSet}" AllowFocusOnInteraction="True" />
             <AppBarSeparator />
@@ -74,8 +76,8 @@
             <AppBarButton Icon="More" Label="Opcije">
                 <Button.Flyout>
                     <MenuFlyout>
-                        <ToggleMenuFlyoutItem Text="Use shuffle?" IsChecked="{x:Bind ViewModel.ShuffleData.Value, Mode=TwoWay}" />
-                        <ToggleMenuFlyoutItem Text="Normalize data?" IsChecked="{x:Bind ViewModel.NormalizeData.Value, Mode=TwoWay}" />
+                        <ToggleMenuFlyoutItem Text="Use shuffle?" IsChecked="{x:Bind ViewModel.ShuffleData, Mode=TwoWay}" />
+                        <ToggleMenuFlyoutItem Text="Normalize data?" IsChecked="{x:Bind ViewModel.NormalizeData, Mode=TwoWay}" />
                     </MenuFlyout>
                 </Button.Flyout>
             </AppBarButton>
@@ -108,7 +110,7 @@
                                         <CheckBox x:Name="cbTemperature" Content="Temperature C°"                                                  
                                                   Command="{Binding 
                                             ElementName=dataListGrid, 
-                                            Path=DataContext.AddColumnIndex}" 
+                                            Path=DataContext.AddColumnIndex, Mode=TwoWay}" 
                                                   CommandParameter="1"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -129,7 +131,7 @@
                                         <CheckBox x:Name="cbWindSpeed" Content="Wind speed KM/h"                                                  
                                                   Command="{Binding 
                                             ElementName=dataListGrid, 
-                                            Path=DataContext.AddColumnIndex}" 
+                                            Path=DataContext.AddColumnIndex, Mode=TwoWay}" 
                                                   CommandParameter="2"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -150,7 +152,7 @@
                                         <CheckBox x:Name="cbRelativeHum" Content="Relative humidity %"                                                  
                                                   Command="{Binding 
                                             ElementName=dataListGrid, 
-                                            Path=DataContext.AddColumnIndex}" 
+                                            Path=DataContext.AddColumnIndex, Mode=TwoWay}" 
                                                   CommandParameter="3"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -171,7 +173,7 @@
                                         <CheckBox x:Name="cbPrecipitation" Content="Precipitation (mm)"                                                  
                                                   Command="{Binding 
                                             ElementName=dataListGrid, 
-                                            Path=DataContext.AddColumnIndex}" 
+                                            Path=DataContext.AddColumnIndex, Mode=TwoWay}" 
                                                   CommandParameter="4"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -192,7 +194,7 @@
                                         <CheckBox x:Name="cbFFMC" Content="FFMC"                                                  
                                                   Command="{Binding 
                                             ElementName=dataListGrid, 
-                                            Path=DataContext.AddColumnIndex}" 
+                                            Path=DataContext.AddColumnIndex, Mode=TwoWay}" 
                                                   CommandParameter="5"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -213,7 +215,7 @@
                                         <CheckBox x:Name="cbDMC" Content="DMC"                                                  
                                                   Command="{Binding 
                                             ElementName=dataListGrid, 
-                                            Path=DataContext.AddColumnIndex}" 
+                                            Path=DataContext.AddColumnIndex, Mode=TwoWay}" 
                                                   CommandParameter="6"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -234,7 +236,7 @@
                                         <CheckBox x:Name="cbDC" Content="DC"                                                  
                                                   Command="{Binding 
                                             ElementName=dataListGrid, 
-                                            Path=DataContext.AddColumnIndex}" 
+                                            Path=DataContext.AddColumnIndex, Mode=TwoWay}" 
                                                   CommandParameter="7"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -255,7 +257,7 @@
                                         <CheckBox x:Name="cbISI" Content="ISI"                                                  
                                                   Command="{Binding 
                                             ElementName=dataListGrid, 
-                                            Path=DataContext.AddColumnIndex}" 
+                                            Path=DataContext.AddColumnIndex, Mode=TwoWay}" 
                                                   CommandParameter="8"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -276,7 +278,7 @@
                                         <CheckBox x:Name="cbBUI" Content="BUI"                                                  
                                                   Command="{Binding 
                                             ElementName=dataListGrid, 
-                                            Path=DataContext.AddColumnIndex}" 
+                                            Path=DataContext.AddColumnIndex, Mode=TwoWay}" 
                                                   CommandParameter="9"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -297,7 +299,7 @@
                                         <CheckBox x:Name="cbFWI" Content="FWI"                                                  
                                                   Command="{Binding 
                                             ElementName=dataListGrid, 
-                                            Path=DataContext.AddColumnIndex}" 
+                                            Path=DataContext.AddColumnIndex, Mode=TwoWay}" 
                                                   CommandParameter="10"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -319,7 +321,7 @@
                                         <CheckBox x:Name="cbDSR" Content="DSR"                                                  
                                                   Command="{Binding 
                                             ElementName=dataListGrid, 
-                                            Path=DataContext.AddColumnIndex}" 
+                                            Path=DataContext.AddColumnIndex, Mode=TwoWay}" 
                                                   CommandParameter="11"></CheckBox>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -334,15 +336,11 @@
                     Binding="{Binding Fire}" />
             </controls:DataGrid.Columns>
         </controls:DataGrid>
-        <StackPanel x:Name="stackPanel" Orientation="Horizontal" RelativePanel.Below="dataListGrid" Margin="12 12 0 0">
-            <TextBlock Text="Cost:  " />
-            <TextBlock Text="{x:Bind ViewModel.Cost}" Margin="10 0 0 10"/>
-            <TextBlock Text="McFadden R^2:  " />
-            <TextBlock Text="{x:Bind ViewModel.McFaddenR2}" Margin="10 0 0 10"/>
-            <TextBlock Text="Accuracy (TrainSet):   " />
-            <TextBlock Text="{x:Bind ViewModel.AccuracyTrain}" Margin="10 0 0 10"/>
-            <TextBlock Text="Accuracy (TestSet):   " />
-            <TextBlock Text="{x:Bind ViewModel.AccuracyTest}" Margin="10 0 0 10"/>
+        <StackPanel x:Name="stackPanel" Orientation="Vertical" RelativePanel.Below="dataListGrid" Margin="12 12 0 0">
+            <TextBlock Text="{x:Bind sys:String.Format(x:Null, 'Cost: {0:F4}', ViewModel.Cost), Mode=OneWay}" Margin="10 0 0 0"/>
+            <TextBlock Text="{x:Bind sys:String.Format(x:Null, 'McFadden R^2: {0:F4}', ViewModel.McFaddenR2), Mode=OneWay}" Margin="10 0 0 0"/>
+            <TextBlock Text="{x:Bind sys:String.Format(x:Null, 'AccuracyTrain: {0:F2}', ViewModel.AccuracyTrain), Mode=OneWay}" Margin="10 0 0 0"/>
+            <TextBlock Text="{x:Bind sys:String.Format(x:Null, 'AccuracyTest: {0:F2}', ViewModel.AccuracyTest), Mode=OneWay}" Margin="10 0 0 0"/>
         </StackPanel>
     </RelativePanel>
     

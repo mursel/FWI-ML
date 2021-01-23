@@ -123,7 +123,7 @@ namespace MainApp.ViewModels
             } 
         }
 
-        private double _trainSize;
+        private double _trainSize = 0.8;
 
         public double TrainSize
         {
@@ -131,16 +131,16 @@ namespace MainApp.ViewModels
             set { Set(ref _trainSize, value); }
         }
 
-        private bool? _shuffleData = false;
-        public bool? ShuffleData
+        private bool _shuffleData = false;
+        public bool ShuffleData
         {
             get { return _shuffleData; }
             set { Set(ref _shuffleData, value); }
         }
 
-        private bool? _normalizeData = false;
+        private bool _normalizeData = false;
 
-        public bool? NormalizeData
+        public bool NormalizeData
         {
             get { return _normalizeData; }
             set { Set(ref _normalizeData, value); }
@@ -195,7 +195,7 @@ namespace MainApp.ViewModels
                         try
                         {
                             // load our data as collection
-                            var data = await dataLoader.GetAllAsync("dataset_final.csv");
+                            var data = await dataLoader.GetAllAsync("final_dataset.csv");
                             data.ToList().ForEach(n => ModelData.Add(n));
                         }
                         catch (Exception ex)
@@ -324,17 +324,14 @@ namespace MainApp.ViewModels
                         
                         lr.Data = dataLoader.ToArray(columnIndices.ToArray());
 
-                        lr.SplitData(_trainSize, _normalizeData.Value);
+                        lr.SplitData(_trainSize, _normalizeData);
 
-                        double[] weights = lr.Train(_shuffleData.Value);
+                        double[] weights = lr.Train(_shuffleData);
 
-
-                        _cost = lr.Cost_MLE;
-
-                        _accuracyTrain = lr.Accuracy(lr.TrainSet, weights);
-                        _accuracyTest = lr.Accuracy(lr.TestSet, weights);
-
-                        double r2 = lr.R2;
+                        Cost = lr.Cost_MLE;
+                        AccuracyTrain = lr.AccuracyTrain;
+                        AccuracyTest = lr.AccuracyTest;
+                        McFaddenR2 = lr.R2;
 
 
                         //navigationService.NavigateTo(nameof(PredictPage));
