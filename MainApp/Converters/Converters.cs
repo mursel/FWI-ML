@@ -40,7 +40,7 @@ namespace MainApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var v = (parameter.ToString().Length > 0 || value.ToString().Length == 0) ? parameter.ToString() : value.ToString();
+            var v = (value.ToString().Length == 0 || value.ToString() == "0") ? parameter.ToString() : value.ToString();
             //str = str.ToString(ci.NumberFormat);
             return v;
             //return (string.IsNullOrEmpty(str) || str == "0") ? parameter.ToString() : str;
