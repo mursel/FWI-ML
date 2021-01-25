@@ -1,16 +1,9 @@
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid.xr.xml
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\dataset_final.csv
-C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\data.csv
-C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\dataset1.csv
-C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\dataset_final - scaled.csv
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\export.csv
-C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\testdata.csv
-C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\Titanic.csv
-C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\titanic1.csv
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\App.xbf
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\CorPage.xbf
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\MainPage.xbf
-C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\PredictPage.xbf
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\MainApp.xr.xml
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\MainApp.exe
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\MainApp.pdb
@@ -70,17 +63,13 @@ C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\CorPage.g.i.c
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\CorPage.g.cs
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\MainPage.g.i.cs
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\MainPage.g.cs
-C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.g.i.cs
-C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.g.cs
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\XamlTypeInfo.g.cs
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\App.xaml
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\CorPage.xaml
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\MainPage.xaml
-C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.xaml
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\App.xbf
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\CorPage.xbf
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\MainPage.xbf
-C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\PredictPage.xbf
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\XamlSaveStateFile.xml
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\MainApp.csproj.CoreCompileInputs.cache
 C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\obj\x86\Debug\MainApp.csproj.CopyComplete
@@ -246,3 +235,5 @@ C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\ProjectArchitect
 C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\.winmd_cache\$Microsoft.UI.Xaml.Markup.winmd_636885238160000000.json
 C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\dataset_final-3.csv
 C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\final_dataset.csv
+C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\dataset_final-3.csv
+C:\Users\m.mursel\source\repos\mursel\FWI-ML\MainApp\bin\x86\Debug\final_dataset.csv

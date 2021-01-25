@@ -17,6 +17,7 @@ namespace MainApp.ViewModels
         private readonly IDataLoader dataLoader;
         private readonly INavigationService navigationService;
         private readonly IDialogService dialogService;
+        private LogisticRegression lr = null;
 
         private List<int> columnIndices = new List<int>();
 
@@ -30,8 +31,6 @@ namespace MainApp.ViewModels
 
         #region Properties
 
-
-
         private ObservableCollection<CorrelationItem> _corrList;
 
         public ObservableCollection<CorrelationItem> CorrelationData
@@ -40,6 +39,13 @@ namespace MainApp.ViewModels
             set { Set(ref _corrList, value); }
         }
 
+        private double[] _weights;
+
+        public double[] Weights
+        {
+            get { return _weights; }
+            set { _weights = value; }
+        }
 
         private bool _isLoading;
 
@@ -67,38 +73,7 @@ namespace MainApp.ViewModels
             set { Set(ref _selectedDataModelRow, value); }
         }
 
-        private int _mjesec;
-        public int Mjesec { get => _mjesec; set { Set(ref _mjesec, value); } }
-
-        private double _temp;
-        public double Temperature { get => _temp; set { Set(ref _temp, value); } }
-
-        private double _windSpeed;
-        public double WindSpeed { get => _windSpeed; set { Set(ref _windSpeed, value); } }
-
-        private double _relHum;
-        public double RelativeHumidity { get => _relHum; set { Set(ref _relHum, value); } }
-
-        private double _precip;
-        public double Precipitation { get => _precip; set { Set(ref _precip, value); } }
-
-        private double _ffmc;
-        public double FFMC { get => _ffmc; set { Set(ref _ffmc, value); } }
-
-        private double _dmc;
-        public double DMC { get => _dmc; set { Set(ref _dmc, value); } }
-
-        private double _dc;
-        public double DC { get => _dc; set { Set(ref _dc, value); } }
-
-        private double _isi;
-        public double ISI { get => _isi; set { Set(ref _isi, value); } }
-
-        private double _bui;
-        public double BUI { get => _bui; set { Set(ref _bui, value); } }
-
-        private double _fwi;
-        public double FWI { get => _fwi; set { Set(ref _fwi, value); } }
+       
 
         private int _iter = 1000;
         public int MaxIter {
@@ -188,7 +163,35 @@ namespace MainApp.ViewModels
             set { Set(ref _accuracyTest, value); }
         }
 
+        private double _temp;
+        public double Temperature { get => _temp; set { Set(ref _temp, value); } }
 
+        private double _windSpeed;
+        public double WindSpeed { get => _windSpeed; set { Set(ref _windSpeed, value); } }
+
+        private double _relHum;
+        public double RelativeHumidity { get => _relHum; set { Set(ref _relHum, value); } }
+
+        private double _precip;
+        public double Precipitation { get => _precip; set { Set(ref _precip, value); } }
+
+        private double _ffmc;
+        public double FFMC { get => _ffmc; set { Set(ref _ffmc, value); } }
+
+        private double _dmc;
+        public double DMC { get => _dmc; set { Set(ref _dmc, value); } }
+
+        private double _dc;
+        public double DC { get => _dc; set { Set(ref _dc, value); } }
+
+        private double _isi;
+        public double ISI { get => _isi; set { Set(ref _isi, value); } }
+
+        private double _bui;
+        public double BUI { get => _bui; set { Set(ref _bui, value); } }
+
+        private double _fwi;
+        public double FWI { get => _fwi; set { Set(ref _fwi, value); } }
 
         #endregion
 
@@ -316,6 +319,11 @@ namespace MainApp.ViewModels
             return null;
         }
 
+        public bool GetIsEnabled(int index)
+        {
+            return columnIndices.Contains(index);
+        }
+
         private RelayCommand rcCalculate;
         public RelayCommand Izracunaj
         {
@@ -328,25 +336,46 @@ namespace MainApp.ViewModels
 
                         if (columnIndices.Count > 0) 
                             featureCount = columnIndices.Count;
-                        
-                        var lr = new LogisticRegression(_iter, _learnRate, _l2val, featureCount);
+
+                        lr.MaxEpochs = _iter;
+                        lr.LearningRate = _learnRate;
+                        lr.AlphaPenalty = _l2val;
+                        lr.NumberOfFeatures = featureCount;
                         
                         lr.Data = dataLoader.ToArray(columnIndices.ToArray());
 
                         lr.SplitData(_trainSize, _normalizeData);
 
-                        double[] weights = lr.Train(_shuffleData);
+                        _weights = lr.Train(_shuffleData);
 
                         Cost = lr.Cost_MLE;
                         AccuracyTrain = lr.AccuracyTrain;
                         AccuracyTest = lr.AccuracyTest;
                         McFaddenR2 = lr.R2;
 
-                        WeightsOutput = weights.OutputWeights();
-                        //navigationService.NavigateTo(nameof(PredictPage));
+                        WeightsOutput = _weights.OutputWeights();
                     });
                 }
                 return rcCalculate; }
+        }
+
+        private RelayCommand _calculate;
+
+        public RelayCommand Calculate
+        {
+            get
+            {
+                if (_calculate == null)
+                {
+
+                    _calculate = new RelayCommand(() =>
+                    {
+                        
+                    });
+                }
+
+                return _calculate;
+            }
         }
 
         private RelayCommand<string> cmdAddColumnIndex;

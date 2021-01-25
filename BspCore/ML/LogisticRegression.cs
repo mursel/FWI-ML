@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BspCore.ML.Contracts;
 using BspCore.ML.Extensions;
 
 namespace BspCore.ML
@@ -12,12 +13,14 @@ namespace BspCore.ML
         L2 = 1
     }
 
-    public class LogisticRegression
+    public class LogisticRegression : IRegression
     {
         public LogisticRegression() { }
+
         public LogisticRegression(int _maxExpochs, double _learningRate) { 
             this._epochs = _maxExpochs; this._learnRate = _learningRate; 
         }
+
         public LogisticRegression(int _maxExpochs, double _learningRate, double _L2Penalty) {
             this._epochs = _maxExpochs; this._learnRate = _learningRate; this._alphaPenalty = _L2Penalty;
         }

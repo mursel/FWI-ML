@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Views;
+﻿using BspCore.ML;
+using BspCore.ML.Contracts;
+using GalaSoft.MvvmLight.Views;
 using MainApp.Service.Interfaces;
 using MainApp.Services;
 using MainApp.ViewModels;
@@ -45,13 +47,13 @@ namespace MainApp
         {
             services.AddScoped<IDataLoader, DataLoaderService>();
             services.AddScoped<IDialogService, DialogService>();
+            services.AddScoped<IRegression, LogisticRegression>();
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<CorrelationViewModel>();
 
             var navigationService = new NavigationService();
             navigationService.Configure(nameof(MainPage), typeof(MainPage));
             navigationService.Configure(nameof(CorPage), typeof(CorPage));
-            navigationService.Configure(nameof(PredictPage), typeof(PredictPage));
             services.AddScoped<INavigationService, NavigationService>((service) => navigationService);
 
             
