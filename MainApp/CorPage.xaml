@@ -19,7 +19,7 @@
             </Border>
         </DataTemplate>
         <DataTemplate x:Key="TextDataTemplate1" x:DataType="x:String">
-            <Border Background="AliceBlue" BorderBrush="Black" BorderThickness="0.2">
+            <Border BorderBrush="Black" BorderThickness="0.2">
                 <TextBlock FontSize="20" Width="100" Height="40" HorizontalTextAlignment="Center" Text="{x:Bind}" />
             </Border>
         </DataTemplate>

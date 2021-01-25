@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     xmlns:cs="using:MainApp.Converters"
     xmlns:sys="using:System"
-    xmlns:dp="using:Microsoft.Toolkit.Uwp.UI.Controls.Primitives"
+    xmlns:dp="using:Microsoft.Toolkit.Uwp.UI.Controls.Primitives"    
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <cs:DateConverter x:Key="DateConverter" />
@@ -342,6 +342,9 @@
             <TextBlock Text="{x:Bind sys:String.Format(x:Null, 'AccuracyTrain: {0:F2}', ViewModel.AccuracyTrain), Mode=OneWay}" Margin="10 0 0 0"/>
             <TextBlock Text="{x:Bind sys:String.Format(x:Null, 'AccuracyTest: {0:F2}', ViewModel.AccuracyTest), Mode=OneWay}" Margin="10 0 0 0"/>
         </StackPanel>
+        <TextBlock Text="{x:Bind ViewModel.WeightsOutput, Mode=OneWay}" FontSize="20" Margin="20 0 0 0" Foreground="Red"
+                   RelativePanel.Below="stackPanel"/>
+
     </RelativePanel>
     
 </Page>

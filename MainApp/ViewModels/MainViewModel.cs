@@ -123,6 +123,15 @@ namespace MainApp.ViewModels
             } 
         }
 
+        private string _weightsOutput;
+
+        public string WeightsOutput
+        {
+            get { return _weightsOutput; }
+            set { Set(ref _weightsOutput, value); }
+        }
+
+
         private double _trainSize = 0.8;
 
         public double TrainSize
@@ -333,7 +342,7 @@ namespace MainApp.ViewModels
                         AccuracyTest = lr.AccuracyTest;
                         McFaddenR2 = lr.R2;
 
-
+                        WeightsOutput = weights.OutputWeights();
                         //navigationService.NavigateTo(nameof(PredictPage));
                     });
                 }

@@ -23,6 +23,19 @@ namespace BspCore.ML.Extensions
             });
         }
 
+        public static string OutputWeights(this double[] weights)
+        {
+            var output = "Y = " + weights[0].ToString("F4") + " ";
+            int i = 0;
+            weights.ToList().ForEach((w) =>
+            {
+                output += w.ToString("F4") + "*X" + i.ToString() + " ";
+                i++;
+            });
+            return output;
+        }
+
+
         /// <summary>
         /// Calculate variance over sample set
         /// </summary>
