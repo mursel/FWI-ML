@@ -13347,11 +13347,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\MainApp\\MainApp.csproj",
+      "projectUniqueName": "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\MainApp\\MainApp.csproj",
       "projectName": "MainApp",
-      "projectPath": "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\MainApp\\MainApp.csproj",
+      "projectPath": "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\MainApp\\MainApp.csproj",
       "packagesPath": "C:\\Users\\m.mursel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\MainApp\\obj\\",
+      "outputPath": "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\MainApp\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -13374,8 +13374,8 @@
       "frameworks": {
         "uap10.0.17763": {
           "projectReferences": {
-            "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj": {
-              "projectPath": "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj"
+            "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj": {
+              "projectPath": "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj"
             }
           }
         }

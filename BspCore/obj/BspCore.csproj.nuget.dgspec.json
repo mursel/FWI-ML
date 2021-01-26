@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj": {}
+    "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj": {
+    "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj",
+        "projectUniqueName": "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj",
         "projectName": "BspCore",
-        "projectPath": "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj",
+        "projectPath": "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj",
         "packagesPath": "C:\\Users\\m.mursel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\m.mursel\\source\\repos\\mursel\\FWI-ML\\BspCore\\obj\\",
+        "outputPath": "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\BspCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
