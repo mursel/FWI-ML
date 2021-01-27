@@ -19,17 +19,27 @@ namespace MainApp.ViewModels
         private readonly IDialogService dialogService;
         private LogisticRegression lr = null;
 
-        private List<int> columnIndices = new List<int>();
 
         public MainViewModel(IDataLoader _dataLoader, INavigationService service, IDialogService dialog)
         {
             this.dataLoader = _dataLoader;
             ModelData = new ObservableCollection<DataModel>();
+            columnIndices = new ObservableCollection<int>();
             navigationService = service;
             dialogService = dialog;
         }
 
         #region Properties
+
+
+        private ObservableCollection<int> columnIndices;
+
+        public ObservableCollection<int> ColumnIndices
+        {
+            get { return columnIndices; }
+            set { Set(ref columnIndices, value); }
+        }
+
 
         private ObservableCollection<CorrelationItem> _corrList;
 
@@ -72,8 +82,7 @@ namespace MainApp.ViewModels
             get { return _selectedDataModelRow; }
             set { Set(ref _selectedDataModelRow, value); }
         }
-
-       
+               
 
         private int _iter = 1000;
         public int MaxIter {
@@ -192,6 +201,7 @@ namespace MainApp.ViewModels
 
         private double _fwi;
         public double FWI { get => _fwi; set { Set(ref _fwi, value); } }
+
 
         #endregion
 
@@ -317,11 +327,6 @@ namespace MainApp.ViewModels
             }
 
             return null;
-        }
-
-        public bool GetIsEnabled(int index)
-        {
-            return columnIndices.Contains(index);
         }
 
         private RelayCommand rcCalculate;

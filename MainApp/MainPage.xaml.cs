@@ -21,5 +21,10 @@ namespace MainApp
             this.DataContext = ViewModelLocator.MainViewModel;
         }
 
+        private void dataListGrid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            var eo = ((Windows.UI.Xaml.FrameworkElement)e.OriginalSource);
+            var tag = eo.Tag;
+        }
     }
 }

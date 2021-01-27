@@ -9,6 +9,7 @@
     mc:Ignorable="d"
     xmlns:cs="using:MainApp.Converters"
     xmlns:sys="using:System"
+    xmlns:uc="using:MainApp.UserControls"
     xmlns:dp="using:Microsoft.Toolkit.Uwp.UI.Controls.Primitives"    
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
@@ -105,24 +106,25 @@
                            AlternatingRowBackground="Transparent" AlternatingRowForeground="Gray"
                            SelectionMode="Extended" ClipboardCopyMode="IncludeHeader"                           
                            SelectedItem="{x:Bind ViewModel.SelectedDataModelRow, Mode=TwoWay}"
-                           GridLinesVisibility="All"
+                           GridLinesVisibility="All" Tapped="dataListGrid_Tapped"                                  
                            ItemsSource="{x:Bind ViewModel.ModelData}">
-                    <controls:DataGrid.Columns>
-                        <controls:DataGridTextColumn
-                    Header="Datum"
+                    <controls:DataGrid.Columns>         
+                        <controls:DataGridTextColumn        
+                            Header="Datum"
                     Width="SizeToHeader"
                     FontSize="16"
                     Binding="{Binding Datum, Converter={StaticResource DateConverter}}" />
                         <controls:DataGridTextColumn
+                    Tag="1"
                     Header="Temperature C°"
                     Width="SizeToHeader"
-                    FontSize="16"
+                    FontSize="16"       
                     Binding="{Binding Temperature}">
                             <controls:DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="dp:DataGridColumnHeader">
                                     <Setter Property="ContentTemplate">
                                         <Setter.Value>
-                                            <DataTemplate >
+                                            <DataTemplate>
                                                 <CheckBox x:Name="cbTemperature" Content="Temperature C°"                                                  
                                                   Command="{Binding 
                                             ElementName=dataListGrid, 
@@ -135,6 +137,7 @@
                             </controls:DataGridTextColumn.HeaderStyle>
                         </controls:DataGridTextColumn>
                         <controls:DataGridTextColumn
+                    Tag="2"                            
                     Header="Wind speed KM/h"
                     Width="SizeToHeader"
                     FontSize="16"
@@ -156,6 +159,7 @@
                             </controls:DataGridTextColumn.HeaderStyle>
                         </controls:DataGridTextColumn>
                         <controls:DataGridTextColumn
+                    Tag="3"                            
                     Header="Relative humidity %"
                     Width="SizeToHeader"
                     FontSize="16"
@@ -177,6 +181,7 @@
                             </controls:DataGridTextColumn.HeaderStyle>
                         </controls:DataGridTextColumn>
                         <controls:DataGridTextColumn
+                    Tag="4"                            
                     Header="Precipitation (mm)"
                     Width="SizeToHeader"
                     FontSize="16"
@@ -198,6 +203,7 @@
                             </controls:DataGridTextColumn.HeaderStyle>
                         </controls:DataGridTextColumn>
                         <controls:DataGridTextColumn
+                    Tag="5"                            
                     Header="FFMC"
                     Width="150"
                     FontSize="16"
@@ -219,6 +225,7 @@
                             </controls:DataGridTextColumn.HeaderStyle>
                         </controls:DataGridTextColumn>
                         <controls:DataGridTextColumn
+                    Tag="6"                            
                     Header="DMC"
                     Width="150"
                     FontSize="16"
@@ -240,6 +247,7 @@
                             </controls:DataGridTextColumn.HeaderStyle>
                         </controls:DataGridTextColumn>
                         <controls:DataGridTextColumn
+                    Tag="7"                            
                     Header="DC"
                     Width="150"
                     FontSize="16"
@@ -261,6 +269,7 @@
                             </controls:DataGridTextColumn.HeaderStyle>
                         </controls:DataGridTextColumn>
                         <controls:DataGridTextColumn
+                    Tag="8"                            
                     Header="ISI"
                     Width="150"
                     FontSize="16"
@@ -282,6 +291,7 @@
                             </controls:DataGridTextColumn.HeaderStyle>
                         </controls:DataGridTextColumn>
                         <controls:DataGridTextColumn
+                    Tag="9"                            
                     Header="BUI"
                     Width="150"
                     FontSize="16"
@@ -303,6 +313,7 @@
                             </controls:DataGridTextColumn.HeaderStyle>
                         </controls:DataGridTextColumn>
                         <controls:DataGridTextColumn
+                    Tag="10"                            
                     Header="FWI"
                     Width="150"
                     FontSize="16"
@@ -324,6 +335,7 @@
                             </controls:DataGridTextColumn.HeaderStyle>
                         </controls:DataGridTextColumn>
                         <controls:DataGridTextColumn
+                    Tag="11"                            
                     Visibility="Collapsed"
                     Header="DSR"
                     Width="150"
@@ -350,11 +362,6 @@
                     Width="150"
                     FontSize="16"
                     Binding="{Binding Fire}" />
-                        <controls:DataGridTemplateColumn>
-                            <controls:DataGridTemplateColumn.CellTemplate>
-                                
-                            </controls:DataGridTemplateColumn.CellTemplate>
-                        </controls:DataGridTemplateColumn>
                     </controls:DataGrid.Columns>
                 </controls:DataGrid>
                 <StackPanel x:Name="stackPanel" Orientation="Vertical" RelativePanel.Below="dataListGrid" Margin="12 12 0 0">
@@ -394,7 +401,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Meteorological data" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.ColumnSpan="3" Margin="10 0 0 0"/>
                         <TextBlock Text="Temp (C°):" Style="{StaticResource TextStyleOne}" Grid.Row="1" Grid.Column="0" />
-                        <TextBox Text="{x:Bind ViewModel.Temperature, Mode=TwoWay}" IsEnabled="{Binding ElementName=dataListGrid, Path=}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextStyleTwo}" />
+                        <TextBox Text="{x:Bind ViewModel.Temperature, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextStyleTwo}" />
                         <TextBlock Text="RH (%):"  Style="{StaticResource TextStyleOne}"  Grid.Row="2" Grid.Column="0"  />
                         <TextBox Text="{x:Bind ViewModel.RelativeHumidity, Mode=TwoWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="2" Grid.Column="1" />
                         <TextBlock Text="Wind speed (KM/h):" Width="100"  Style="{StaticResource TextStyleOne}"  Grid.Row="3" Grid.Column="0"  />
