@@ -5,6 +5,7 @@
   </Roots.Interfaces>
   <Roots.PropertyPathNames>
     <RootPropertyPathName Name="NumOfRowsAndColumns" />
+    <RootPropertyPathName Name="IsEnabled" />
     <RootPropertyPathName Name="Fire" />
     <RootPropertyPathName Name="DSR" />
     <RootPropertyPathName Name="DataContext" />
@@ -118,6 +119,7 @@
     <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
       <RootProperty Name="Text" />
       <RootProperty Name="Style" />
+      <RootProperty Name="IsEnabled" />
       <RootProperty Name="Width" />
       <RootProperty Name="Margin" />
     </RootType>
@@ -184,12 +186,7 @@
       <RootProperty Name="FontSize" />
       <RootProperty Name="Binding" />
       <RootProperty Name="Tag" />
-      <RootProperty Name="HeaderStyle" />
       <RootProperty Name="Visibility" />
-    </RootType>
-    <RootType FullName="Microsoft.Toolkit.Uwp.UI.Controls.Primitives.DataGridColumnHeader" />
-    <RootType FullName="Windows.UI.Xaml.Controls.ContentControl">
-      <RootProperty Name="ContentTemplate" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.CheckBox">
       <RootProperty Name="Content" />

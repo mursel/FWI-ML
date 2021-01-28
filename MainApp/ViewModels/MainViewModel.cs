@@ -202,6 +202,15 @@ namespace MainApp.ViewModels
         private double _fwi;
         public double FWI { get => _fwi; set { Set(ref _fwi, value); } }
 
+        private bool _isTempEnabled;
+
+        public bool TempEnabled
+        {
+            get { return _isTempEnabled; }
+            set { Set(ref _isTempEnabled, value); }
+        }
+
+
 
         #endregion
 
@@ -398,11 +407,35 @@ namespace MainApp.ViewModels
 
         private void AddColumnIndexMethod(string index)
         {
+            bool isRemoved = false;
+
             var i = int.Parse(index);
             if (columnIndices.Contains(i))
-                columnIndices.Remove(i);
+                isRemoved = columnIndices.Remove(i);
             else
-                columnIndices.Add(i);           
+                columnIndices.Add(i);
+
+            CheckTextBoxEnabledByIndex(index, isRemoved);
+            
+
+        }
+
+        private void CheckTextBoxEnabledByIndex(string index, bool isRemoved)
+        {
+            switch (index)
+            {
+                case 1: TempEnabled = !isRemoved; break;
+                //case 2: return _dataList.Select(a => a.WindSpeed).ToArray();
+                //case 3: return _dataList.Select(a => a.RelativeHumidity).ToArray();
+                //case 4: return _dataList.Select(a => a.Precipitation).ToArray();
+                //case 5: return _dataList.Select(a => a.FFMC).ToArray();
+                //case 6: return _dataList.Select(a => a.DMC).ToArray();
+                //case 7: return _dataList.Select(a => a.DC).ToArray();
+                //case 8: return _dataList.Select(a => a.ISI).ToArray();
+                //case 9: return _dataList.Select(a => a.BUI).ToArray();
+                //case 10: return _dataList.Select(a => a.FWI).ToArray();
+                default: break;
+            }
         }
 
 
