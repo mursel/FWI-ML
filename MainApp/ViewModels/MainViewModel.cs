@@ -203,13 +203,43 @@ namespace MainApp.ViewModels
         public double FWI { get => _fwi; set { Set(ref _fwi, value); } }
 
         private bool _isTempEnabled;
-
         public bool TempEnabled
         {
             get { return _isTempEnabled; }
             set { Set(ref _isTempEnabled, value); }
         }
+        private bool _isWindEnabled;
+        public bool WindEnabled
+        {
+            get { return _isWindEnabled; }
+            set { Set(ref _isWindEnabled, value); }
+        }
+        private bool _isRHEnabled;
+        public bool RHEnabled
+        {
+            get { return _isRHEnabled; }
+            set { Set(ref _isRHEnabled, value); }
+        }
+        private bool _isRainEnabled;
+        public bool RainEnabled
+        {
+            get { return _isRainEnabled; }
+            set { Set(ref _isRainEnabled, value); }
+        }
+        private bool _isFFMC;
 
+        public bool FFMCEnabled
+        {
+            get { return _isFFMC; }
+            set { _isFFMC = value; }
+        }
+        private bool _isDMC;
+
+        public bool DMCEnabled
+        {
+            get { return _isDMC; }
+            set { _isDMC = value; }
+        }
 
 
         #endregion
@@ -415,21 +445,22 @@ namespace MainApp.ViewModels
             else
                 columnIndices.Add(i);
 
-            CheckTextBoxEnabledByIndex(index, isRemoved);
+            CheckTextBoxEnabledByIndex(int.Parse(index), isRemoved);
             
 
         }
 
-        private void CheckTextBoxEnabledByIndex(string index, bool isRemoved)
+        private void CheckTextBoxEnabledByIndex(int index, bool isRemoved)
         {
             switch (index)
             {
-                case 1: TempEnabled = !isRemoved; break;
-                //case 2: return _dataList.Select(a => a.WindSpeed).ToArray();
-                //case 3: return _dataList.Select(a => a.RelativeHumidity).ToArray();
-                //case 4: return _dataList.Select(a => a.Precipitation).ToArray();
-                //case 5: return _dataList.Select(a => a.FFMC).ToArray();
-                //case 6: return _dataList.Select(a => a.DMC).ToArray();
+                case 1: _isTempEnabled = !isRemoved; break;
+                case 2: _isWindEnabled = !isRemoved; break;
+                case 3: _isRHEnabled = !isRemoved; break;
+                case 4: _isRainEnabled = !isRemoved; break;
+                case 5: _isFFMC = !isRemoved; break;
+                case 6: _isDMC = !isRemoved; break;
+                case 7: _isDC = !isRemoved; break;
                 //case 7: return _dataList.Select(a => a.DC).ToArray();
                 //case 8: return _dataList.Select(a => a.ISI).ToArray();
                 //case 9: return _dataList.Select(a => a.BUI).ToArray();
