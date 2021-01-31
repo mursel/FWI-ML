@@ -12,5 +12,14 @@ namespace BspCore.ML.Contracts
         double CostFunction(double[][] trainData, double[] weights);
         double Accuracy(double[][] dataset, double[] weights, int dummyParam = 0);
 
+        int NumberOfFeatures { get; set; }
+        int MaxEpochs { get; set; }
+        double AlphaPenalty { get; set; }
+        double LearningRate { get; set; }
+        double[][] Data { get; set; }
+        double Cost_MLE { get; set; }
+        double AccuracyTrain { get; set; }
+        double AccuracyTest { get; set; }
+        double R2 { get; set; }
     }
 }

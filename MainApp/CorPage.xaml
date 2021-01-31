@@ -14,7 +14,7 @@
     <Page.Resources>
         <DataTemplate x:Key="ValueDataTemplate" x:DataType="x:Double">
             <!--<Border Background="DarkBlue" Opacity="{x:Bind vm:CorrelationViewModel.GetOpacityLevel((x:Double))}">-->
-            <Border BorderBrush="Black" BorderThickness="0.2">
+            <Border BorderBrush="Black" BorderThickness="0.2" Opacity="{x:Bind vm:CorrelationViewModel.GetOpacityLevel((x:Double))}">
                 <TextBlock FontSize="20" Width="100" Height="40" HorizontalTextAlignment="Center" Text="{x:Bind vm:CorrelationViewModel.DoubleToString((x:Double), 2)}" />
             </Border>
         </DataTemplate>

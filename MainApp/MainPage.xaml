@@ -11,6 +11,7 @@
     xmlns:sys="using:System"
     xmlns:uc="using:MainApp.UserControls"
     xmlns:dp="using:Microsoft.Toolkit.Uwp.UI.Controls.Primitives"    
+    NavigationCacheMode="Enabled"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <cs:DateConverter x:Key="DateConverter" />
@@ -29,10 +30,16 @@
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="Width" Value="100" />
             <Setter Property="Margin" Value="0 20 0 0" />
-        </Style>        
+        </Style>
+        <Style TargetType="controls:DataGridCell" x:Key="CellBackgroundFMC">
+            <!--<Style.Setters>
+                <Setter Property="Background" Value="#FF515151" />
+                <Setter Property="Foreground" Value="White" />
+            </Style.Setters>-->
+        </Style>
     </Page.Resources>
 
-    <Pivot Title="Fire prediction using logistic regression">
+    <Pivot>
         <PivotItem Header="Fire analysis">
             <RelativePanel Margin="12">
                 <TextBlock x:Name="LogRegTitle" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" 
@@ -111,6 +118,7 @@
                     <controls:DataGrid.Columns>         
                         <controls:DataGridTextColumn        
                             Header="Datum"
+                            
                     Width="SizeToHeader"
                     FontSize="16"
                     Binding="{Binding Datum, Converter={StaticResource DateConverter}}" />
@@ -207,7 +215,7 @@
                     Header="FFMC"
                     Width="150"
                     FontSize="16"
-                    Binding="{Binding FFMC}" >
+                    Binding="{Binding FFMC}" CellStyle="{StaticResource CellBackgroundFMC}">
                             <controls:DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="dp:DataGridColumnHeader">
                                     <Setter Property="ContentTemplate">
@@ -229,7 +237,7 @@
                     Header="DMC"
                     Width="150"
                     FontSize="16"
-                    Binding="{Binding DMC}" >
+                    Binding="{Binding DMC}" CellStyle="{StaticResource CellBackgroundFMC}">
                             <controls:DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="dp:DataGridColumnHeader">
                                     <Setter Property="ContentTemplate">
@@ -251,7 +259,7 @@
                     Header="DC"
                     Width="150"
                     FontSize="16"
-                    Binding="{Binding DC}" >
+                    Binding="{Binding DC}" CellStyle="{StaticResource CellBackgroundFMC}">
                             <controls:DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="dp:DataGridColumnHeader">
                                     <Setter Property="ContentTemplate">
@@ -364,11 +372,12 @@
                     Binding="{Binding Fire}" />
                     </controls:DataGrid.Columns>
                 </controls:DataGrid>
-                <StackPanel x:Name="stackPanel" Orientation="Vertical" RelativePanel.Below="dataListGrid" Margin="12 12 0 0">
-                    <TextBlock Text="{x:Bind sys:String.Format(x:Null, 'Cost: {0:F4}', ViewModel.Cost), Mode=OneWay}" Margin="10 0 0 0"/>
-                    <TextBlock Text="{x:Bind sys:String.Format(x:Null, 'McFadden R^2: {0:F4}', ViewModel.McFaddenR2), Mode=OneWay}" Margin="10 0 0 0"/>
-                    <TextBlock Text="{x:Bind sys:String.Format(x:Null, 'AccuracyTrain: {0:F2}', ViewModel.AccuracyTrain), Mode=OneWay}" Margin="10 0 0 0"/>
-                    <TextBlock Text="{x:Bind sys:String.Format(x:Null, 'AccuracyTest: {0:F2}', ViewModel.AccuracyTest), Mode=OneWay}" Margin="10 0 0 0"/>
+                
+                <StackPanel x:Name="stackPanel" Orientation="Horizontal" RelativePanel.Below="dataListGrid" Margin="12 12 0 0">
+                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Cost: {0:F4}', ViewModel.Cost), Mode=OneWay}" Margin="10 0 0 0"/>
+                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'McFadden R^2: {0:F4}', ViewModel.McFaddenR2), Mode=OneWay}" Margin="10 0 0 0"/>
+                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'AccuracyTrain: {0:F2}', ViewModel.AccuracyTrain), Mode=OneWay}" Margin="10 0 0 0"/>
+                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'AccuracyTest: {0:F2}', ViewModel.AccuracyTest), Mode=OneWay}" Margin="10 0 0 0"/>
                 </StackPanel>
                 <TextBlock Text="{x:Bind ViewModel.WeightsOutput, Mode=OneWay}" FontSize="20" Margin="20 0 0 0" Foreground="Red"
                    RelativePanel.Below="stackPanel"/>
@@ -403,11 +412,11 @@
                         <TextBlock Text="Temp (C°):" Style="{StaticResource TextStyleOne}" Grid.Row="1" Grid.Column="0" />
                         <TextBox Text="{x:Bind ViewModel.Temperature, Mode=TwoWay}" IsEnabled="{x:Bind ViewModel.TempEnabled, Mode=OneWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextStyleTwo}" />
                         <TextBlock Text="RH (%):"  Style="{StaticResource TextStyleOne}"  Grid.Row="2" Grid.Column="0"  />
-                        <TextBox Text="{x:Bind ViewModel.RelativeHumidity, Mode=TwoWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="2" Grid.Column="1" />
+                        <TextBox Text="{x:Bind ViewModel.RelativeHumidity, Mode=TwoWay}" IsEnabled="{x:Bind ViewModel.RHEnabled, Mode=OneWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="2" Grid.Column="1" />
                         <TextBlock Text="Wind speed (KM/h):" Width="100"  Style="{StaticResource TextStyleOne}"  Grid.Row="3" Grid.Column="0"  />
-                        <TextBox Text="{x:Bind ViewModel.WindSpeed, Mode=TwoWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="3" Grid.Column="1" />
+                        <TextBox Text="{x:Bind ViewModel.WindSpeed, Mode=TwoWay}" IsEnabled="{x:Bind ViewModel.WindEnabled, Mode=OneWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="3" Grid.Column="1" />
                         <TextBlock Text="Rainfall (mm):" Width="100"  Style="{StaticResource TextStyleOne}"  Grid.Row="4" Grid.Column="0"  />
-                        <TextBox Text="{x:Bind ViewModel.Precipitation, Mode=TwoWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="4" Grid.Column="1" />
+                        <TextBox Text="{x:Bind ViewModel.Precipitation, Mode=TwoWay}" IsEnabled="{x:Bind ViewModel.RainEnabled, Mode=OneWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="4" Grid.Column="1" />
                     </Grid>
 
                     <Grid x:Name="mainCFWI"  Grid.Row="0" Grid.Column="1" BorderBrush="CadetBlue" BorderThickness="1,0,0,0">
@@ -437,11 +446,11 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Fuel moisture codes" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.ColumnSpan="3" Margin="20 0 0 0"/>
                             <TextBlock Text="FFMC:" Style="{StaticResource TextStyleOne}" Grid.Row="1" Grid.Column="0" ToolTipService.ToolTip="Fine Fuel Moisture Code" />
-                            <TextBox Text="{x:Bind ViewModel.FFMC, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextStyleTwo}" />
+                            <TextBox Text="{x:Bind ViewModel.FFMC, Mode=TwoWay}" IsEnabled="{x:Bind ViewModel.FFMCEnabled, Mode=OneWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextStyleTwo}" />
                             <TextBlock Text="DMC:"  Style="{StaticResource TextStyleOne}"  Grid.Row="2" Grid.Column="0"  />
-                            <TextBox Text="{x:Bind ViewModel.DMC, Mode=TwoWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="2" Grid.Column="1" />
+                            <TextBox Text="{x:Bind ViewModel.DMC, Mode=TwoWay}" IsEnabled="{x:Bind ViewModel.DMCEnabled, Mode=OneWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="2" Grid.Column="1" />
                             <TextBlock Text="DC:" Width="100"  Style="{StaticResource TextStyleOne}"  Grid.Row="3" Grid.Column="0"  />
-                            <TextBox Text="{x:Bind ViewModel.DC, Mode=TwoWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="3" Grid.Column="1" />
+                            <TextBox Text="{x:Bind ViewModel.DC, Mode=TwoWay}" IsEnabled="{x:Bind ViewModel.DcEnabled, Mode=OneWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="3" Grid.Column="1" />
                         </Grid>
 
                         <Grid x:Name="grCFWI2" Grid.Row="1" Grid.Column="1"  Margin="20 0 20 0">
@@ -459,11 +468,11 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Fire behavior indices" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.ColumnSpan="3" Margin="0 0 20 0" />
                             <TextBlock Text="ISI:" Style="{StaticResource TextStyleOne}" Grid.Row="1" Grid.Column="0" ToolTipService.ToolTip="Fine Fuel Moisture Code" />
-                            <TextBox Text="{x:Bind ViewModel.ISI, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextStyleTwo}" />
+                            <TextBox Text="{x:Bind ViewModel.ISI, Mode=TwoWay}" IsEnabled="{x:Bind ViewModel.IsiEnabled, Mode=OneWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextStyleTwo}" />
                             <TextBlock Text="BUI:"  Style="{StaticResource TextStyleOne}"  Grid.Row="2" Grid.Column="0"  />
-                            <TextBox Text="{x:Bind ViewModel.BUI, Mode=TwoWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="2" Grid.Column="1" />
+                            <TextBox Text="{x:Bind ViewModel.BUI, Mode=TwoWay}" IsEnabled="{x:Bind ViewModel.BuiEnabled,Mode=OneWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="2" Grid.Column="1" />
                             <TextBlock Text="FWI:" Width="100"  Style="{StaticResource TextStyleOne}"  Grid.Row="3" Grid.Column="0"  />
-                            <TextBox Text="{x:Bind ViewModel.FWI, Mode=TwoWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="3" Grid.Column="1" />
+                            <TextBox Text="{x:Bind ViewModel.FWI, Mode=TwoWay}" IsEnabled="{x:Bind ViewModel.FwiEnabled, Mode=OneWay}" Style="{StaticResource TextStyleTwo}" Grid.Row="3" Grid.Column="1" />
                         </Grid>
                     </Grid>
                 </Grid>

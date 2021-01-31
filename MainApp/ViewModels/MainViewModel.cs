@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using GalaSoft.MvvmLight.Views;
 using MainApp.Models;
+using BspCore.ML.Contracts;
 
 namespace MainApp.ViewModels
 {
@@ -17,16 +18,17 @@ namespace MainApp.ViewModels
         private readonly IDataLoader dataLoader;
         private readonly INavigationService navigationService;
         private readonly IDialogService dialogService;
-        private LogisticRegression lr = null;
+        private readonly IRegression lr;
 
 
-        public MainViewModel(IDataLoader _dataLoader, INavigationService service, IDialogService dialog)
+        public MainViewModel(IDataLoader _dataLoader, INavigationService service, IDialogService dialog, IRegression regression)
         {
             this.dataLoader = _dataLoader;
             ModelData = new ObservableCollection<DataModel>();
             columnIndices = new ObservableCollection<int>();
             navigationService = service;
             dialogService = dialog;
+            lr = regression;
         }
 
         #region Properties
@@ -56,6 +58,15 @@ namespace MainApp.ViewModels
             get { return _weights; }
             set { _weights = value; }
         }
+
+        private double[] _customData;
+
+        public double[] CustomData
+        {
+            get { return _customData; }
+            set { _customData = value; }
+        }
+
 
         private bool _isLoading;
 
@@ -173,7 +184,8 @@ namespace MainApp.ViewModels
         }
 
         private double _temp;
-        public double Temperature { get => _temp; set { Set(ref _temp, value); } }
+        public double Temperature { get => _temp; set { Set(ref _temp, value); 
+                _customData[0] = value; } }
 
         private double _windSpeed;
         public double WindSpeed { get => _windSpeed; set { Set(ref _windSpeed, value); } }
@@ -231,15 +243,44 @@ namespace MainApp.ViewModels
         public bool FFMCEnabled
         {
             get { return _isFFMC; }
-            set { _isFFMC = value; }
+            set { Set(ref _isFFMC, value); }
         }
         private bool _isDMC;
 
         public bool DMCEnabled
         {
             get { return _isDMC; }
-            set { _isDMC = value; }
+            set { Set(ref _isDMC, value); }
         }
+        private bool _isDC;
+
+        public bool DcEnabled
+        {
+            get { return _isDC; }
+            set { Set(ref _isDC, value); }
+        }
+        private bool _isISI;
+
+        public bool IsiEnabled
+        {
+            get { return _isISI; }
+            set { Set(ref _isISI, value); }
+        }
+        private bool _isBUI;
+
+        public bool BuiEnabled
+        {
+            get { return _isBUI; }
+            set { Set(ref _isBUI, value); }
+        }
+        private bool _isFWI;
+
+        public bool FwiEnabled
+        {
+            get { return _isFWI; }
+            set { Set(ref _isFWI, value); }
+        }
+
 
 
         #endregion
@@ -301,11 +342,11 @@ namespace MainApp.ViewModels
 
                             correlationItems.Add(correlationItem);
 
-                            if (d.Length > 2) { 
+                            //if (d.Length > 2) { 
                                 i++;
                                 if (currentIndex != columnIndices.Last())
                                     recursive(d);
-                            }
+                            //}
                         };
                         
                         recursive(columnIndices.ToArray());
@@ -389,7 +430,7 @@ namespace MainApp.ViewModels
                         lr.Data = dataLoader.ToArray(columnIndices.ToArray());
 
                         lr.SplitData(_trainSize, _normalizeData);
-
+                                          
                         _weights = lr.Train(_shuffleData);
 
                         Cost = lr.Cost_MLE;
@@ -414,7 +455,7 @@ namespace MainApp.ViewModels
 
                     _calculate = new RelayCommand(() =>
                     {
-                        
+                        var predictedValue = lr.Predict(CustomData, Weights);
                     });
                 }
 
@@ -454,17 +495,16 @@ namespace MainApp.ViewModels
         {
             switch (index)
             {
-                case 1: _isTempEnabled = !isRemoved; break;
-                case 2: _isWindEnabled = !isRemoved; break;
-                case 3: _isRHEnabled = !isRemoved; break;
-                case 4: _isRainEnabled = !isRemoved; break;
-                case 5: _isFFMC = !isRemoved; break;
-                case 6: _isDMC = !isRemoved; break;
-                case 7: _isDC = !isRemoved; break;
-                //case 7: return _dataList.Select(a => a.DC).ToArray();
-                //case 8: return _dataList.Select(a => a.ISI).ToArray();
-                //case 9: return _dataList.Select(a => a.BUI).ToArray();
-                //case 10: return _dataList.Select(a => a.FWI).ToArray();
+                case 1: TempEnabled = !isRemoved; break;
+                case 2: WindEnabled = !isRemoved; break;
+                case 3: RHEnabled = !isRemoved; break;
+                case 4: RainEnabled = !isRemoved; break;
+                case 5: FFMCEnabled = !isRemoved; break;
+                case 6: DMCEnabled = !isRemoved; break;
+                case 7: DcEnabled = !isRemoved; break;
+                case 8: IsiEnabled = !isRemoved; break;
+                case 9: BuiEnabled = !isRemoved; break;
+                case 10: FwiEnabled = !isRemoved; break;
                 default: break;
             }
         }

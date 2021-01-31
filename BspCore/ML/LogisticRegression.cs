@@ -120,13 +120,7 @@ namespace BspCore.ML
             set { _MleCost = value; }
         }
 
-        private double _McFaddenR2;
 
-        public double R2
-        {
-            get { return _McFaddenR2; }
-            set { _McFaddenR2 = value; }
-        }
 
         private double _accuracyTrain;
 
@@ -142,6 +136,13 @@ namespace BspCore.ML
         {
             get { return _accuracyTest; }
             set { _accuracyTest = value; }
+        }
+
+        private double _McFaddenR2;
+        public double R2
+        {
+            get { return _McFaddenR2; }
+            set { _McFaddenR2 = value; }
         }
         #endregion
 
