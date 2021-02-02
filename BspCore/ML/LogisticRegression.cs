@@ -217,7 +217,8 @@ namespace BspCore.ML
         {
             int step = 0;
 
-            if (_weights == null) _weights = new double[_numOfFeatures + 1];
+            // if (_weights == null) 
+            _weights = new double[_numOfFeatures + 1];
 
             _weights.GenerateWeights();
 

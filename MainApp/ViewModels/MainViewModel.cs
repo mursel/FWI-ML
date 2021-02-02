@@ -42,6 +42,14 @@ namespace MainApp.ViewModels
             set { Set(ref columnIndices, value); }
         }
 
+        private double _predictedValue;
+
+        public double PredictedValue
+        {
+            get { return _predictedValue; }
+            set { Set(ref _predictedValue, value); }
+        }
+
 
         private ObservableCollection<CorrelationItem> _corrList;
 
@@ -452,6 +460,11 @@ namespace MainApp.ViewModels
                         if (columnIndices.Count > 0) 
                             featureCount = columnIndices.Count;
 
+                        Cost = 0;
+                        AccuracyTrain = 0;
+                        AccuracyTest = 0;
+                        McFaddenR2 = 0;
+
                         _customData = new double[featureCount];
 
                         lr.MaxEpochs = _iter;
@@ -487,7 +500,7 @@ namespace MainApp.ViewModels
 
                     _calculate = new RelayCommand(() =>
                     {
-                        var predictedValue = lr.Predict(CustomData, Weights);
+                        PredictedValue = lr.Predict(CustomData, Weights);
                     });
                 }
 

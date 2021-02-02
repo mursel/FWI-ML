@@ -29,7 +29,11 @@ namespace BspCore.ML.Extensions
             int i = 1;
             weights.Skip(1).ToList().ForEach((w) =>
             {
-                output += " + " + w.ToString("F4") + "*X" + i.ToString() + " ";
+                if(w > 0)
+                    output += " + " + w.ToString("F4") + "*X" + i.ToString() + " ";
+                else
+                    output += " - " + Math.Abs(w).ToString("F4") + "*X" + i.ToString() + " ";
+
                 i++;
             });
             return output;
