@@ -25,7 +25,7 @@ namespace MainApp.ViewModels
         {
             this.dataLoader = _dataLoader;
             ModelData = new ObservableCollection<DataModel>();
-            columnIndices = new ObservableCollection<int>();
+            columnIndices = new ObservableCollection<int>();            
             navigationService = service;
             dialogService = dialog;
             lr = regression;
@@ -184,35 +184,65 @@ namespace MainApp.ViewModels
         }
 
         private double _temp;
-        public double Temperature { get => _temp; set { Set(ref _temp, value); 
-                _customData[0] = value; } }
+        public double Temperature { get => _temp; set { Set(ref _temp, value);
+                _customData[0] = value;
+            }
+        }
+
 
         private double _windSpeed;
-        public double WindSpeed { get => _windSpeed; set { Set(ref _windSpeed, value); } }
+        public double WindSpeed { get => _windSpeed; set { Set(ref _windSpeed, value);
+                _customData[1] = value;
+            }
+        }
 
         private double _relHum;
-        public double RelativeHumidity { get => _relHum; set { Set(ref _relHum, value); } }
+        public double RelativeHumidity { get => _relHum; set { Set(ref _relHum, value); 
+                _customData[2] = value;
+            }
+        }
 
         private double _precip;
-        public double Precipitation { get => _precip; set { Set(ref _precip, value); } }
+        public double Precipitation { get => _precip; set { Set(ref _precip, value);
+                _customData[3] = value;
+            }
+        }
 
         private double _ffmc;
-        public double FFMC { get => _ffmc; set { Set(ref _ffmc, value); } }
+        public double FFMC { get => _ffmc; set { Set(ref _ffmc, value);
+                _customData[4] = value;
+            }
+        }
 
         private double _dmc;
-        public double DMC { get => _dmc; set { Set(ref _dmc, value); } }
+        public double DMC { get => _dmc; set { Set(ref _dmc, value);
+                _customData[5] = value;
+            }
+        }
 
         private double _dc;
-        public double DC { get => _dc; set { Set(ref _dc, value); } }
+        public double DC { get => _dc; set { Set(ref _dc, value);
+                _customData[6] = value;
+            }
+        }
 
         private double _isi;
-        public double ISI { get => _isi; set { Set(ref _isi, value); } }
+        public double ISI { get => _isi; set { Set(ref _isi, value);
+                _customData[7] = value;
+            }
+        }
 
         private double _bui;
-        public double BUI { get => _bui; set { Set(ref _bui, value); } }
+        public double BUI { get => _bui; set { Set(ref _bui, value);
+                _customData[8] = value;
+            }
+        }
 
         private double _fwi;
-        public double FWI { get => _fwi; set { Set(ref _fwi, value); } }
+        public double FWI { get => _fwi; set { Set(ref _fwi, value);
+                _customData[9] = value;
+            }
+        }
 
         private bool _isTempEnabled;
         public bool TempEnabled
@@ -421,6 +451,8 @@ namespace MainApp.ViewModels
 
                         if (columnIndices.Count > 0) 
                             featureCount = columnIndices.Count;
+
+                        _customData = new double[featureCount];
 
                         lr.MaxEpochs = _iter;
                         lr.LearningRate = _learnRate;

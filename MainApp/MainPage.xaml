@@ -479,7 +479,8 @@
                 <Button x:Name="btnPredict" 
                     Content="Calculate" 
                     Margin="30"
-                    RelativePanel.Below="mainGrid" />
+                    RelativePanel.Below="mainGrid"
+                        Command="{x:Bind ViewModel.Calculate}"/>
             </RelativePanel>
         </PivotItem>
     </Pivot>
