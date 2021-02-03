@@ -181,6 +181,17 @@
       <RootProperty Name="ItemsSource" />
       <RootProperty Name="Columns" />
     </RootType>
+    <RootType FullName="Microsoft.Toolkit.Uwp.UI.Controls.Loading">
+      <RootProperty Name="Background" />
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">
+      <RootProperty Name="Color" />
+      <RootProperty Name="Opacity" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ContentControl">
+      <RootProperty Name="ContentTemplate" />
+    </RootType>
     <RootType FullName="Microsoft.Toolkit.Uwp.UI.Controls.DataGridTextColumn">
       <RootProperty Name="Header" />
       <RootProperty Name="Width" />
@@ -192,9 +203,6 @@
       <RootProperty Name="Visibility" />
     </RootType>
     <RootType FullName="Microsoft.Toolkit.Uwp.UI.Controls.Primitives.DataGridColumnHeader" />
-    <RootType FullName="Windows.UI.Xaml.Controls.ContentControl">
-      <RootProperty Name="ContentTemplate" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.CheckBox">
       <RootProperty Name="Content" />
       <RootProperty Name="Command" />
@@ -213,9 +221,6 @@
     <RootType FullName="Windows.UI.Xaml.Controls.ToggleMenuFlyoutItem">
       <RootProperty Name="Text" />
       <RootProperty Name="IsChecked" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">
-      <RootProperty Name="Color" />
     </RootType>
     <RootType FullName="MainApp.MainPage" />
   </Roots.RootTypes>

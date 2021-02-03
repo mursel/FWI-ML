@@ -381,7 +381,12 @@
                 </StackPanel>
                 <TextBlock Text="{x:Bind ViewModel.WeightsOutput, Mode=OneWay}" FontSize="20" Margin="20 0 0 0" Foreground="Red"
                    RelativePanel.Below="stackPanel"/>
-
+                <controls:Loading x:Name="LoadingControl">
+                    <controls:Loading.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.7" />
+                    </controls:Loading.Background>
+                    <ContentControl x:Name="LoadingContentControl" />
+                </controls:Loading>
             </RelativePanel>
         </PivotItem>
         <PivotItem Header="Fire prediction">
@@ -485,4 +490,5 @@
             </RelativePanel>
         </PivotItem>
     </Pivot>
+
 </Page>
