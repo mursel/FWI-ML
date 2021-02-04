@@ -144,6 +144,27 @@ namespace BspCore.ML
             get { return _McFaddenR2; }
             set { _McFaddenR2 = value; }
         }
+
+        private double _chiSq;
+
+        public double ChiSquareScore
+        {
+            get { return _chiSq; }
+            set { _chiSq = value; }
+        }
+
+
+        private double[] _computedYs;
+
+        public double[] ComputedYs
+        {
+            get { return _computedYs; }
+            set { _computedYs = value; }
+        }
+
+        public double PValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+
         #endregion
 
         #region Methods
@@ -222,7 +243,7 @@ namespace BspCore.ML
 
             _weights.GenerateWeights();
 
-
+            _computedYs = new double[_trainSet.Length];
 
             while (step < _epochs)
             {
@@ -233,6 +254,9 @@ namespace BspCore.ML
                 for (int i = 0; i < _trainSet.Length; i++)
                 {
                     double computedY = Predict(_trainSet[i], _weights);
+                    
+                    _computedYs[i] = computedY;
+
                     double targetY = _trainSet[i][_numOfFeatures];
 
                     var diff = targetY - computedY;     // error
@@ -264,6 +288,8 @@ namespace BspCore.ML
 
             _accuracyTest = Accuracy(_testSet, _weights, 0);
             _accuracyTrain = Accuracy(_trainSet, _weights, 0);
+
+            _chiSq = ChiSquare(_trainSet, _computedYs);
 
             return _weights;
         }

@@ -376,17 +376,16 @@
                 <StackPanel x:Name="stackPanel" Orientation="Horizontal" RelativePanel.Below="dataListGrid" Margin="12 12 0 0">
                     <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Cost: {0:F4}', ViewModel.Cost), Mode=OneWay}" Margin="10 0 0 0"/>
                     <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'McFadden R^2: {0:F4}', ViewModel.McFaddenR2), Mode=OneWay}" Margin="10 0 0 0"/>
+                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'ChiSquare score: {0:F4}', ViewModel.ChiSquareScore), Mode=OneWay}" Margin="10 0 0 0"/>
                     <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'AccuracyTrain: {0:F2}', ViewModel.AccuracyTrain), Mode=OneWay}" Margin="10 0 0 0"/>
                     <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'AccuracyTest: {0:F2}', ViewModel.AccuracyTest), Mode=OneWay}" Margin="10 0 0 0"/>
                 </StackPanel>
-                <TextBlock Text="{x:Bind ViewModel.WeightsOutput, Mode=OneWay}" FontSize="20" Margin="20 0 0 0" Foreground="Red"
+                <TextBlock x:Name="outputs" Text="{x:Bind ViewModel.WeightsOutput, Mode=OneWay}" FontSize="20" Margin="20 0 0 0" Foreground="Red"
                    RelativePanel.Below="stackPanel"/>
-                <controls:Loading x:Name="LoadingControl">
-                    <controls:Loading.Background>
-                        <SolidColorBrush Color="Black" Opacity="0.7" />
-                    </controls:Loading.Background>
-                    <ContentControl x:Name="LoadingContentControl" />
-                </controls:Loading>
+                <ProgressBar x:Name="progressBar1" IsIndeterminate="True" RelativePanel.Below="outputs"
+                             RelativePanel.AlignHorizontalCenterWithPanel="True"
+                             Visibility="{x:Bind ViewModel.IsLoading}" 
+                             Foreground="{StaticResource ProgressBarIndeterminateForegroundThemeBrush}"/>
             </RelativePanel>
         </PivotItem>
         <PivotItem Header="Fire prediction">

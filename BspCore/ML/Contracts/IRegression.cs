@@ -21,5 +21,7 @@ namespace BspCore.ML.Contracts
         double AccuracyTrain { get; set; }
         double AccuracyTest { get; set; }
         double R2 { get; set; }
+        double ChiSquareScore { get; set; }
+        double PValue { get; set; }
     }
 }

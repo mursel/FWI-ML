@@ -15,3 +15,4 @@ C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\Bs
 C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\BspCore.csproj.CoreCompileInputs.cache
 C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\BspCore.dll
 C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\BspCore.pdb
+C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\BspCore.csprojAssemblyReference.cache

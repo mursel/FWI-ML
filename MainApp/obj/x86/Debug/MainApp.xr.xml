@@ -37,7 +37,6 @@
       <RootProperty Name="BorderBrush" />
       <RootProperty Name="BorderThickness" />
       <RootProperty Name="Child" />
-      <RootProperty Name="Opacity" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
       <RootProperty Name="FontSize" />
@@ -45,6 +44,7 @@
       <RootProperty Name="Height" />
       <RootProperty Name="HorizontalTextAlignment" />
       <RootProperty Name="Text" />
+      <RootProperty Name="Opacity" />
       <RootProperty Name="Style" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Margin" />
@@ -66,6 +66,8 @@
       <RootMethod Name="SetBelow" />
       <RootMethod Name="GetRightOf" />
       <RootMethod Name="SetRightOf" />
+      <RootMethod Name="GetAlignHorizontalCenterWithPanel" />
+      <RootMethod Name="SetAlignHorizontalCenterWithPanel" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.CommandBar">
       <RootProperty Name="OverflowButtonVisibility" />
@@ -181,16 +183,10 @@
       <RootProperty Name="ItemsSource" />
       <RootProperty Name="Columns" />
     </RootType>
-    <RootType FullName="Microsoft.Toolkit.Uwp.UI.Controls.Loading">
-      <RootProperty Name="Background" />
-      <RootProperty Name="Content" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">
-      <RootProperty Name="Color" />
-      <RootProperty Name="Opacity" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.ContentControl">
-      <RootProperty Name="ContentTemplate" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ProgressBar">
+      <RootProperty Name="IsIndeterminate" />
+      <RootProperty Name="Visibility" />
+      <RootProperty Name="Foreground" />
     </RootType>
     <RootType FullName="Microsoft.Toolkit.Uwp.UI.Controls.DataGridTextColumn">
       <RootProperty Name="Header" />
@@ -203,6 +199,9 @@
       <RootProperty Name="Visibility" />
     </RootType>
     <RootType FullName="Microsoft.Toolkit.Uwp.UI.Controls.Primitives.DataGridColumnHeader" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ContentControl">
+      <RootProperty Name="ContentTemplate" />
+    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.CheckBox">
       <RootProperty Name="Content" />
       <RootProperty Name="Command" />
@@ -221,6 +220,9 @@
     <RootType FullName="Windows.UI.Xaml.Controls.ToggleMenuFlyoutItem">
       <RootProperty Name="Text" />
       <RootProperty Name="IsChecked" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">
+      <RootProperty Name="Color" />
     </RootType>
     <RootType FullName="MainApp.MainPage" />
   </Roots.RootTypes>

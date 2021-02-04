@@ -10,6 +10,7 @@ using System.Linq;
 using GalaSoft.MvvmLight.Views;
 using MainApp.Models;
 using BspCore.ML.Contracts;
+using System.Threading.Tasks;
 
 namespace MainApp.ViewModels
 {
@@ -156,6 +157,15 @@ namespace MainApp.ViewModels
         {
             get { return _normalizeData; }
             set { Set(ref _normalizeData, value); }
+        }
+
+
+        private double _chiSqr;
+
+        public double ChiSquareScore
+        {
+            get { return _chiSqr; }
+            set { Set(ref _chiSqr, value); }
         }
 
 
@@ -455,9 +465,11 @@ namespace MainApp.ViewModels
                 {
                     rcCalculate = new RelayCommand(() =>
                     {
-                        var featureCount = 10;  
+                        //IsLoading = true;
 
-                        if (columnIndices.Count > 0) 
+                        var featureCount = 10;
+
+                        if (columnIndices.Count > 0)
                             featureCount = columnIndices.Count;
 
                         Cost = 0;
@@ -471,19 +483,22 @@ namespace MainApp.ViewModels
                         lr.LearningRate = _learnRate;
                         lr.AlphaPenalty = _l2val;
                         lr.NumberOfFeatures = featureCount;
-                        
+
                         lr.Data = dataLoader.ToArray(columnIndices.ToArray());
 
                         lr.SplitData(_trainSize, _normalizeData);
-                                          
+                           
                         _weights = lr.Train(_shuffleData);
 
                         Cost = lr.Cost_MLE;
                         AccuracyTrain = lr.AccuracyTrain;
                         AccuracyTest = lr.AccuracyTest;
                         McFaddenR2 = lr.R2;
-
+                        ChiSquareScore = lr.ChiSquareScore;
+            
                         WeightsOutput = _weights.OutputWeights();
+
+                        //IsLoading = false;
                     });
                 }
                 return rcCalculate; }
