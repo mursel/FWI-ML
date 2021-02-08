@@ -154,6 +154,8 @@ namespace BspCore.ML
         }
 
 
+        public int DegreeOfFreedom => NumberOfFeatures - 1;
+
         private double[] _computedYs;
 
         public double[] ComputedYs
@@ -162,7 +164,13 @@ namespace BspCore.ML
             set { _computedYs = value; }
         }
 
-        public double PValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private double pvalue;
+
+        public double PValue
+        {
+            get { return pvalue; }
+            set { pvalue = value; }
+        }
 
 
         #endregion
@@ -285,6 +293,12 @@ namespace BspCore.ML
             double LLFit = LogLikelihood(_trainSet, _weights);
             double LLFit2 = LogLikelihood(_trainSet, GetProbabilites(_trainSet));
             _McFaddenR2 = McFaddenR2(LLFit, LLFit2);
+            
+            pvalue = 2 * (Math.Log(LLFit) - Math.Log(LLFit2));
+
+            var BIC = -2 * LLFit + NumberOfFeatures * Math.Log(_trainSet.Length);
+
+            var aic = 2 * NumberOfFeatures - 2 * LLFit;
 
             _accuracyTest = Accuracy(_testSet, _weights, 0);
             _accuracyTrain = Accuracy(_trainSet, _weights, 0);
