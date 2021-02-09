@@ -22,6 +22,8 @@
       the application package. The asterisks are not wildcards.
     -->
     <Assembly Name="*Application*" Dynamic="Required All" />
+    <Assembly Dynamic="Required All" Name="Microsoft.Extensions.Options"/>
+    <Assembly Dynamic="Required All" Name="Microsoft.Extensions.Logging"/>
     
     
     <!-- Add your application specific runtime directives here. -->
