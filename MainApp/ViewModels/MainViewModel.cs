@@ -329,6 +329,37 @@ namespace MainApp.ViewModels
             set { Set(ref _isFWI, value); }
         }
 
+        private double _sensitivityTrain;
+
+        public double SensitivityTrain
+        {
+            get { return _sensitivityTrain; }
+            set { Set(ref _sensitivityTrain, value); }
+        }
+
+        private double _sensitivityTest;
+
+        public double SensitivityTest
+        {
+            get { return _sensitivityTest; }
+            set { Set(ref _sensitivityTest, value); }
+        }
+
+        private double _specificityTrain;
+
+        public double SpecificityTrain
+        {
+            get { return _specificityTrain; }
+            set { Set(ref _specificityTrain, value); }
+        }
+
+        private double _specificityTest;
+
+        public double SpecificityTest
+        {
+            get { return _specificityTest; }
+            set { Set(ref _specificityTest, value); }
+        }
 
 
         #endregion
@@ -495,7 +526,12 @@ namespace MainApp.ViewModels
                         AccuracyTest = lr.AccuracyTest;
                         McFaddenR2 = lr.R2;
                         ChiSquareScore = lr.ChiSquareScore;
-            
+
+                        SensitivityTrain = lr.SensitivityTrain;
+                        SensitivityTest = lr.SensitivityTest;
+                        SpecificityTrain = lr.SpecificityTrain;
+                        SpecificityTest = lr.SpecificityTest;
+
                         WeightsOutput = _weights.OutputWeights();
 
                         //IsLoading = false;

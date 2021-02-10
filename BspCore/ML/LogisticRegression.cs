@@ -172,6 +172,69 @@ namespace BspCore.ML
             set { pvalue = value; }
         }
 
+        private int _truePositives;
+
+        public int TruePositives
+        {
+            get { return _truePositives; }
+            set { _truePositives = value; }
+        }
+
+        private int _trueNegatives;
+
+        public int TrueNegatives
+        {
+            get { return _trueNegatives; }
+            set { _trueNegatives = value; }
+        }
+
+        private int _falsePositives;
+
+        public int FalsePositives
+        {
+            get { return _falsePositives; }
+            set { _falsePositives = value; }
+        }
+
+        private int _falseNegatives;
+
+        public int FalseNegatives
+        {
+            get { return _falseNegatives; }
+            set { _falseNegatives = value; }
+        }
+
+        private double _sensitivityTrain;
+
+        public double SensitivityTrain
+        {
+            get { return _sensitivityTrain; }
+            set { _sensitivityTrain = value; }
+        }
+
+        private double _sensitivityTest;
+
+        public double SensitivityTest
+        {
+            get { return _sensitivityTest; }
+            set { _sensitivityTest = value; }
+        }
+
+        private double _specificityTrain;
+
+        public double SpecificityTrain
+        {
+            get { return _specificityTrain; }
+            set { _specificityTrain = value; }
+        }
+
+        private double _specificityTest;
+
+        public double SpecificityTest
+        {
+            get { return _specificityTest; }
+            set { _specificityTest = value; }
+        }
 
         #endregion
 
@@ -294,16 +357,23 @@ namespace BspCore.ML
             double LLFit2 = LogLikelihood(_trainSet, GetProbabilites(_trainSet));
             _McFaddenR2 = McFaddenR2(LLFit, LLFit2);
             
-            pvalue = 2 * (Math.Log(LLFit) - Math.Log(LLFit2));
+            //pvalue = 2 * (Math.Log(LLFit) - Math.Log(LLFit2));
 
             var BIC = -2 * LLFit + NumberOfFeatures * Math.Log(_trainSet.Length);
 
-            var aic = 2 * NumberOfFeatures - 2 * LLFit;
+            var AIC = 2 * NumberOfFeatures - 2 * LLFit;
+
+            _sensitivityTrain = Sensitivity(_trainSet);
+            _sensitivityTest = Sensitivity(_testSet);
+
+            _specificityTrain = Specificity(_trainSet);
+            _specificityTest = Specificity(_testSet);
 
             _accuracyTest = Accuracy(_testSet, _weights, 0);
             _accuracyTrain = Accuracy(_trainSet, _weights, 0);
 
             _chiSq = ChiSquare(_trainSet, _computedYs);
+
 
             return _weights;
         }
@@ -407,6 +477,53 @@ namespace BspCore.ML
             return cs;
         }
 
+        public int[] ConfustionMatrix(double[][] data)
+        {
+            for (int i = 0; i < data.Length; i++)
+            {
+                var y = data[i][_numOfFeatures];
+                var y_hat = Predict(data[i], _weights) < 0.5 ? 0 : 1;
+
+                if (y == 1 && y_hat == 1) _truePositives++;
+                if (y == 0 && y_hat == 0) _trueNegatives++;
+                if (y == 0 && y_hat == 1) _falsePositives++;
+                if (y == 1 && y_hat == 0) _falseNegatives++;
+            }
+
+            int[] temp = new int[4];
+            temp[0] = _truePositives;
+            temp[1] = _trueNegatives;
+            temp[2] = _falsePositives;
+            temp[3] = _falseNegatives;
+
+            return temp;
+        }
+
+        /// <summary>
+        /// Vrati procenat identifikovanih uzoraka kada je Y = 1
+        /// </summary>
+        /// <param name="data">Train ili Test dataset</param>
+        /// <returns></returns>
+        public double Sensitivity(double[][] data)
+        {
+            double res = 0.0;
+            int[] temp = ConfustionMatrix(data);
+            res = temp[0] / (double)(temp[0] + temp[3]);
+            return res;
+        }
+
+        /// <summary>
+        /// Vrati procenat identifikovanih uzoraka kada je Y = 0
+        /// </summary>
+        /// <param name="data">Train ili Test dataset</param>
+        /// <returns></returns>
+        public double Specificity(double[][] data)
+        {
+            double res = 0.0;
+            int[] temp = ConfustionMatrix(data);
+            res = temp[1] / (double)(temp[1] + temp[2]);
+            return res;
+        }
         #endregion
     }
 }

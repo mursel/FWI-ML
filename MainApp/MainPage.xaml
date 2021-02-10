@@ -373,19 +373,23 @@
                     </controls:DataGrid.Columns>
                 </controls:DataGrid>
                 
-                <StackPanel x:Name="stackPanel" Orientation="Horizontal" RelativePanel.Below="dataListGrid" Margin="12 12 0 0">
+                <StackPanel x:Name="stackPanel" Orientation="Vertical" RelativePanel.Below="dataListGrid" Margin="12 12 0 0">
                     <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Cost: {0:F4}', ViewModel.Cost), Mode=OneWay}" Margin="10 0 0 0"/>
-                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'McFadden R^2: {0:F4}', ViewModel.McFaddenR2), Mode=OneWay}" Margin="10 0 0 0"/>
+                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'McFadden R\u00B2: {0:F4}', ViewModel.McFaddenR2), Mode=OneWay}" Margin="10 0 0 0"/>
                     <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'ChiSquare score: {0:F4}', ViewModel.ChiSquareScore), Mode=OneWay}" Margin="10 0 0 0"/>
-                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'AccuracyTrain: {0:F2}', ViewModel.AccuracyTrain), Mode=OneWay}" Margin="10 0 0 0"/>
-                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'AccuracyTest: {0:F2}', ViewModel.AccuracyTest), Mode=OneWay}" Margin="10 0 0 0"/>
+                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Accuracy (train): {0:F2}', ViewModel.AccuracyTrain), Mode=OneWay}" Margin="10 0 0 0"/>
+                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Accuracy (test): {0:F2}', ViewModel.AccuracyTest), Mode=OneWay}" Margin="10 0 0 0"/>
+                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Sensitivity (train): {0:F2}', ViewModel.SensitivityTrain), Mode=OneWay}" Margin="10 0 0 0"/>
+                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Specificity (train): {0:F2}', ViewModel.SpecificityTrain), Mode=OneWay}" Margin="10 0 0 0"/>
+                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Sensitivity (test): {0:F2}', ViewModel.SensitivityTest), Mode=OneWay}" Margin="10 0 0 0"/>
+                    <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Specificity (test): {0:F2}', ViewModel.SpecificityTest), Mode=OneWay}" Margin="10 0 0 0"/>
                 </StackPanel>
-                <TextBlock x:Name="outputs" Text="{x:Bind ViewModel.WeightsOutput, Mode=OneWay}" FontSize="20" Margin="20 0 0 0" Foreground="Red"
-                   RelativePanel.Below="stackPanel"/>
-                <ProgressBar x:Name="progressBar1" IsIndeterminate="True" RelativePanel.Below="outputs"
+                <TextBlock x:Name="outputs" Text="{x:Bind ViewModel.WeightsOutput, Mode=OneWay}" FontSize="20" Margin="12 12 0 0" Foreground="Red"
+                   RelativePanel.RightOf="stackPanel" RelativePanel.Below="dataListGrid"/>
+                <!--<ProgressBar x:Name="progressBar1" IsIndeterminate="True" RelativePanel.Below="outputs"
                              RelativePanel.AlignHorizontalCenterWithPanel="True"
                              Visibility="{x:Bind ViewModel.IsLoading}" 
-                             Foreground="{StaticResource ProgressBarIndeterminateForegroundThemeBrush}"/>
+                             Foreground="{StaticResource ProgressBarIndeterminateForegroundThemeBrush}"/>-->
             </RelativePanel>
         </PivotItem>
         <PivotItem Header="Fire prediction">

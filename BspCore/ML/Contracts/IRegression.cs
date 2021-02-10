@@ -23,5 +23,9 @@ namespace BspCore.ML.Contracts
         double R2 { get; set; }
         double ChiSquareScore { get; set; }
         double PValue { get; set; }
+        double SensitivityTrain { get; set; }
+        double SensitivityTest { get; set; }
+        double SpecificityTrain { get; set; }
+        double SpecificityTest { get; set; }
     }
 }
