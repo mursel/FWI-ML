@@ -92,9 +92,10 @@ namespace MainApp.Services
                     double ffmc = 0.0, dmc = 0.0, dc = 0.0, dsr = 0.0;                           //
 
                     DateTime dateTime = new DateTime(2010, 7, 31);
-
+                    int cc = 0;
                     while (line != null)
                     {
+                        cc++;
                         string[] fields = line.Split(';');
 
                         CultureInfo cultureInfo = CultureInfo.GetCultureInfo("bs-Latn-BA");

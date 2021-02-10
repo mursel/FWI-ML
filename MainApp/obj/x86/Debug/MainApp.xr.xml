@@ -170,8 +170,6 @@
       <RootProperty Name="AutoGenerateColumns" />
       <RootProperty Name="Height" />
       <RootProperty Name="Margin" />
-      <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="AlternatingRowBackground" />
       <RootProperty Name="AlternatingRowForeground" />
       <RootProperty Name="SelectionMode" />
@@ -218,5 +216,13 @@
       <RootProperty Name="Color" />
     </RootType>
     <RootType FullName="MainApp.MainPage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ContentDialog">
+      <RootProperty Name="Title" />
+      <RootProperty Name="CloseButtonText" />
+      <RootProperty Name="DefaultButton" />
+      <RootProperty Name="Resources" />
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="MainApp.TrainResults" />
   </Roots.RootTypes>
 </Roots>

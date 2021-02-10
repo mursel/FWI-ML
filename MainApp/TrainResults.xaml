@@ -1,0 +1,34 @@
+﻿<ContentDialog
+    x:Class="MainApp.TrainResults"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MainApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sys="using:System"
+    mc:Ignorable="d" Title="Train results"
+        CloseButtonText="Close"
+        DefaultButton="Close">
+    <ContentDialog.Resources>
+        <Style TargetType="TextBlock" x:Key="TextStyleOne">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Padding" Value="0 0 0 5" />
+            <Setter Property="Margin" Value="0 20 10 0" />
+            <!--<Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="HorizontalTextAlignment" Value="Right" />-->
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>        
+    </ContentDialog.Resources>
+    <StackPanel x:Name="stackPanel" Orientation="Vertical" Margin="12 12 0 0">
+        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Cost: {0:F4}', ViewModel.Cost), Mode=OneWay}" Margin="10 0 0 0"/>
+        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'McFadden R&#x00B2;: {0:F4}', ViewModel.McFaddenR2), Mode=OneWay}" Margin="10 0 0 0"/>
+        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'ChiSquare score: {0:F4}', ViewModel.ChiSquareScore), Mode=OneWay}" Margin="10 0 0 0"/>
+        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Accuracy (train): {0:F2}', ViewModel.AccuracyTrain), Mode=OneWay}" Margin="10 0 0 0"/>
+        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Accuracy (test): {0:F2}', ViewModel.AccuracyTest), Mode=OneWay}" Margin="10 0 0 0"/>
+        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Sensitivity (train): {0:F2}', ViewModel.SensitivityTrain), Mode=OneWay}" Margin="10 0 0 0"/>
+        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Specificity (train): {0:F2}', ViewModel.SpecificityTrain), Mode=OneWay}" Margin="10 0 0 0"/>
+        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Sensitivity (test): {0:F2}', ViewModel.SensitivityTest), Mode=OneWay}" Margin="10 0 0 0"/>
+        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Specificity (test): {0:F2}', ViewModel.SpecificityTest), Mode=OneWay}" Margin="10 0 0 0"/>
+        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind ViewModel.WeightsOutput, Mode=OneWay}" Margin="12 12 0 0" Foreground="Red"/>
+    </StackPanel>
+
+</ContentDialog>

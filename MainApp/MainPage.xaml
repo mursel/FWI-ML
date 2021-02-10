@@ -12,13 +12,13 @@
     xmlns:uc="using:MainApp.UserControls"
     xmlns:dp="using:Microsoft.Toolkit.Uwp.UI.Controls.Primitives"    
     NavigationCacheMode="Enabled"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DesignWidth="1650" d:DesignHeight="1140">
     <Page.Resources>
         <cs:DateConverter x:Key="DateConverter" />
         <cs:NumberConverter x:Key="NumConverter" />
         <cs:DefaultValueConverter x:Key="DefaultValConverter" />
         <Style TargetType="TextBlock" x:Key="TextStyleOne">
-            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontSize" Value="14" />
             <Setter Property="Padding" Value="0 0 0 5" />
             <Setter Property="Margin" Value="0 20 10 0" />
             <Setter Property="HorizontalAlignment" Value="Right" />
@@ -40,7 +40,7 @@
     </Page.Resources>
 
     <Pivot>
-        <PivotItem Header="Fire analysis">
+        <PivotItem Header="Fire analysis" >
             <RelativePanel Margin="12">
                 <TextBlock x:Name="LogRegTitle" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" 
                    Text="" Margin="0,10,0,20" />
@@ -97,7 +97,7 @@
                         </Grid>
                     </AppBarElementContainer>
                     <AppBarSeparator />
-                    <AppBarButton Icon="More" Label="Opcije">
+                    <AppBarButton Icon="More" Label="Options">
                         <Button.Flyout>
                             <MenuFlyout>
                                 <ToggleMenuFlyoutItem Text="Use shuffle?" IsChecked="{x:Bind ViewModel.ShuffleData, Mode=TwoWay}" />
@@ -108,8 +108,7 @@
                     <!--<AppBarButton Icon="Delete" Label="Ukloni" Command="{x:Bind ViewModel.Ukloni}" CommandParameter="{Binding ElementName=planoviDataGrid, Path=SelectedItem}" />-->
                 </CommandBar>
                 <controls:DataGrid x:Name="dataListGrid" RelativePanel.Below="mainCmdBar"
-                           AutoGenerateColumns="False" Height="500" Margin="0 25 0 0"
-                           VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                           AutoGenerateColumns="False" Height="Auto" Margin="0 20 0 0"
                            AlternatingRowBackground="Transparent" AlternatingRowForeground="Gray"
                            SelectionMode="Extended" ClipboardCopyMode="IncludeHeader"                           
                            SelectedItem="{x:Bind ViewModel.SelectedDataModelRow, Mode=TwoWay}"
@@ -373,7 +372,7 @@
                     </controls:DataGrid.Columns>
                 </controls:DataGrid>
                 
-                <StackPanel x:Name="stackPanel" Orientation="Vertical" RelativePanel.Below="dataListGrid" Margin="12 12 0 0">
+                <!--<StackPanel x:Name="stackPanel" Orientation="Vertical" RelativePanel.Below="dataListGrid" Margin="12 12 0 0">
                     <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Cost: {0:F4}', ViewModel.Cost), Mode=OneWay}" Margin="10 0 0 0"/>
                     <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'McFadden R\u00B2: {0:F4}', ViewModel.McFaddenR2), Mode=OneWay}" Margin="10 0 0 0"/>
                     <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'ChiSquare score: {0:F4}', ViewModel.ChiSquareScore), Mode=OneWay}" Margin="10 0 0 0"/>
@@ -385,11 +384,12 @@
                     <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Specificity (test): {0:F2}', ViewModel.SpecificityTest), Mode=OneWay}" Margin="10 0 0 0"/>
                 </StackPanel>
                 <TextBlock x:Name="outputs" Text="{x:Bind ViewModel.WeightsOutput, Mode=OneWay}" FontSize="20" Margin="12 12 0 0" Foreground="Red"
-                   RelativePanel.RightOf="stackPanel" RelativePanel.Below="dataListGrid"/>
+                   RelativePanel.RightOf="stackPanel" RelativePanel.Below="dataListGrid"/>-->
                 <!--<ProgressBar x:Name="progressBar1" IsIndeterminate="True" RelativePanel.Below="outputs"
                              RelativePanel.AlignHorizontalCenterWithPanel="True"
                              Visibility="{x:Bind ViewModel.IsLoading}" 
                              Foreground="{StaticResource ProgressBarIndeterminateForegroundThemeBrush}"/>-->
+                
             </RelativePanel>
         </PivotItem>
         <PivotItem Header="Fire prediction">

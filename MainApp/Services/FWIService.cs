@@ -110,7 +110,7 @@ namespace MainApp
                     else Do = 0.0;
             }
             if(T > -2.8) V = 0.36 * (T + 2.8) + Lf[I - 1];
- else V = Lf[I - 1];
+            else V = Lf[I - 1];
             if (V < 0.0) V = 0.0;
             D = Do + 0.5 * V;
             return D;
@@ -133,7 +133,7 @@ namespace MainApp
             double U;
             if (P <= .4 * D) U = 0.8 * P * D / (P + .4 * D);
             else U = P - (1.0- .8 * D / (P + .4 * D)) * (.92 + Math.Pow(.0114 * P, 1.7));
-            if (U <= 0.0) U = 0.0;
+            if (U <= 0.0 || double.IsNaN(U)) U = 0.0;
             return U;
         }
 

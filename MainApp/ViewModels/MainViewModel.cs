@@ -11,6 +11,7 @@ using GalaSoft.MvvmLight.Views;
 using MainApp.Models;
 using BspCore.ML.Contracts;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace MainApp.ViewModels
 {
@@ -428,6 +429,15 @@ namespace MainApp.ViewModels
                             //}
                         };
                         
+                        if(columnIndices.Count == 0)
+                        {
+                            columnIndices = new ObservableCollection<int>();
+                            for (int j = 0; j < 10; j++)
+                            {
+                                columnIndices.Add(j+1);
+                            }
+                        }
+
                         recursive(columnIndices.ToArray());
 
                         _corrList = new ObservableCollection<CorrelationItem>(correlationItems);
@@ -534,7 +544,9 @@ namespace MainApp.ViewModels
 
                         WeightsOutput = _weights.OutputWeights();
 
-                        //IsLoading = false;
+                        Messenger.Default.Send(new TrainResults(), 7);
+
+                        //IsLoading = false+
                     });
                 }
                 return rcCalculate; }

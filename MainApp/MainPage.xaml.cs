@@ -1,7 +1,10 @@
-﻿using MainApp.ViewModels;
+﻿using GalaSoft.MvvmLight.Messaging;
+using MainApp.ViewModels;
 using Microsoft.Toolkit.Uwp.UI.Controls;
+using System;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -20,5 +23,19 @@ namespace MainApp
             this.ViewModel = ViewModelLocator.MainViewModel;
             this.DataContext = ViewModelLocator.MainViewModel;
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Messenger.Reset();
+            Messenger.Default.Register<TrainResults>(this, 7, showDlg);
+
+            base.OnNavigatedTo(e);
+        }
+
+        private async void showDlg(TrainResults obj)
+        {
+            var dlg = await obj.ShowAsync();
+        }
+
     }
 }

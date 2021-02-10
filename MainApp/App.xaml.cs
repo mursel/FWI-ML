@@ -46,10 +46,11 @@ namespace MainApp
         private void ConfigureServices(IConfiguration configuration, IServiceCollection services)
         {
             services.AddScoped<IDataLoader, DataLoaderService>();
-            services.AddScoped<IDialogService, DialogService>();
             services.AddScoped<IRegression, LogisticRegression>();
+            services.AddScoped<IDialogService, DialogService>();
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<CorrelationViewModel>();
+
 
             var navigationService = new NavigationService();
             navigationService.Configure(nameof(MainPage), typeof(MainPage));
