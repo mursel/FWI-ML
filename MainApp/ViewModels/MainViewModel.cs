@@ -362,6 +362,14 @@ namespace MainApp.ViewModels
             set { Set(ref _specificityTest, value); }
         }
 
+        private int[] _confusionMatrixData;
+
+        public int[] ConfusionMatrixData
+        {
+            get { return _confusionMatrixData; }
+            set { Set(ref _confusionMatrixData, value); }
+        }
+
 
         #endregion
 
@@ -536,6 +544,8 @@ namespace MainApp.ViewModels
                         AccuracyTest = lr.AccuracyTest;
                         McFaddenR2 = lr.R2;
                         ChiSquareScore = lr.ChiSquareScore;
+
+                        ConfusionMatrixData = lr.ConfusionMatrixForTestData();
 
                         SensitivityTrain = lr.SensitivityTrain;
                         SensitivityTest = lr.SensitivityTest;

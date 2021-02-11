@@ -236,6 +236,14 @@ namespace BspCore.ML
             set { _specificityTest = value; }
         }
 
+        private int[] _confusionMatrixData;
+
+        public int[] ConfusionMatrixData
+        {
+            get { return _confusionMatrixData; }
+            set { _confusionMatrixData = value; }
+        }
+
         #endregion
 
         #region Methods
@@ -477,7 +485,7 @@ namespace BspCore.ML
             return cs;
         }
 
-        public int[] ConfustionMatrix(double[][] data)
+        public int[] ConfusionMatrix(double[][] data)
         {
             for (int i = 0; i < data.Length; i++)
             {
@@ -496,7 +504,17 @@ namespace BspCore.ML
             temp[2] = _falsePositives;
             temp[3] = _falseNegatives;
 
+            _truePositives = 0;
+            _trueNegatives = 0;
+            _falsePositives = 0;
+            _falseNegatives = 0;
+
             return temp;
+        }
+
+        public int[] ConfusionMatrixForTestData()
+        {
+            return ConfusionMatrix(_testSet);
         }
 
         /// <summary>
@@ -507,7 +525,7 @@ namespace BspCore.ML
         public double Sensitivity(double[][] data)
         {
             double res = 0.0;
-            int[] temp = ConfustionMatrix(data);
+            int[] temp = ConfusionMatrix(data);
             res = temp[0] / (double)(temp[0] + temp[3]);
             return res;
         }
@@ -520,7 +538,7 @@ namespace BspCore.ML
         public double Specificity(double[][] data)
         {
             double res = 0.0;
-            int[] temp = ConfustionMatrix(data);
+            int[] temp = ConfusionMatrix(data);
             res = temp[1] / (double)(temp[1] + temp[2]);
             return res;
         }

@@ -16,19 +16,47 @@
             <!--<Setter Property="HorizontalAlignment" Value="Right" />
             <Setter Property="HorizontalTextAlignment" Value="Right" />-->
             <Setter Property="TextWrapping" Value="Wrap" />
-        </Style>        
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TextStyleTwo">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Padding" Value="0 0 0 5" />
+            <Setter Property="Margin" Value="0 10 10 0" />
+            <!--<Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="HorizontalTextAlignment" Value="Right" />-->
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
     </ContentDialog.Resources>
-    <StackPanel x:Name="stackPanel" Orientation="Vertical" Margin="12 12 0 0">
-        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Cost: {0:F4}', ViewModel.Cost), Mode=OneWay}" Margin="10 0 0 0"/>
-        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'McFadden R&#x00B2;: {0:F4}', ViewModel.McFaddenR2), Mode=OneWay}" Margin="10 0 0 0"/>
-        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'ChiSquare score: {0:F4}', ViewModel.ChiSquareScore), Mode=OneWay}" Margin="10 0 0 0"/>
-        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Accuracy (train): {0:F2}', ViewModel.AccuracyTrain), Mode=OneWay}" Margin="10 0 0 0"/>
-        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Accuracy (test): {0:F2}', ViewModel.AccuracyTest), Mode=OneWay}" Margin="10 0 0 0"/>
-        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Sensitivity (train): {0:F2}', ViewModel.SensitivityTrain), Mode=OneWay}" Margin="10 0 0 0"/>
-        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Specificity (train): {0:F2}', ViewModel.SpecificityTrain), Mode=OneWay}" Margin="10 0 0 0"/>
-        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Sensitivity (test): {0:F2}', ViewModel.SensitivityTest), Mode=OneWay}" Margin="10 0 0 0"/>
-        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Specificity (test): {0:F2}', ViewModel.SpecificityTest), Mode=OneWay}" Margin="10 0 0 0"/>
-        <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind ViewModel.WeightsOutput, Mode=OneWay}" Margin="12 12 0 0" Foreground="Red"/>
-    </StackPanel>
+    <RelativePanel Margin="12">
+        <StackPanel x:Name="stackPanel" Orientation="Vertical" Margin="12 12 0 0">
+            <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Cost: {0:F4}', ViewModel.Cost), Mode=OneWay}" Margin="10 0 0 0"/>
+            <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'McFadden R&#x00B2;: {0:F4}', ViewModel.McFaddenR2), Mode=OneWay}" Margin="10 0 0 0"/>
+            <!--<TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'ChiSquare score: {0:F4}', ViewModel.ChiSquareScore), Mode=OneWay}" Margin="10 0 0 0"/>-->
+            <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Accuracy (train): {0:F2}', ViewModel.AccuracyTrain), Mode=OneWay}" Margin="10 0 0 0"/>
+            <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Accuracy (test): {0:F2}', ViewModel.AccuracyTest), Mode=OneWay}" Margin="10 0 0 0"/>
+            <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Sensitivity (train): {0:F2}', ViewModel.SensitivityTrain), Mode=OneWay}" Margin="10 0 0 0"/>
+            <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Specificity (train): {0:F2}', ViewModel.SpecificityTrain), Mode=OneWay}" Margin="10 0 0 0"/>
+            <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Sensitivity (test): {0:F2}', ViewModel.SensitivityTest), Mode=OneWay}" Margin="10 0 0 0"/>
+            <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Specificity (test): {0:F2}', ViewModel.SpecificityTest), Mode=OneWay}" Margin="10 0 0 0"/>
+            <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind ViewModel.WeightsOutput, Mode=OneWay}" Margin="12 12 0 0" Foreground="Red"/>
+        </StackPanel>
+        <StackPanel x:Name="horHeaders" RelativePanel.Below="stackPanel" Margin="70 30 0 0" Orientation="Horizontal">
+            <TextBlock Style="{StaticResource TextStyleTwo}" Text="Fire"></TextBlock>
+            <TextBlock Style="{StaticResource TextStyleTwo}" Margin="20 10 20 0" Text="No fire"></TextBlock>
+        </StackPanel>
+
+        <StackPanel x:Name="vertHeaders" RelativePanel.Below="horHeaders" >
+            <TextBlock Style="{StaticResource TextStyleTwo}" Text="Fire"></TextBlock>
+            <TextBlock Style="{StaticResource TextStyleTwo}" Text="No fire"></TextBlock>
+        </StackPanel>
+
+        <StackPanel x:Name="gridValues" RelativePanel.Below="horHeaders" RelativePanel.RightOf="vertHeaders" Orientation="Horizontal" >
+            <TextBlock Style="{StaticResource TextStyleTwo}" Margin="20 10 0 0" Text="{x:Bind ViewModel.ConfusionMatrixData[0], Mode=OneWay}" />
+            <TextBlock Style="{StaticResource TextStyleTwo}" Margin="20 10 0 0" Text="{x:Bind ViewModel.ConfusionMatrixData[2], Mode=OneWay}" />
+        </StackPanel>
+        <StackPanel x:Name="gridValues2" RelativePanel.Below="gridValues" RelativePanel.RightOf="vertHeaders" Orientation="Horizontal" >
+            <TextBlock Style="{StaticResource TextStyleTwo}" Margin="20 10 0 0" Text="{x:Bind ViewModel.ConfusionMatrixData[3], Mode=OneWay}" />
+            <TextBlock Style="{StaticResource TextStyleTwo}" Margin="20 10 0 0" Text="{x:Bind ViewModel.ConfusionMatrixData[1], Mode=OneWay}" />
+        </StackPanel>        
+    </RelativePanel>
 
 </ContentDialog>

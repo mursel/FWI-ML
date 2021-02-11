@@ -6,7 +6,6 @@ C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\Bs
 C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\BspCore.csproj.CoreCompileInputs.cache
 C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\BspCore.dll
 C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\BspCore.pdb
-C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\BspCore.csprojAssemblyReference.cache
 C:\Users\murse\source\repos\mursel\FWI-ML\BspCore\bin\Debug\netstandard2.0\BspCore.deps.json
 C:\Users\murse\source\repos\mursel\FWI-ML\BspCore\bin\Debug\netstandard2.0\BspCore.dll
 C:\Users\murse\source\repos\mursel\FWI-ML\BspCore\bin\Debug\netstandard2.0\BspCore.pdb
@@ -16,3 +15,4 @@ C:\Users\murse\source\repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\BspCo
 C:\Users\murse\source\repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\BspCore.dll
 C:\Users\murse\source\repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\BspCore.pdb
 C:\Users\murse\Source\Repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\BspCore.csprojAssemblyReference.cache
+C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\BspCore\obj\Debug\netstandard2.0\BspCore.csprojAssemblyReference.cache

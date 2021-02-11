@@ -291,3 +291,8 @@ C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\TrainResults.g.i
 C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\TrainResults.g.cs
 C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\TrainResults.xaml
 C:\Users\murse\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\TrainResults.xbf
+C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\TrainResults.g.i.cs
+C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\TrainResults.g.cs
+C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\TrainResults.xaml
+C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\obj\x86\Debug\TrainResults.xbf
+C:\Users\m.mursel\Source\Repos\mursel\FWI-ML\MainApp\bin\x86\Debug\TrainResults.xbf

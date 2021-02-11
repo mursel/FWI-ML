@@ -11,7 +11,7 @@ namespace BspCore.ML.Contracts
         double[] Train(bool useShuffle);
         double CostFunction(double[][] trainData, double[] weights);
         double Accuracy(double[][] dataset, double[] weights, int dummyParam = 0);
-
+        int[] ConfusionMatrixForTestData();
         int NumberOfFeatures { get; set; }
         int MaxEpochs { get; set; }
         double AlphaPenalty { get; set; }
@@ -27,5 +27,6 @@ namespace BspCore.ML.Contracts
         double SensitivityTest { get; set; }
         double SpecificityTrain { get; set; }
         double SpecificityTest { get; set; }
+        int[] ConfusionMatrixData { get; set; }
     }
 }
