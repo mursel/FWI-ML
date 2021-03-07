@@ -9,9 +9,7 @@
     mc:Ignorable="d"
     xmlns:cs="using:MainApp.Converters"
     xmlns:sys="using:System"
-    xmlns:uc="using:MainApp.UserControls"
-    xmlns:dp="using:Microsoft.Toolkit.Uwp.UI.Controls.Primitives"    
-    xmlns:cc="using:MainApp.Helpers"
+    xmlns:dp="using:Microsoft.Toolkit.Uwp.UI.Controls.Primitives" 
     NavigationCacheMode="Enabled"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DesignWidth="1650" d:DesignHeight="1140">
     <Page.Resources>
@@ -393,23 +391,19 @@
                              Visibility="{x:Bind ViewModel.IsLoading}" 
                              Foreground="{StaticResource ProgressBarIndeterminateForegroundThemeBrush}"/>-->
                 <TextBlock x:Name="maxvaluestitle" VerticalAlignment="Center" 
-                   Text="Max values" Margin="0 12 0 5" RelativePanel.Below="dataListGrid" />
-                <ListBox ItemsSource="{x:Bind ViewModel.MaxValues, Mode=OneWay}" RelativePanel.Below="maxvaluestitle" Margin="0 12 0 0">
+                   Text="Dataset max values" Margin="0 12 0 5" RelativePanel.Below="dataListGrid" />
+                <ListBox ItemsSource="{x:Bind ViewModel.MaxValues, Mode=OneWay}" RelativePanel.Below="maxvaluestitle">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>                            
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Path=Key}" />
-                                    <TextBlock Text=":" />
-                                <TextBlock Text="{Binding Path=Value, Converter={StaticResource DefaultValConverter}, ConverterParameter='0,0'}" Margin="10 0 10 0" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </RelativePanel>
             
         </PivotItem>

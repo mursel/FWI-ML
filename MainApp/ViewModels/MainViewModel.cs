@@ -29,7 +29,7 @@ namespace MainApp.ViewModels
             this.dataLoader = _dataLoader;
             ModelData = new ObservableCollection<DataModel>();
             columnIndices = new ObservableCollection<int>();
-            MaxValues = new Dictionary<string, double>();
+            MaxValues = new List<DataModel>();
             navigationService = service;
             dialogService = dialog;
             lr = regression;
@@ -388,9 +388,9 @@ namespace MainApp.ViewModels
             set { Set(ref _bic, value); }
         }
 
-        private Dictionary<string, double> _maxValues;
+        private List<DataModel> _maxValues;
 
-        public Dictionary<string, double> MaxValues
+        public List<DataModel> MaxValues
         {
             get { return _maxValues; }
             set { Set(ref _maxValues, value); }
@@ -422,18 +422,28 @@ namespace MainApp.ViewModels
                              *                  9 - bui
                              *                  10 - fwi
                              */
-                            var dict = new Dictionary<string, double>();
-                            //MaxValues["temp"] = ModelData.Select(a => a.WindSpeed).Max();
-                            dict.Add("temp", ModelData.Select(a => a.Temperature).Max());
-                            dict.Add("wind", ModelData.Select(a => a.WindSpeed).Max());
-                            dict.Add("hum", ModelData.Select(a => a.RelativeHumidity).Max());
-                            dict.Add("rain", ModelData.Select(a => a.Precipitation).Max());
-                            dict.Add("ffmc", ModelData.Select(a => a.FFMC).Max());
-                            dict.Add("dmc", ModelData.Select(a => a.DMC).Max());
-                            dict.Add("dc", ModelData.Select(a => a.DC).Max());
-                            dict.Add("isi", ModelData.Select(a => a.ISI).Max());
-                            dict.Add("bui", ModelData.Select(a => a.BUI).Max());
-                            dict.Add("fwi", ModelData.Select(a => a.FWI).Max());
+                            var dict = new List<DataModel>();
+                            dict.Add(ModelData.Where(a =>
+                            a.Temperature == ModelData.Select(b => b.Temperature).Max()).First());
+                            dict.Add(ModelData.Where(a =>
+                            a.Temperature == ModelData.Select(b => b.WindSpeed).Max()).First());
+                            dict.Add(ModelData.Where(a =>
+                            a.Temperature == ModelData.Select(b => b.RelativeHumidity).Max()).First()); 
+                            dict.Add(ModelData.Where(a =>
+                            a.Temperature == ModelData.Select(b => b.Precipitation).Max()).First()); 
+                            dict.Add(ModelData.Where(a =>
+                            a.Temperature == ModelData.Select(b => b.FFMC).Max()).First()); 
+                            dict.Add(ModelData.Where(a =>
+                            a.Temperature == ModelData.Select(b => b.DMC).Max()).First()); 
+                            dict.Add(ModelData.Where(a =>
+                            a.Temperature == ModelData.Select(b => b.DC).Max()).First());                             
+                            dict.Add(ModelData.Where(a =>
+                            a.Temperature == ModelData.Select(b => b.ISI).Max()).First()); 
+                            dict.Add(ModelData.Where(a =>
+                            a.Temperature == ModelData.Select(b => b.BUI).Max()).First()); 
+                            dict.Add(ModelData.Where(a =>
+                            a.Temperature == ModelData.Select(b => b.FWI).Max()).First());
+
                             MaxValues = dict;
 
                         }
