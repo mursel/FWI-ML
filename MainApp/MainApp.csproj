@@ -131,6 +131,7 @@
     <Compile Include="CorPage.xaml.cs">
       <DependentUpon>CorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MaxValuesDictionary.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

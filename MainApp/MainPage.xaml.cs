@@ -27,12 +27,12 @@ namespace MainApp
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Messenger.Reset();
-            Messenger.Default.Register<TrainResults>(this, 7, showDlg);
-
+            Messenger.Default.Register<TrainResults>(this, 7, showResultsDlg);
+            //Messenger.Default.Register<>(this, 8, showMaxValsDlg);
             base.OnNavigatedTo(e);
         }
 
-        private async void showDlg(TrainResults obj)
+        private async void showResultsDlg(TrainResults obj)
         {
             var dlg = await obj.ShowAsync();
         }

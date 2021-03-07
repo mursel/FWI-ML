@@ -12,6 +12,7 @@ using MainApp.Models;
 using BspCore.ML.Contracts;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Messaging;
+using MainApp.Helpers;
 
 namespace MainApp.ViewModels
 {
@@ -27,7 +28,8 @@ namespace MainApp.ViewModels
         {
             this.dataLoader = _dataLoader;
             ModelData = new ObservableCollection<DataModel>();
-            columnIndices = new ObservableCollection<int>();            
+            columnIndices = new ObservableCollection<int>();
+            MaxValues = new Dictionary<string, double>();
             navigationService = service;
             dialogService = dialog;
             lr = regression;
@@ -370,6 +372,31 @@ namespace MainApp.ViewModels
             set { Set(ref _confusionMatrixData, value); }
         }
 
+        private double _aic;
+
+        public double AIC
+        {
+            get { return _aic; }
+            set { Set(ref _aic, value); }
+        }
+
+        private double _bic;
+
+        public double BIC
+        {
+            get { return _bic; }
+            set { Set(ref _bic, value); }
+        }
+
+        private Dictionary<string, double> _maxValues;
+
+        public Dictionary<string, double> MaxValues
+        {
+            get { return _maxValues; }
+            set { Set(ref _maxValues, value); }
+        }
+
+
 
         #endregion
 
@@ -387,6 +414,28 @@ namespace MainApp.ViewModels
                             // load our data as collection
                             var data = await dataLoader.GetAllAsync("final_dataset.csv");
                             data.ToList().ForEach(n => ModelData.Add(n));
+
+                            /* 1 - temp         5 - ffmc
+                             * 2 - wind         6 - dmc
+                             * 3 - humidity     7 - dc
+                             * 4 - rain         8 - isi
+                             *                  9 - bui
+                             *                  10 - fwi
+                             */
+                            var dict = new Dictionary<string, double>();
+                            //MaxValues["temp"] = ModelData.Select(a => a.WindSpeed).Max();
+                            dict.Add("temp", ModelData.Select(a => a.Temperature).Max());
+                            dict.Add("wind", ModelData.Select(a => a.WindSpeed).Max());
+                            dict.Add("hum", ModelData.Select(a => a.RelativeHumidity).Max());
+                            dict.Add("rain", ModelData.Select(a => a.Precipitation).Max());
+                            dict.Add("ffmc", ModelData.Select(a => a.FFMC).Max());
+                            dict.Add("dmc", ModelData.Select(a => a.DMC).Max());
+                            dict.Add("dc", ModelData.Select(a => a.DC).Max());
+                            dict.Add("isi", ModelData.Select(a => a.ISI).Max());
+                            dict.Add("bui", ModelData.Select(a => a.BUI).Max());
+                            dict.Add("fwi", ModelData.Select(a => a.FWI).Max());
+                            MaxValues = dict;
+
                         }
                         catch (Exception ex)
                         {
@@ -551,6 +600,9 @@ namespace MainApp.ViewModels
                         SensitivityTest = lr.SensitivityTest;
                         SpecificityTrain = lr.SpecificityTrain;
                         SpecificityTest = lr.SpecificityTest;
+
+                        AIC = lr.AIC;
+                        BIC = lr.BIC;
 
                         WeightsOutput = _weights.OutputWeights();
 

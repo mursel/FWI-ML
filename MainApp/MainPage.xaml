@@ -11,6 +11,7 @@
     xmlns:sys="using:System"
     xmlns:uc="using:MainApp.UserControls"
     xmlns:dp="using:Microsoft.Toolkit.Uwp.UI.Controls.Primitives"    
+    xmlns:cc="using:MainApp.Helpers"
     NavigationCacheMode="Enabled"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DesignWidth="1650" d:DesignHeight="1140">
     <Page.Resources>
@@ -44,7 +45,8 @@
             <RelativePanel Margin="12">
                 <TextBlock x:Name="LogRegTitle" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" 
                    Text="" Margin="0,10,0,20" />
-                <CommandBar x:Name="mainCmdBar" OverflowButtonVisibility="Collapsed" IsOpen="False" DefaultLabelPosition="Right" RelativePanel.Below="LogRegTitle">
+                <CommandBar x:Name="mainCmdBar" OverflowButtonVisibility="Collapsed" IsOpen="False" DefaultLabelPosition="Right" 
+                            RelativePanel.Below="LogRegTitle">
                     <AppBarButton Icon="Upload" Label="Load data" Command="{x:Bind ViewModel.LoadDataSet}" AllowFocusOnInteraction="True" />
                     <AppBarSeparator />
                     <AppBarButton Icon="Link" Label="Correlation" Command="{x:Bind ViewModel.CorrelationPage}" />
@@ -107,8 +109,9 @@
                     </AppBarButton>
                     <!--<AppBarButton Icon="Delete" Label="Ukloni" Command="{x:Bind ViewModel.Ukloni}" CommandParameter="{Binding ElementName=planoviDataGrid, Path=SelectedItem}" />-->
                 </CommandBar>
+
                 <controls:DataGrid x:Name="dataListGrid" RelativePanel.Below="mainCmdBar"
-                           AutoGenerateColumns="False" Height="Auto" Margin="0 20 0 0"
+                           AutoGenerateColumns="False" Height="500" Margin="0 20 0 0"
                            AlternatingRowBackground="Transparent" AlternatingRowForeground="Gray"
                            SelectionMode="Extended" ClipboardCopyMode="IncludeHeader"                           
                            SelectedItem="{x:Bind ViewModel.SelectedDataModelRow, Mode=TwoWay}"
@@ -371,7 +374,7 @@
                     Binding="{Binding Fire}" />
                     </controls:DataGrid.Columns>
                 </controls:DataGrid>
-                
+
                 <!--<StackPanel x:Name="stackPanel" Orientation="Vertical" RelativePanel.Below="dataListGrid" Margin="12 12 0 0">
                     <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Cost: {0:F4}', ViewModel.Cost), Mode=OneWay}" Margin="10 0 0 0"/>
                     <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'McFadden R\u00B2: {0:F4}', ViewModel.McFaddenR2), Mode=OneWay}" Margin="10 0 0 0"/>
@@ -389,8 +392,26 @@
                              RelativePanel.AlignHorizontalCenterWithPanel="True"
                              Visibility="{x:Bind ViewModel.IsLoading}" 
                              Foreground="{StaticResource ProgressBarIndeterminateForegroundThemeBrush}"/>-->
-                
+                <TextBlock x:Name="maxvaluestitle" VerticalAlignment="Center" 
+                   Text="Max values" Margin="0 12 0 5" RelativePanel.Below="dataListGrid" />
+                <ListBox ItemsSource="{x:Bind ViewModel.MaxValues, Mode=OneWay}" RelativePanel.Below="maxvaluestitle" Margin="0 12 0 0">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>                            
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=Key}" />
+                                    <TextBlock Text=":" />
+                                <TextBlock Text="{Binding Path=Value, Converter={StaticResource DefaultValConverter}, ConverterParameter='0,0'}" Margin="10 0 10 0" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
             </RelativePanel>
+            
         </PivotItem>
         <PivotItem Header="Fire prediction">
             <RelativePanel Margin="12">
@@ -492,6 +513,8 @@
                 <TextBlock Text="{x:Bind sys:String.Format(x:Null, 'Predicted value: {0:F8}', ViewModel.PredictedValue), Mode=OneWay}" Foreground="Blue" Style="{StaticResource TitleTextBlockStyle}" Margin="30" RelativePanel.Below="btnPredict" />
             </RelativePanel>
         </PivotItem>
+        
     </Pivot>
+    
 
 </Page>

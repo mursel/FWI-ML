@@ -28,5 +28,7 @@ namespace BspCore.ML.Contracts
         double SpecificityTrain { get; set; }
         double SpecificityTest { get; set; }
         int[] ConfusionMatrixData { get; set; }
+        double AIC { get; set; }
+        double BIC { get; set; }
     }
 }

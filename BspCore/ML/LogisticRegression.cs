@@ -244,6 +244,23 @@ namespace BspCore.ML
             set { _confusionMatrixData = value; }
         }
 
+        private double _aic;
+
+        public double AIC
+        {
+            get { return _aic; }
+            set { _aic = value; }
+        }
+
+        private double _bic;
+
+        public double BIC
+        {
+            get { return _bic; }
+            set { _bic = value; }
+        }
+
+
         #endregion
 
         #region Methods
@@ -367,9 +384,9 @@ namespace BspCore.ML
             
             //pvalue = 2 * (Math.Log(LLFit) - Math.Log(LLFit2));
 
-            var BIC = -2 * LLFit + NumberOfFeatures * Math.Log(_trainSet.Length);
+            _bic = -2 * LLFit + NumberOfFeatures * Math.Log(_trainSet.Length);
 
-            var AIC = 2 * NumberOfFeatures - 2 * LLFit;
+            _aic = 2 * NumberOfFeatures - 2 * LLFit;
 
             _sensitivityTrain = Sensitivity(_trainSet);
             _sensitivityTest = Sensitivity(_testSet);

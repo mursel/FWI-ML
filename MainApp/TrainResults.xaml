@@ -37,6 +37,8 @@
             <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Specificity (train): {0:F2}', ViewModel.SpecificityTrain), Mode=OneWay}" Margin="10 0 0 0"/>
             <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Sensitivity (test): {0:F2}', ViewModel.SensitivityTest), Mode=OneWay}" Margin="10 0 0 0"/>
             <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'Specificity (test): {0:F2}', ViewModel.SpecificityTest), Mode=OneWay}" Margin="10 0 0 0"/>
+            <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'AIC: {0:F4}', ViewModel.AIC), Mode=OneWay}" Margin="10 0 0 0" Foreground="Blue"/>
+            <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind sys:String.Format(x:Null, 'BIC: {0:F4}', ViewModel.BIC), Mode=OneWay}" Margin="10 0 0 0" Foreground="Blue"/>
             <TextBlock Style="{StaticResource TextStyleOne}" Text="{x:Bind ViewModel.WeightsOutput, Mode=OneWay}" Margin="12 12 0 0" Foreground="Red"/>
         </StackPanel>
         <StackPanel x:Name="horHeaders" RelativePanel.Below="stackPanel" Margin="70 30 0 0" Orientation="Horizontal">

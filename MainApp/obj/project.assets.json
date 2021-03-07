@@ -15103,7 +15103,7 @@
       ]
     },
     "CommonServiceLocator/2.0.2": {
-      "sha512": "8lWr+jMzZLPbBpHtiX/tiZRq/kZirqpuwHRhYRzoWanUCuVjz6ZRYgcXe6O2vX4Sggqrzy9fEUCfv2/S0DB8YQ==",
+      "sha512": "OeAz2cDGiQuaxpJ2pUm1xyZyklT2HgP5LHoumI0o/pcXdTweJMjKHu92JKa33pZRCrRI0DdPcE5MGHk6GCpDMQ==",
       "type": "package",
       "path": "commonservicelocator/2.0.2",
       "files": [
@@ -15687,7 +15687,7 @@
       ]
     },
     "Microsoft.NETCore.Platforms/2.1.0": {
-      "sha512": "ok+RPAtESz/9MUXeIEz6Lv5XAGQsaNmEYXMsgVALj4D7kqC8gveKWXWXbufLySR2fWrwZf8smyN5RmHu0e4BHA==",
+      "sha512": "GmkKfoyerqmsHMn7OZj0AKpcBabD+GaafqphvX2Mw406IwiJRy1pKcKqdCfKJfYmkRyJ6+e+RaUylgdJoDa1jQ==",
       "type": "package",
       "path": "microsoft.netcore.platforms/2.1.0",
       "files": [
@@ -16234,7 +16234,7 @@
       ]
     },
     "MvvmLightLibs/5.4.1.1": {
-      "sha512": "3VCzGx0spwiuOIUR5vx0ysdnIPEKhAf3+j8tjoUVP1d69WiVWtTc7aBNt1DTsF4afGWjoSxSeq5Ulguk+PESgA==",
+      "sha512": "xYpVzOYnIz/M6T0pdc3w5t0vrt2ZKspSS+CZjQ+pZE+5yHv9qXSWkncHJXb6D7Egstalso4ivnIUkA1xEClViw==",
       "type": "package",
       "path": "mvvmlightlibs/5.4.1.1",
       "files": [
@@ -16351,12 +16351,11 @@
       ]
     },
     "NETStandard.Library/2.0.3": {
-      "sha512": "548M6mnBSJWxsIlkQHfbzoYxpiYFXZZSL00p4GHYv8PkiqFBnnT68mW5mGEsA/ch9fDO9GkPgkFQpWiXZN7mAQ==",
+      "sha512": "st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "type": "package",
       "path": "netstandard.library/2.0.3",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "build/netstandard2.0/NETStandard.Library.targets",
@@ -23535,26 +23534,29 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\m.mursel\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Users\\murse\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\MainApp\\MainApp.csproj",
+      "projectUniqueName": "C:\\Users\\murse\\Source\\Repos\\mursel\\FWI-ML\\MainApp\\MainApp.csproj",
       "projectName": "MainApp",
-      "projectPath": "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\MainApp\\MainApp.csproj",
-      "packagesPath": "C:\\Users\\m.mursel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\MainApp\\obj\\",
+      "projectPath": "C:\\Users\\murse\\Source\\Repos\\mursel\\FWI-ML\\MainApp\\MainApp.csproj",
+      "packagesPath": "C:\\Users\\murse\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\murse\\Source\\Repos\\mursel\\FWI-ML\\MainApp\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\m.mursel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\murse\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -23563,14 +23565,13 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://nuget.syncfusion.com/nuget_universalwindows/nuget/getsyncfusionpackages/universalwindows": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "uap10.0.17763": {
           "projectReferences": {
-            "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj": {
-              "projectPath": "C:\\Users\\m.mursel\\Source\\Repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj"
+            "C:\\Users\\murse\\Source\\Repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj": {
+              "projectPath": "C:\\Users\\murse\\Source\\Repos\\mursel\\FWI-ML\\BspCore\\BspCore.csproj"
             }
           }
         }
