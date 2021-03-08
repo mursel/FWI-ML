@@ -275,7 +275,7 @@ namespace BspCore.ML
         {
             var z = Dot(dataSetItems, weights);
 
-            return 1 / (1 + Math.Exp(-z));
+            return 1 / (double)(1 + Math.Exp(-z));
         }
 
         /// <summary>

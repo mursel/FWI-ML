@@ -33,6 +33,7 @@ namespace MainApp.ViewModels
             navigationService = service;
             dialogService = dialog;
             lr = regression;
+            PredictEnabled = false;
         }
 
         #region Properties
@@ -397,6 +398,15 @@ namespace MainApp.ViewModels
         }
 
 
+        private bool _predictEnabled = false;
+
+        public bool PredictEnabled
+        {
+            get { return _predictEnabled; }
+            set { Set(ref _predictEnabled, value); }
+        }
+
+
 
         #endregion
 
@@ -585,6 +595,7 @@ namespace MainApp.ViewModels
                     {
                         //IsLoading = true;
 
+
                         var featureCount = 10;
 
                         if (columnIndices.Count > 0)
@@ -629,6 +640,7 @@ namespace MainApp.ViewModels
                         Messenger.Default.Send(new TrainResults(), 7);
 
                         //IsLoading = false+
+                        PredictEnabled = true;
                     });
                 }
                 return rcCalculate; }
