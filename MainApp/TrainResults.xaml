@@ -52,7 +52,7 @@
         </StackPanel>
 
         <StackPanel x:Name="gridValues" RelativePanel.Below="horHeaders" RelativePanel.RightOf="vertHeaders" Orientation="Horizontal" >
-            <TextBlock Style="{StaticResource TextStyleTwo}" Margin="20 10 0 0" Text="{x:Bind ViewModel.ConfusionMatrixData[0], Mode=OneWay}" />
+            <TextBlock Style="{StaticResource TextStyleTwo}" Margin="20 10 0 0" Text="{x:Bind ViewModel.ConfusionMatrixData[0], Mode=OneWay}"></TextBlock>
             <TextBlock Style="{StaticResource TextStyleTwo}" Margin="20 10 0 0" Text="{x:Bind ViewModel.ConfusionMatrixData[2], Mode=OneWay}" />
         </StackPanel>
         <StackPanel x:Name="gridValues2" RelativePanel.Below="gridValues" RelativePanel.RightOf="vertHeaders" Orientation="Horizontal" >
