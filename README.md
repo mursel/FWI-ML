@@ -8,6 +8,8 @@ Two features left for implementation:
 - independent variable statistic tests
 - input validation
 
+It's UWP based application created using Visual Studio 2019.
+
 # NASA dataset cites
 
 AIRS Science Team/Joao Teixeira (2013), AIRS/Aqua L3 Daily Standard Physical Retrieval (AIRS-only) 1 degree x 1 degree V006, Greenbelt, MD, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC), Accessed: 10.09.2020 doi:10.5067/Aqua/AIRS/DATA303
