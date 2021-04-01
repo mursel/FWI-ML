@@ -294,10 +294,10 @@ namespace BspCore.ML
             // shuffle data using Fisher–Yates method
             for (int i = 0; i < copyData.Length; i++)
             {
-                int randomIndex = random.Next(i, copyData.Length);
-                double[] temp = copyData[randomIndex];
-                copyData[randomIndex] = copyData[i];
-                copyData[i] = temp;
+                int randomIndex = random.Next(i, copyData.Length);  
+                double[] temp = copyData[randomIndex];              
+                copyData[randomIndex] = copyData[i];                
+                copyData[i] = temp;                                 
             }
 
             return copyData;
@@ -351,7 +351,7 @@ namespace BspCore.ML
                 {
                     double computedY = Predict(_trainSet[i], _weights);
                     
-                    _computedYs[i] = computedY;
+                    _computedYs[i] = computedY; // niz predviđenih vrijednosti Y - za potrebe chi-square (nije dovrseno)
 
                     double targetY = _trainSet[i][_numOfFeatures];
 
@@ -364,7 +364,7 @@ namespace BspCore.ML
                         _weights[k] += _learnRate * diff * _trainSet[i][k - 1];     // update weights
                     }
 
-                    if (_alphaPenalty > 0.0)
+                    if (_alphaPenalty > 0.0)    // L2 reg
                     {
                         for (int j = 0; j < _weights.Length; j++)
                         {
@@ -373,7 +373,7 @@ namespace BspCore.ML
                     }
                 }
 
-                _MleCost = CostFunction(_trainSet, _weights);
+                _MleCost = CostFunction(_trainSet, _weights);       // cost value
 
                 step++;
             }
