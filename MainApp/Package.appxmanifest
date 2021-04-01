@@ -8,8 +8,8 @@
 
   <Identity
     Name="e6e99667-b3bd-4180-b849-6bae50781a79"
-    Publisher="CN=mursel"
-    Version="1.0.0.0" />
+    Publisher="CN=Mursel Musabasic"
+    Version="0.9.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="e6e99667-b3bd-4180-b849-6bae50781a79" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
